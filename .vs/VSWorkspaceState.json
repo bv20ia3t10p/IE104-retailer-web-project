@@ -1,7 +1,15 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\backend",
+    "\\backend\\ECommerceBackEnd",
+    "\\backend\\ECommerceBackEnd\\bin",
+    "\\backend\\ECommerceBackEnd\\Controllers",
+    "\\backend\\ECommerceBackEnd\\Entities",
+    "\\backend\\ECommerceBackEnd\\obj",
+    "\\backend\\ECommerceBackEnd\\obj\\Debug",
+    "\\backend\\ECommerceBackEnd\\Repositories"
   ],
-  "SelectedNode": "\\ECommerceBackEnd.sln",
+  "SelectedNode": "\\backend\\ECommerceBackEnd\\Repositories\\ProductRepository.cs",
   "PreviewInSolutionExplorer": false
 }
