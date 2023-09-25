@@ -12,7 +12,7 @@ project_data = 'G:/Code/IE104-retailer-web-project/data/'
 #%%
 df = pd.read_csv(project_data+'DataCoSupplyChainDataset.csv',encoding='latin1')
 #%%
-df_items = df[['Department Id','Department Name','Product Card Id','Product Category Id','Product Description','Product Image','Product Name','Product Price'
+df_items = df[['Department Id','Department Name','Product Card Id','Product Category Id','Product Description','Product Name','Product Price'
            ,'Product Status','Order Item Cardprod Id','Order Item Id','Order Item Profit Ratio','Sales']].drop_duplicates(subset=['Product Card Id'],keep='last')
 df_items.to_csv(project_data+'Products.csv',header = [ i.replace(' ','') for i in df_items.columns], index=False)
 #%%
@@ -20,7 +20,7 @@ df_customers = df[['Customer Id', 'Customer City','Customer Country','Customer E
                      'Customer Password','Customer Lname','Customer Password','Customer Segment','Customer State',
                      'Customer Street','Customer Zipcode']].drop_duplicates(subset=['Customer Id'],keep='last')
 df_customers['Customer Zipcode'] = df['Customer Zipcode'].apply(lambda x: int(x) if float(x).is_integer() else 0 )
-df_customers.to_csv(project_data+'Customers.csv',index=False)
+df_customers.to_csv(project_data+'Customers.csv',header = [ i.replace(' ','') for i in df_customers.columns],index=False)
 #%%
 df_payments = df[['Type','Customer Id','Customer Lname','Customer Fname',
                   'Order Id','order date (DateOrders)','Market','Order Item Total',

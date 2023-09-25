@@ -1,15 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\backend",
-    "\\backend\\ECommerceBackEnd",
-    "\\backend\\ECommerceBackEnd\\bin",
-    "\\backend\\ECommerceBackEnd\\Controllers",
-    "\\backend\\ECommerceBackEnd\\Entities",
-    "\\backend\\ECommerceBackEnd\\obj",
-    "\\backend\\ECommerceBackEnd\\obj\\Debug",
-    "\\backend\\ECommerceBackEnd\\Repositories"
+    "\\data_tasks"
   ],
-  "SelectedNode": "\\backend\\ECommerceBackEnd\\Repositories\\ProductRepository.cs",
+  "SelectedNode": "\\data_tasks\\data_preprocessing.py",
   "PreviewInSolutionExplorer": false
 }
