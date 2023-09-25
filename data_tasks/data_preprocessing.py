@@ -7,8 +7,8 @@ Created on Sat Sep 23 19:20:44 2023
 
 import pandas as pd
 #%%
-project_repo = 'G:/Code/IE104-retailer-web-project/'
-project_data = 'G:/Code/IE104-retailer-web-project/data/'
+project_repo = 'D:/Code/IE104-retailer-web-project/'
+project_data = 'D:/Code/IE104-retailer-web-project/data/'
 #%%
 df = pd.read_csv(project_data+'DataCoSupplyChainDataset.csv',encoding='latin1')
 #%%

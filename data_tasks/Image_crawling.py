@@ -7,9 +7,8 @@ Created on Sat Sep 23 16:29:21 2023
 
 import pandas as pd
 import os
-df = pd.read_csv('G:/Data/DataCo/DescriptionDataCoSupplyChain.csv')
 #%%
-df2 = pd.read_csv('G:/Data/DataCo/DataCoSupplyChainDataset.csv',encoding='latin1')
+df2 = pd.read_csv('D:/Code/IE104-retailer-web-project/DescriptionDataCoSupplyChain.csv',encoding='latin1')
 #%%
 df2_items = df2[['Product Card Id','Product Category Id','Product Description','Product Image','Product Name','Product Price'
            ,'Product Status']].drop_duplicates(subset=['Product Card Id'],keep='first')
