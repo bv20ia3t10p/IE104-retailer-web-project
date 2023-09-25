@@ -1218,11 +1218,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\beave\\source\\repos\\ECommerceBackEnd\\ECommerceBackEnd\\ECommerceBackEnd.csproj",
+      "projectUniqueName": "G:\\Code\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\ECommerceBackEnd.csproj",
       "projectName": "ECommerceBackEnd",
-      "projectPath": "C:\\Users\\beave\\source\\repos\\ECommerceBackEnd\\ECommerceBackEnd\\ECommerceBackEnd.csproj",
+      "projectPath": "G:\\Code\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\ECommerceBackEnd.csproj",
       "packagesPath": "C:\\Users\\beave\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\beave\\source\\repos\\ECommerceBackEnd\\ECommerceBackEnd\\obj\\",
+      "outputPath": "G:\\Code\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

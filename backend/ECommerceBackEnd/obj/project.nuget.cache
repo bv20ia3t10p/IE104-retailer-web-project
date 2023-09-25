@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1PNUITOHcor9Vzy4uKcMUkG/UrQyEKsYVCR9yBHLyYLW7RF5Bh0/gqQpfxVVbaZCkvGkskbUfWn5HeS9pwlq9g==",
+  "dgSpecHash": "QuR+Re056597M7dplMjzxtkRqHoaq63bMey55vqwlIEeMVZNJI6W1rH5vYx7WhikYHS8exr0Lx03bKG4wAFi7w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\beave\\source\\repos\\ECommerceBackEnd\\ECommerceBackEnd\\ECommerceBackEnd.csproj",
+  "projectFilePath": "G:\\Code\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\ECommerceBackEnd.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\beave\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\beave\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",
