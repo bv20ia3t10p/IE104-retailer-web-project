@@ -14,7 +14,7 @@ WORKDIR "/src/ECommerceBackEnd"
 RUN dotnet build "ECommerceBackEnd.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "ECommerceBackEnd.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "ECommerceBackEnd.csproj" -c Release -o /app/publish /p:UseAppHost=False
 
 FROM base AS final
 WORKDIR /app
