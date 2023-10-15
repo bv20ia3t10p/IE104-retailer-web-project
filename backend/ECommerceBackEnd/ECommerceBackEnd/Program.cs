@@ -3,8 +3,16 @@ using ECommerceBackEnd.Repositories;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
+
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("policy", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -16,6 +24,7 @@ IConfiguration configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
     .AddEnvironmentVariables()
     .Build();
+
 
 builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
 {
@@ -35,7 +44,7 @@ if (app.Environment.IsDevelopment())
 }
 IWebHostEnvironment environment = app.Environment;
 
-
+app.UseCors("policy");
 
 app.UseHttpsRedirection();
 
