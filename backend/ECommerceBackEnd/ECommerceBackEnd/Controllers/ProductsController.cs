@@ -1,4 +1,4 @@
-﻿using ECommerceBackEnd.Dtos;
+﻿using ECommerceBackEnd.Dtos.Product;
 using ECommerceBackEnd.Entities;
 using ECommerceBackEnd.Repositories;
 using Microsoft.AspNetCore.Mvc;

@@ -1,9 +1,9 @@
 ﻿using MongoDB.Bson;
 using System.ComponentModel.DataAnnotations;
 
-namespace ECommerceBackEnd.Dtos
+namespace ECommerceBackEnd.Dtos.Product
 {
-    public class UpdateItemDto
+    public record CreateProductDto
     {
         [Required]
         public int? DepId { get; init; }

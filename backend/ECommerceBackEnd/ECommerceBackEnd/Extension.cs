@@ -1,4 +1,5 @@
-﻿using ECommerceBackEnd.Dtos;
+﻿using ECommerceBackEnd.Dtos.Category;
+using ECommerceBackEnd.Dtos.Product;
 using ECommerceBackEnd.Entities;
 using System.Runtime.CompilerServices;
 
@@ -23,6 +24,15 @@ namespace ECommerceBackEnd
                 Gain = product.Sales,
                 Available = product.ProductStatus
             };
-        } 
+        }
+        public static CategoryDto AsDto(this Category category)
+        {
+            return new CategoryDto
+            {
+                Id = category.Id,
+                CName = category.CategoryName,
+                CID = category.CategoryId
+            };
+        }
     }
 }
