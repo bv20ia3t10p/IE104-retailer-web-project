@@ -9,7 +9,6 @@ const getSingleItem = async (id) => {
     credentials: "same-origin", // include, *same-origin, omit
     headers: {
       "Content-Type": "application/json",
-      // 'Content-Type': 'application/x-www-form-urlencoded',
     },
     redirect: "follow", // manual, *follow, error
     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
@@ -36,31 +35,56 @@ const getData = async () => {
   });
   const data = await resp.json();
   data.map((item) => {
-    document.querySelector(".itemsList").insertAdjacentHTML('beforeend',`<div class ="items"><a href="">${item.pName}</a>
+    document.querySelector(".productList .any").insertAdjacentHTML(
+      "beforeend",
+      `<div class ="items"><a href="">${item.pName}</a>
     <img src = "../data/Crawled Images/${item.pid}_1.png"
     />
     <h3>$ ${item.price}</h3>
-    </div>`);
+    </div>`
+    );
   });
   console.log(data);
 };
 
+var itemCounter = 0;
+var windowStart = 0;
+var windowEnd = 12;
+var maxItem = 12;
 
 const getCategories = async () => {
-  categoriesUrl = url +'/category';
-  const resp = await fetch(categoriesUrl,{
+  categoriesUrl = url + "/category";
+  const resp = await fetch(categoriesUrl, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json",    },
+      "Content-Type": "application/json",
+    },
     redirect: "follow",
-    referrerPolicy: "no-referrer"
+    referrerPolicy: "no-referrer",
   });
   const data = await resp.json();
-  data.map((cat)=>{
-    document.querySelector(".navbar.categories").insertAdjacentHTML('beforeend',`<span class="categories item"> <a href="">${cat.cName}</a></span>`)
-  })
-  console.log(data)
-}
+  // Insert into Navbar
+  data.map((cat, key) => {
+    document
+      .querySelector(".navbar .categories")
+      .insertAdjacentHTML(
+        "beforeend",
+        `<span class="item ${key < maxItem ? "" : "hidden"}">${
+          cat.cName
+        }</span>`
+      );
+  });
+  //Insert into aside
+  data.map((cat, key) => {
+    document
+      .querySelector(".sideBar")
+      .insertAdjacentHTML(
+        "beforeend",
+        `<span class="item"><img class="icon" src ="icons/category_icon/${cat.cid}.png" /><span class="title">${cat.cName}</span></span>`
+      );
+  });
+  console.log(data);
+};
 
 document.addEventListener(
   "DOMContentLoaded",

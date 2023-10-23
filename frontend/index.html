@@ -11,21 +11,28 @@
   </head>
   <body>
     <script type="text/javascript" src="scripts/getData.js"></script>
-    <navbar class="general-navbar">
+    <navbar class="navbar">
       <a href="" class="icon"
         ><img src="icons/appIcon.png" alt="Icon placholder" />
       </a>
-      <input type="text" placeholder="Search bar placeholder" />
-      <a href="">Account</a>
-      <a href="">Cart</a>
-      <a href="">Home</a>
-      <div class="navbar categories">
-        <span>Categories</span>
+      <div class="searchBar">
+        <input type="text" placeholder="Search bar placeholder" />
+      </div>
+      <span class="action" href="">Account</span>
+      <span class="action">Cart</span>
+      <span class="action">Home</span>
+      <div class="categories">
+        <span class="item">Categories</span>
       </div>
     </navbar>
     <main>
-      <aside class="Category sidebar"></aside>
-      <section class="itemsList"></section>
+      <aside class="sideBar">
+        <span class="title">Categories</span>
+      </aside>
+      <section class="productList">
+        <section class="any">
+        </section>
+      </section>
     </main>
   </body>
 </html>
