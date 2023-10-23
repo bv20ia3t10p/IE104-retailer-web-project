@@ -35,12 +35,14 @@ const getData = async () => {
   });
   const data = await resp.json();
   data.map((item) => {
-    document.querySelector(".productList .any").insertAdjacentHTML(
+    document.querySelector(".productList ").insertAdjacentHTML(
       "beforeend",
-      `<div class ="items"><a href="">${item.pName}</a>
+      `<div class ="items">
     <img src = "../data/Crawled Images/${item.pid}_1.png"
     />
-    <h3>$ ${item.price}</h3>
+    <span class="name">${item.pName}</span>
+    <span class="price">$ ${Math.round(item.price*1000)/1000}</span>
+    <span class="button"><img src="icons/addCart.png"/></span>
     </div>`
     );
   });
