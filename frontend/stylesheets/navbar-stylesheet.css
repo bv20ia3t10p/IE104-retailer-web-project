@@ -109,7 +109,7 @@
 main {
     display: grid;
     grid-template-columns: 15% 1fr;
-    padding: 0em 5em;
+    padding: 0em 20em;
     gap: 3em;
 }
 
@@ -170,6 +170,8 @@ main {
     background-color: var(--slate-200);
     transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
     transition-duration: 500ms;
+    cursor:pointer;
+
 }
 
 .sideBar .item .icon{
@@ -190,7 +192,7 @@ main {
     background-color: white;
     padding: 1em;
     gap: 0.7em;
-    grid-template-columns: repeat(8,1fr);
+    grid-template-columns: repeat(7,1fr);
 }
 
 .productList .items{
@@ -252,4 +254,19 @@ main {
     width: 100%;
     height: 100%;
     object-fit: fill;
+}
+
+.items:hover, .items:hover *{
+    background-color: var(--slate-200);
+    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+    transition-duration: 300ms;
+    cursor:pointer;
+}
+
+.categories .item:hover{
+    color:var(--gray-800);
+    scale:120%;
+    cursor: pointer;
+    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+    transition-duration: 300ms;
 }
