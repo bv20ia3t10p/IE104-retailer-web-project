@@ -1,7 +1,7 @@
-const url = "https://localhost:7136";
+const url = "https://localhost:7136/api";
 
 const getSingleItem = async (id) => {
-  itemUrl = url + `/items/${id}`;
+  itemUrl = url + `/products/${id}`;
   const resp = await fetch(url, {
     method: "GET",
     mode: "cors", // no-cors, *cors, same-origin
@@ -20,7 +20,7 @@ const getSingleItem = async (id) => {
 };
 
 const getData = async () => {
-  itemUrl = url + `/items`;
+  itemUrl = url + `/products`;
   const resp = await fetch(itemUrl, {
     method: "GET",
     // mode: "cors", // no-cors, *cors, same-origin
@@ -37,17 +37,36 @@ const getData = async () => {
   const data = await resp.json();
   data.map((item) => {
     document.querySelector(".itemsList").insertAdjacentHTML('beforeend',`<div class ="items"><a href="">${item.pName}</a>
-    <img src = "../data/Crawled Images/${item.pid}_1.png"/>
+    <img src = "../data/Crawled Images/${item.pid}_1.png"
+    />
     <h3>$ ${item.price}</h3>
     </div>`);
   });
   console.log(data);
 };
 
+
+const getCategories = async () => {
+  categoriesUrl = url +'/category';
+  const resp = await fetch(categoriesUrl,{
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer"
+  });
+  const data = await resp.json();
+  data.map((cat)=>{
+    document.querySelector(".navbar.categories").insertAdjacentHTML('beforeend',`<span class="categories item"> <a href="">${cat.CName}</a></span>`)
+  })
+  console.log(data)
+}
+
 document.addEventListener(
   "DOMContentLoaded",
   async function () {
     await getData();
+    await getCategories();
   },
   false
 );

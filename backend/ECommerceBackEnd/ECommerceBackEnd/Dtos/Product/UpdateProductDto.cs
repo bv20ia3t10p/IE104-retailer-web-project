@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ECommerceBackEnd.Dtos.Product
 {
-    public class UpdateItemDto
+    public class UpdateProductDto
     {
         [Required]
         public int? DepId { get; init; }

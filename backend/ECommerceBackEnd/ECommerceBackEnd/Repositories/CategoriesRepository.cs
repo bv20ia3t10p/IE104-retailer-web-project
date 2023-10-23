@@ -20,7 +20,7 @@ namespace ECommerceBackEnd.Repositories
 
         private int GetLatestId()
         {
-            var sort = Builders<Product>.Sort.Descending("ProductId");
+            var sort = Builders<Product>.Sort.Descending("CategoryId");
             return categoryCollection.Find(bson => true)
                 .SortBy(bson => bson.CategoryId)
                 .ThenByDescending(bson => bson.CategoryId)

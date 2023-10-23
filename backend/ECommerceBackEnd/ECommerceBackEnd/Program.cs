@@ -32,6 +32,8 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
     return new MongoClient(settings.ConnectionString);
 });
 builder.Services.AddSingleton<IProductsRepository, ProductsRepository>();
+builder.Services.AddSingleton<ICategoriesRepository, CategoriesRepository>();
+
 
 
 var app = builder.Build();

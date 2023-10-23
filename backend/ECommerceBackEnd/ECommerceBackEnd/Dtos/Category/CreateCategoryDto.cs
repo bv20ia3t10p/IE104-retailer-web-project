@@ -6,6 +6,6 @@ namespace ECommerceBackEnd.Dtos.Category
     {
 
         [Required]
-        public int? CName {  get; init; }
+        public string? CName {  get; init; }
     }
 }
