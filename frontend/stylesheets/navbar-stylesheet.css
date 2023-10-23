@@ -1,7 +1,5 @@
-
-
 .general-navbar{
-    background-color:#264653;
+    background-color:var(--blue-300);
     height:4rem;
     width:95%;
     align-self: center;
@@ -12,6 +10,8 @@
     grid-auto-flow: column;
     grid-template-columns: 3fr 60% repeat(3,2fr);
 }
+
+
 
 .general-navbar input{
     width:100%;
@@ -28,4 +28,12 @@
     grid-column-end:5;
     grid-row-start:1;
     grid-row-end:1;
+}
+.navbar.categories{
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: 1;
+    overflow-y:scroll;
+    height: 100%;
+    width: 100%;
 }

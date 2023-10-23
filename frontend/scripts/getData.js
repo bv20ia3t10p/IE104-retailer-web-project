@@ -57,7 +57,7 @@ const getCategories = async () => {
   });
   const data = await resp.json();
   data.map((cat)=>{
-    document.querySelector(".navbar.categories").insertAdjacentHTML('beforeend',`<span class="categories item"> <a href="">${cat.CName}</a></span>`)
+    document.querySelector(".navbar.categories").insertAdjacentHTML('beforeend',`<span class="categories item"> <a href="">${cat.cName}</a></span>`)
   })
   console.log(data)
 }
