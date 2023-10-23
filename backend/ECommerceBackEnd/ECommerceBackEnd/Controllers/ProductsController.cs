@@ -8,7 +8,7 @@ namespace ECommerceBackEnd.Controllers
 {
 
     [ApiController]
-    [Route("items")]
+    [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
         private readonly IProductsRepository repository;
@@ -37,16 +37,17 @@ namespace ECommerceBackEnd.Controllers
         [HttpPost]
         public ActionResult<ProductDto> CreateProduct(CreateProductDto productDto)
         {
+            int insertId = (repository as ProductsRepository).latestId;
             Product product = new()
             {
                 Id = ObjectId.GenerateNewId(),
                 DepartmentId = productDto.DepId,
                 DepartmentName = productDto.DName,
-                ProductCardId = productDto.PID,
+                ProductCardId = insertId,
                 ProductCategoryId = productDto.CID,
                 ProductName = productDto.PName,
                 ProductPrice = productDto.Price,
-                OrderItemCardprodId = productDto.OPID,
+                OrderItemCardprodId = insertId,
                 OrderItemId = productDto.OID,
                 Sales = productDto.Gain,
                 OrderItemProfitRatio = productDto.Ratio,

@@ -1732,7 +1732,7 @@
   },
   "packageFolders": {
     "C:\\Users\\beave\\.nuget\\packages\\": {},
-    "G:\\Softwares\\VisualStudio\\Shared\\NuGetPackages": {}
+    "G:\\Softwares\\VS2022\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
@@ -1744,7 +1744,7 @@
       "outputPath": "G:\\Code\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\ECommerceBackEnd\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "G:\\Softwares\\VisualStudio\\Shared\\NuGetPackages"
+        "G:\\Softwares\\VS2022\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
         "C:\\Users\\beave\\AppData\\Roaming\\NuGet\\NuGet.Config",

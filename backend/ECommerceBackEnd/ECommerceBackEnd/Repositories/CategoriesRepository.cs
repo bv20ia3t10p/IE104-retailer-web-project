@@ -6,6 +6,7 @@ namespace ECommerceBackEnd.Repositories
 {
     public class CategoriesRepository:ICategoriesRepository
     {
+        public int latestId = 0;
         private readonly IMongoCollection<Category> categoryCollection;
         private readonly FilterDefinitionBuilder<Category> filterBuilder = Builders<Category>.Filter;
         private const string databaseName = "ie104";
@@ -14,9 +15,17 @@ namespace ECommerceBackEnd.Repositories
         {
             IMongoDatabase database = mongoClient.GetDatabase(databaseName);
             categoryCollection = database.GetCollection<Category>(collectionName);
+            latestId = GetLatestId() + 1;
         }
 
-
+        private int GetLatestId()
+        {
+            var sort = Builders<Product>.Sort.Descending("ProductId");
+            return categoryCollection.Find(bson => true)
+                .SortBy(bson => bson.CategoryId)
+                .ThenByDescending(bson => bson.CategoryId)
+                .FirstOrDefault().CategoryId;
+        }
         void ICategoriesRepository.CreateCategory(Category newCategory)
         {
             categoryCollection.InsertOne(newCategory);
