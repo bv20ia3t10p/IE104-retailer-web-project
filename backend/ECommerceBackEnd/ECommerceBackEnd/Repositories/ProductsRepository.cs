@@ -6,6 +6,7 @@ namespace ECommerceBackEnd.Repositories
 {
     public class ProductsRepository:IProductsRepository
     {
+        public int latestId = 0;
         private readonly IMongoCollection<Product> productsCollection;
         private readonly FilterDefinitionBuilder<Product> filterBuilder = Builders<Product>.Filter;
         private const string databaseName = "ie104";
@@ -13,14 +14,24 @@ namespace ECommerceBackEnd.Repositories
         public ProductsRepository(IMongoClient mongoClient) {
             IMongoDatabase database = mongoClient.GetDatabase(databaseName);
             productsCollection = database.GetCollection<Product>(collectionName);
+            latestId = GetLatestId() + 1;
+        }
+
+        private int GetLatestId()
+        {
+            var sort = Builders<Product>.Sort.Descending("ProductId");
+            return productsCollection.Find(bson => true)
+                .SortBy(bson => bson.ProductCardId)
+                .ThenByDescending(bson=>bson.ProductCardId)
+                .FirstOrDefault().ProductCardId;
         }
 
 
         void IProductsRepository.CreateProduct(Product newProduct)
         {
             productsCollection.InsertOne(newProduct);
+            this.latestId++;
         }
-
         void IProductsRepository.DeleteProduct(int PID)
         {
             var filter = filterBuilder.Eq(product => product.ProductCardId,PID );
@@ -42,6 +53,12 @@ namespace ECommerceBackEnd.Repositories
         {
             var filter = filterBuilder.Eq(existingProduct => existingProduct.ProductCardId, product.ProductCardId);
             productsCollection.ReplaceOne(filter, product);
+        }
+        public IEnumerable<Product> GetProductByCategory(int id)
+        {
+            // var filter = filterBuilder.Eq("ProductCategoryId",id)
+            // return;
+            throw new NotImplementedException();
         }
     }
 }

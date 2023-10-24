@@ -8,7 +8,7 @@ namespace ECommerceBackEnd.Entities
             public ObjectId Id { get; init; }
             public int? DepartmentId { get; init; }
             public string? DepartmentName {  get; init; } 
-            public int? ProductCardId { get; init; }
+            public int ProductCardId { get; init; }
             public int? ProductCategoryId { get; init; }
             public string? ProductName {  get; init; }
             public double? ProductPrice { get; init; }

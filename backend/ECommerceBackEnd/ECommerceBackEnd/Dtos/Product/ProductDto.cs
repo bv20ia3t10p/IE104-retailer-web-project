@@ -1,19 +1,15 @@
 ﻿using MongoDB.Bson;
-using System.ComponentModel.DataAnnotations;
 
-namespace ECommerceBackEnd.Dtos
+namespace ECommerceBackEnd.Dtos.Product
 {
-    public class UpdateItemDto
+    public class ProductDto
     {
-        [Required]
+        public ObjectId Id { get; init; }
         public int? DepId { get; init; }
         public string? DName { get; init; }
-        [Required]
         public int? PID { get; init; }
         public int? CID { get; init; }
-        [Required]
         public string? PName { get; init; }
-        [Required]
         public double? Price { get; init; }
         public int? OID { get; init; }
         public int? OPID { get; init; }

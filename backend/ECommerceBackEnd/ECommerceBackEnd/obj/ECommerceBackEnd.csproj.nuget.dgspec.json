@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "G:\\Code\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\ECommerceBackEnd\\ECommerceBackEnd.csproj": {}
+    "C:\\Users\\beave\\Documents\\Code\\IE104\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\ECommerceBackEnd\\ECommerceBackEnd.csproj": {}
   },
   "projects": {
-    "G:\\Code\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\ECommerceBackEnd\\ECommerceBackEnd.csproj": {
+    "C:\\Users\\beave\\Documents\\Code\\IE104\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\ECommerceBackEnd\\ECommerceBackEnd.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Code\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\ECommerceBackEnd\\ECommerceBackEnd.csproj",
+        "projectUniqueName": "C:\\Users\\beave\\Documents\\Code\\IE104\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\ECommerceBackEnd\\ECommerceBackEnd.csproj",
         "projectName": "ECommerceBackEnd",
-        "projectPath": "G:\\Code\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\ECommerceBackEnd\\ECommerceBackEnd.csproj",
+        "projectPath": "C:\\Users\\beave\\Documents\\Code\\IE104\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\ECommerceBackEnd\\ECommerceBackEnd.csproj",
         "packagesPath": "C:\\Users\\beave\\.nuget\\packages\\",
-        "outputPath": "G:\\Code\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\ECommerceBackEnd\\obj\\",
+        "outputPath": "C:\\Users\\beave\\Documents\\Code\\IE104\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\ECommerceBackEnd\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "G:\\Softwares\\VisualStudio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
           "C:\\Users\\beave\\AppData\\Roaming\\NuGet\\NuGet.Config",
