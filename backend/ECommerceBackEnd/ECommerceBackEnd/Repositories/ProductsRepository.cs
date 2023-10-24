@@ -56,9 +56,8 @@ namespace ECommerceBackEnd.Repositories
         }
         public IEnumerable<Product> GetProductByCategory(int id)
         {
-            // var filter = filterBuilder.Eq("ProductCategoryId",id)
-            // return;
-            throw new NotImplementedException();
+            var filter = filterBuilder.Eq("ProductCategoryId", id);
+            return productsCollection.Find(filter).ToList();
         }
     }
 }
