@@ -35,6 +35,7 @@ ipch/
 *.opensdf
 backend/ECommerceBackEnd/.vs/ECommerceBackEnd/DesignTimeBuild/.dtbcache.v2
 backend/ECommerceBackEnd/.vs/ECommerceBackEnd/FileContentIndex/06d39eee-3f3b-4e90-8948-eb42c3b111e8.vsidx
+<<<<<<< Updated upstream
 backend/ECommerceBackEnd/.vs/ECommerceBackEnd/FileContentIndex/1ddfd370-2a94-4506-942b-206733617b71.vsidx
 backend/ECommerceBackEnd/.vs/ECommerceBackEnd/FileContentIndex/2a391e1a-44bd-4840-8959-d79720b0dc5d.vsidx
 backend/ECommerceBackEnd/.vs/ECommerceBackEnd/FileContentIndex/3730e2bf-7d7a-4b9f-b3d2-8eead21b4c01.vsidx
@@ -61,3 +62,7 @@ backend/ECommerceBackEnd/.vs/ECommerceBackEnd/v17/.futdcache.v2
 backend/ECommerceBackEnd/.vs/ProjectEvaluation/ecommercebackend.metadata.v7.bin
 backend/ECommerceBackEnd/.vs/ProjectEvaluation/ecommercebackend.projects.v7.bin
 backend/ECommerceBackEnd/.vs/ECommerceBackEnd/DesignTimeBuild/.dtbcache.v2
+=======
+backend/ECommerceBackEnd/ECommerceBackEnd/obj/ECommerceBackEnd.csproj.nuget.g.props
+>>>>>>> Stashed changes
+backend/ECommerceBackEnd/ECommerceBackEnd/appsettings.json
