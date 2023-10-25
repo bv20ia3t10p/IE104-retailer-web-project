@@ -57,6 +57,11 @@ namespace ECommerceBackEnd.Controllers
             return CreatedAtAction(nameof(GetProduct), new {id=product.ProductCardId},product.AsDto());
         }
 
-
+        [HttpGet]
+        [Route(nameof(GetProductByCategory))]
+        public IEnumerable<ProductDto> GetProductByCategory(int id)
+        {
+            return repository.GetProductByCategory(id).Select(product => product.AsDto()).ToList();
+        }
     }
 }
