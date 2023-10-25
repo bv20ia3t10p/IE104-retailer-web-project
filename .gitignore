@@ -84,3 +84,4 @@ backend/ECommerceBackEnd/ECommerceBackEnd/obj/ECommerceBackEnd.csproj.nuget.dgsp
 backend/ECommerceBackEnd/ECommerceBackEnd/obj/ECommerceBackEnd.csproj.nuget.g.props
 backend/ECommerceBackEnd/ECommerceBackEnd/obj/project.assets.json
 backend/ECommerceBackEnd/ECommerceBackEnd/obj/project.nuget.cache
+*.vsidx
