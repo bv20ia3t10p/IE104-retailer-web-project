@@ -15,6 +15,9 @@ window.addEventListener("DOMContentLoaded", function (ev) {
   displayHash();
 });
 
+currentViewing = 0;
+currentQuantity = 1;
+
 const getSingleItem = async (id) => {
   itemUrl = url + `/Products/${id}`;
   const resp = await fetch(itemUrl, {
@@ -33,15 +36,52 @@ const getSingleItem = async (id) => {
   document.querySelector(".mainItem").insertAdjacentHTML(
     `beforeend`,
     `
-      ${[0, 1, 2, 3, 4, 5, 6].map((val) => (
-        `<img src="../data/Crawled Images/${data.pid}_${val}.png"/>`
-      ))}
-      <span class="name">${data.pName}</span>
-      <span class="depName">${data.dName}</span>
-      <span class ="price">${data.price}</span>
-      <span class ="id">${data.pid}</span>
-      <span class="status">${data.available}</span>
+      ${Array.from(Array(6).keys())
+        .map(
+          (val) =>
+            `<img class="${
+              val != currentViewing ? "hidden" : ""
+            }" src="../data/Crawled Images/${data.pid}_${val}.png"/>`
+        )
+        .join("")}
     `
+  );
+  document.querySelector("main .itemDetails").insertAdjacentHTML(
+    "beforeend",
+    `      <span class="name">${data.pName}</span>
+  <span class="depName">${data.dName}</span>
+  <span class ="price">${data.price}</span>
+  <span class ="id">${data.pid}</span>
+  <span class="status">${data.available}</span>`
+  );
+  document.querySelector("main .purchase").insertAdjacentHTML(
+    "beforeend",
+    `<span class="total">${data.price*currentQuantity}</span>
+    <span class="quantity">${currentQuantity}</span>
+    <button class="add" onClick="addItem(${data.price})">
+        Add
+      </button>
+      <button class="subtract" onClick="subtractItem(${data.price})">
+        Subtract
+      </button>
+      <button class="toCart">
+        Add to cart
+      </button>`
   );
   console.log(data);
 };
+
+
+const addItem = (price) => {
+  currentQuantity++;
+  document.querySelector("main .purchase .total").textContent = price*currentQuantity;
+  document.querySelector("main .purchase .quantity").textContent = currentQuantity;
+
+}
+
+const subtractItem = (price) => {
+  if (currentQuantity - 1 < 1 ) return;
+  currentQuantity--;
+  document.querySelector("main .purchase .total").textContent = price*currentQuantity;
+  document.querySelector("main .purchase .quantity").textContent = currentQuantity;
+}

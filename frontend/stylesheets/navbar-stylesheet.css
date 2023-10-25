@@ -5,7 +5,7 @@
 
 
 .navbar{
-    height:9em;
+    height:6em;
     width:(100%-0.1em);
     align-self: center;
     align-items: center;
@@ -31,7 +31,7 @@
 
 .navbar .searchBar input {
     width:95%;
-    height: 3em;
+    height: 2em;
     border-radius: 0.5em;
     background-color: white;
     color:var(--gray-50);
@@ -56,8 +56,8 @@
 }
 .navbar .icon img{
     object-fit: fill;
-    width: 8em;
-    height: 8em;
+    width: 5em;
+    height: 5em;
     background-color: white;
 }
 
@@ -83,7 +83,7 @@
     height: 100%;
     align-items: center;
     display: flex;
-    font-size: 1.2em;
+    font-size: 1em;
     justify-content: center;
     background-color: white;
     font-weight: var(--font-medium);
@@ -93,7 +93,7 @@
 }
 
 .navbar .action {
-    font-size: 1.5em;
+    font-size: 1em;
     width: 100%;
     display: flex;
     justify-content: center;
