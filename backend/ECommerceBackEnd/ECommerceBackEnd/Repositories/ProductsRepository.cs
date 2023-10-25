@@ -41,7 +41,9 @@ namespace ECommerceBackEnd.Repositories
         Product IProductsRepository.GetProduct(int PID)
         {
             var filter = filterBuilder.Eq(product => product.ProductCardId, PID);
-            return productsCollection.Find(filter).SingleOrDefault();
+            Product p = new Product();
+            p = productsCollection.Find(filter).SingleOrDefault();
+            return p;
         }
 
         IEnumerable<Product> IProductsRepository.GetProducts()
