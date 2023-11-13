@@ -6,20 +6,20 @@ namespace ECommerceBackEnd.Dtos
     public record CategoryDto
     {
         public ObjectId Id { get; init; }
-        public int CID { get; init; }
-        public string? CName { get; init; }
+        public int CategoryId { get; init; }
+        public string? CategoryName { get; init; }
     }
     public record CreateCategoryDto
     {
 
         [Required]
-        public string? CName { get; init; }
+        public string? CategoryName { get; init; }
     }
     public record UpdateCategoryDto
     {
         [Required]
-        public int? CID { get; init; }
+        public int? CategoryId { get; init; }
         [Required]
-        public string? CName { get; init; }
+        public string? CategoryName { get; init; }
     }
 }

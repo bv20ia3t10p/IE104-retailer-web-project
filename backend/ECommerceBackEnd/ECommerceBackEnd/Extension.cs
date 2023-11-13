@@ -1,55 +1,27 @@
-﻿using ECommerceBackEnd.Dtos;
+﻿using ECommerceBackEnd.Contracts;
+using ECommerceBackEnd.Dtos;
 using ECommerceBackEnd.Entities;
+using ECommerceBackEnd.Repositories;
+using ECommerceBackEnd.Service.Contracts;
+using ECommerceBackEnd.Service;
 using System.Runtime.CompilerServices;
 
 namespace ECommerceBackEnd
 {
     public static class Extension
     {
-        public static ProductDto AsDto(this Product product)
-        {
-            return new ProductDto
+        public static void ConfigureCors(this IServiceCollection services) => services.AddCors(options =>
             {
-                Id = product.Id,
-                DepId = product.DepartmentId,
-                DName = product.DepartmentName,
-                PID = product.ProductCardId,
-                PName = product.ProductName,
-                Price = product.ProductPrice,
-                CID = product.ProductCategoryId,
-                OID = product.OrderItemId,
-                OPID = product.OrderItemCardprodId,
-                Ratio = product.OrderItemProfitRatio,
-                Gain = product.Sales,
-                Available = product.ProductStatus
-            };
-        }
-        public static CategoryDto AsDto(this Category category)
+                options.AddPolicy("CorsPolicy", builders =>
+                builders.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin());
+            });
+        public static void ConfigureIISIntegration(this IServiceCollection services) => services.Configure<IISOptions>(options =>
         {
-            return new CategoryDto
-            {
-                Id = category.Id,
-                CName = category.CategoryName,
-                CID = category.CategoryId
-            };
-        }
-        public static CustomerDTO AsDto (this  Customer customer)
-        {
-            return new CustomerDTO
-            {
-                Id = customer.Id,
-                City = customer.CustomerCity,
-                Country = customer.CustomerCountry,
-                Segment = customer.CustomerSegment,
-                Street = customer.CustomerStreet,
-                State = customer.CustomerState,
-                Zip = customer.CustomerZipcode,
-                CusID = customer.CustomerId,
-                PW = customer.CustomerPassword,
-                Email = customer.CustomerEmail,
-                Fname = customer.CustomerFname,
-                Lname = customer.CustomerLname
-            };
-        }
+
+        });
+        public static void ConfigureRepositoryManager(this IServiceCollection services) => services.AddScoped<IRepositoryManager, RepositoryManager>();
+        public static void ConfigureServiceManager(this IServiceCollection services) => services.AddScoped<IServiceManager, ServiceManager>();
     }
 }

@@ -5,13 +5,13 @@ using MongoDB.Driver;
 
 namespace ECommerceBackEnd.Repositories
 {
-    public class ProductsRepository:IProductsRepository
+    public class ProductRepository:IProductRepository
     {
         public int latestId = 0;
         private readonly IMongoCollection<Product> productsCollection;
         private readonly FilterDefinitionBuilder<Product> filterBuilder = Builders<Product>.Filter;
         private const string collectionName = "products";
-        public ProductsRepository(IMongoDatabase database) {
+        public ProductRepository(IMongoDatabase database) {
             productsCollection = database.GetCollection<Product>(collectionName);
             latestId = GetLatestId() + 1;
         }
@@ -26,18 +26,18 @@ namespace ECommerceBackEnd.Repositories
         }
 
 
-        void IProductsRepository.CreateProduct(Product newProduct)
+        void IProductRepository.CreateProduct(Product newProduct)
         {
             productsCollection.InsertOne(newProduct);
             this.latestId++;
         }
-        void IProductsRepository.DeleteProduct(int PID)
+        void IProductRepository.DeleteProduct(int PID)
         {
             var filter = filterBuilder.Eq(product => product.ProductCardId,PID );
             productsCollection.DeleteMany(filter);
         }
 
-        Product IProductsRepository.GetProduct(int PID)
+        Product IProductRepository.GetProduct(int PID)
         {
             var filter = filterBuilder.Eq(product => product.ProductCardId, PID);
             Product p = new Product();
@@ -45,12 +45,12 @@ namespace ECommerceBackEnd.Repositories
             return p;
         }
 
-        IEnumerable<Product> IProductsRepository.GetProducts()
+        IEnumerable<Product> IProductRepository.GetProducts()
         {
             return productsCollection.Find(new BsonDocument()).ToList();
         }
 
-        void IProductsRepository.UpdateProduct(Product product)
+        void IProductRepository.UpdateProduct(Product product)
         {
             var filter = filterBuilder.Eq(existingProduct => existingProduct.ProductCardId, product.ProductCardId);
             productsCollection.ReplaceOne(filter, product);

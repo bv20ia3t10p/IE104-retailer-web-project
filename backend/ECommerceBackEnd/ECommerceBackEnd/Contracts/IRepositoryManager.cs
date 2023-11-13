@@ -2,8 +2,8 @@
 {
     public interface IRepositoryManager
     {
-        IProductsRepository Product { get; }
+        IProductRepository Product { get; }
         ICustomerRepository Customer { get; }
-        ICategoriesRepository Categories { get; }
+        ICategoryRepository Category { get; }
     }
 }

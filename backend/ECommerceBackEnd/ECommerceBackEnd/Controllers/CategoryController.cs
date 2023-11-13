@@ -2,6 +2,7 @@
 using ECommerceBackEnd.Dtos;
 using ECommerceBackEnd.Entities;
 using ECommerceBackEnd.Repositories;
+using ECommerceBackEnd.Service.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
@@ -13,17 +14,14 @@ namespace ECommerceBackEnd.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoriesRepository repository;
-        public CategoryController(ICategoriesRepository repository)
-        {
-            this.repository = repository;
-        }
+        private readonly IServiceManager _service;
+        public CategoryController(IServiceManager service) => _service=service;
 
         // GET: api/<CategoryController>
         [HttpGet]
-        public IEnumerable<CategoryDto> Get()
+        public ActionResult<IEnumerable<CategoryDto>> Get()
         {
-            return repository.GetCategories().Select(category=>category.AsDto()).ToList();
+            return Ok(_service.Category.GetCategories());
         }
 
 
@@ -31,29 +29,17 @@ namespace ECommerceBackEnd.Controllers
         [HttpGet("{id}")]
         public ActionResult<CategoryDto> Get(int id)
         {
-            var category = repository.GetCategory(id);
-            if ( category == null)
-            {
-                return NotFound();
-            }
-            return category.AsDto();
+            return Ok(_service.Category.GetCategoryById(id)); 
         }
 
         // POST api/<CategoryController>
         [HttpPost]
         public ActionResult<CategoryDto> Post([FromBody] CreateCategoryDto value)
         {
-            
-            int insertId = (repository as CategoriesRepository).latestId;
-            Category category = new()
-            {
-                Id = ObjectId.GenerateNewId(),
-                CategoryName = value.CName,
-                CategoryId = insertId
-            };
-            repository.CreateCategory(category);
+
+            var category = _service.Category.CreateCategory(value);
             //repository.CreateCategory(value);
-            return CreatedAtAction(nameof(Get), new { id = category.CategoryId},category.AsDto() );
+            return CreatedAtAction(nameof(Get), new { id = category.CategoryId },category );
             // return CreatedAtAction(nameof(Get), new { id = value.CategoryId }, value);
     }
         // TODO : Add Delete/Update for both products and categories

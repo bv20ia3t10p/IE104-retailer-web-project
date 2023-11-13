@@ -2,12 +2,13 @@
 
 namespace ECommerceBackEnd.Contracts
 {
-    public interface ICategoriesRepository
+    public interface ICategoryRepository
     {
+        int GetLatestId();
         void CreateCategory(Category newCategory);
-        void DeleteCategory(int CID);
+        void DeleteCategoryById(int CID);
         IEnumerable<Category> GetCategories();
-        Category GetCategory(int CID);
+        Category GetCategoryById(int CID);
         void UpdateCategory(Category category);
     }
 }

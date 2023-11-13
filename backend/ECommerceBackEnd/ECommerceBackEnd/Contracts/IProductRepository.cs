@@ -2,7 +2,7 @@
 
 namespace ECommerceBackEnd.Contracts
 {
-    public interface IProductsRepository
+    public interface IProductRepository
     {
         IEnumerable<Product> GetProducts();
         Product GetProduct(int PID);

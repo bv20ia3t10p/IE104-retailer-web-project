@@ -4,8 +4,8 @@ namespace ECommerceBackEnd.Entities
 {
     public class Category
     {
-       public ObjectId Id { get; init; }
-       public int CategoryId { get; init; }
-       public string CategoryName { get; init; }
+       public ObjectId Id { get; set; }
+       public int CategoryId { get; set; }
+       public string CategoryName { get; set; }
     }
 }

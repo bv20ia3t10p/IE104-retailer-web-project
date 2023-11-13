@@ -4,18 +4,18 @@ namespace ECommerceBackEnd.Entities
 {
     public class Customer
     {
-        public ObjectId Id { get; init; }
-        public string? CustomerCity { get; init; }
-        public string? CustomerCountry { get; init; }
-        public string? CustomerSegment { get; init; }
-        public string? CustomerStreet { get; init; }
-        public string? CustomerState { get; init; }
-        public string? CustomerZipcode { get; init; }
-        public int CustomerId { get; init; }
-        public string? CustomerEmail { get; init; }
-        public string CustomerPassword { get; init; }
-        public string? CustomerFname { get; init; }
-        public string? CustomerLname { get; init; }
+        public ObjectId Id { get; set; }
+        public string? CustomerCity { get; set; }
+        public string? CustomerCountry { get; set; }
+        public string? CustomerSegment { get; set; }
+        public string? CustomerStreet { get; set; }
+        public string? CustomerState { get; set; }
+        public string? CustomerZipcode { get; set; }
+        public int CustomerId { get; set; }
+        public string? CustomerEmail { get; set; }
+        public string CustomerPassword { get; set; }
+        public string? CustomerFname { get; set; }
+        public string? CustomerLname { get; set; }
 
     }
 }
