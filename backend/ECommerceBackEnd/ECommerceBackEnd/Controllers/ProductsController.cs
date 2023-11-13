@@ -1,9 +1,6 @@
-﻿using ECommerceBackEnd.Contracts;
-using ECommerceBackEnd.Dtos;
-using ECommerceBackEnd.Entities;
-using ECommerceBackEnd.Repositories;
+﻿using ECommerceBackEnd.Dtos;
+using ECommerceBackEnd.Service.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
 
 namespace ECommerceBackEnd.Controllers
 {
@@ -12,58 +9,36 @@ namespace ECommerceBackEnd.Controllers
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
-       // private readonly IProductRepository repository;
-       // public ProductsController(IProductRepository repository)
-       // {
-       //     this.repository = repository;
-       // }
-       // [HttpGet]
-       // GET /products
-       // public IEnumerable<ProductDto> GetProducts()
-       // {
-       //     var products = repository.GetProducts().Select(product => product.AsDto()).ToList();
-       //     return products;
-       // }
-       // GET /products/id
-       //[HttpGet("{id}")]
-       // public ActionResult<ProductDto> GetProduct(int id)
-       // {
-       //     var product = repository.GetProduct(id);
-       //     if (product == null)
-       //     {
-       //         return NotFound();
-       //     }
-       //     return product.AsDto();
-       // }
-       // POST /items
-       //[HttpPost]
-       // public ActionResult<ProductDto> CreateProduct(ProductDto productDto)
-       // {
-       //     int insertId = (repository as ProductRepository).latestId;
-       //     Product product = new()
-       //     {
-       //         Id = ObjectId.GenerateNewId(),
-       //         DepartmentId = productDto.DepId,
-       //         DepartmentName = productDto.DName,
-       //         ProductCardId = insertId,
-       //         ProductCategoryId = productDto.CID,
-       //         ProductName = productDto.PName,
-       //         ProductPrice = productDto.Price,
-       //         OrderItemCardprodId = insertId,
-       //         OrderItemId = productDto.OID,
-       //         Sales = productDto.Gain,
-       //         OrderItemProfitRatio = productDto.Ratio,
-       //         ProductStatus = productDto.Available
-       //     };
-       //     repository.CreateProduct(product);
-       //     return CreatedAtAction(nameof(GetProduct), new { id = product.ProductCardId }, product.AsDto());
-       // }
+        private readonly IServiceManager _services;
+        public ProductsController(IServiceManager service)
+        {
+            _services = service;
+        }
+        [HttpGet]
+        // GET /products
+        public ActionResult<IEnumerable<ProductDto>> GetProducts() => Ok(_services.Product.GetProducts());
+        //GET /products/id
+        [HttpGet("{id}")]
+        public ActionResult<ProductDto> GetProduct(int id) => Ok(_services.Product.GetProductById(id));
+        //POST /items
+        [HttpPost]
+        public ActionResult<ProductDto> CreateProduct(CreateProductDto productDto)
+        {
+            var product = _services.Product.CreateProduct(productDto);
+            return CreatedAtAction(nameof(GetProduct), new { id = product.ProductCardId }, product);
+        }
 
-       // [HttpGet]
-       // [Route(nameof(GetProductByCategory))]
-       // public IEnumerable<ProductDto> GetProductByCategory(int id)
-       // {
-       //     return repository.GetProductByCategory(id).Select(product => product.AsDto()).ToList();
-       // }
+        [HttpGet]
+        [Route(nameof(GetProductByCategory))]
+        public ActionResult<IEnumerable<ProductDto>> GetProductByCategory(int id) => Ok(_services.Product.GetProductByCategory(id));
+        [HttpPut]
+        public ActionResult<ProductDto> UpdateProduct(UpdateProductDto updateProduct) => Ok(_services.Product.UpdateProduct(updateProduct));
+        [HttpDelete]
+        public ActionResult DeleteProduct(int id)
+        {
+            _services.Product.DeleteProduct(id);
+            return NoContent();
+        }
+
     }
 }

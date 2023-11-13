@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using ECommerceBackEnd.Contracts;
 using ECommerceBackEnd.Dtos;
+using ECommerceBackEnd.Entities;
 using ECommerceBackEnd.Service.Contracts;
 
 namespace ECommerceBackEnd.Service
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
         private readonly IMapper _mapper;
         private readonly IRepositoryManager _repository;
@@ -15,5 +16,27 @@ namespace ECommerceBackEnd.Service
             _repository = repository;
         }
         public IEnumerable<ProductDto> GetProducts() => _mapper.Map<IEnumerable<ProductDto>>(_repository.Product.GetProducts());
+        public ProductDto GetProductById(int id) => _mapper.Map<ProductDto>(_repository.Product.GetProduct(id));
+        public IEnumerable<ProductDto> GetProductByCategory(int cid) => _mapper.Map<IEnumerable<ProductDto>>(_repository.Product.GetProductByCategory(cid));
+        public ProductDto CreateProduct(CreateProductDto newProduct)
+
+        {
+            var productEntity = _mapper.Map<Product>(newProduct);
+            int insertId = _repository.Product.GetLatestId();
+            productEntity.ProductCardId = insertId;
+            productEntity.OrderItemCardprodId = insertId;
+            _repository.Product.CreateProduct(productEntity);
+
+            return _mapper.Map<ProductDto>(productEntity);
+        }
+        public void DeleteProduct(int id) => _repository.Product.DeleteProductById(id);
+
+        public ProductDto UpdateProduct(UpdateProductDto newProduct)
+        {
+            var productInDb = _repository.Product.GetProduct(newProduct.ProductCardId);
+            _mapper.Map(newProduct,productInDb);
+            _repository.Product.UpdateProduct(productInDb);
+            return _mapper.Map<ProductDto>(productInDb);
+        }
     }
 }

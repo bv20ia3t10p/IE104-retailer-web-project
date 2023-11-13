@@ -8,7 +8,8 @@ namespace ECommerceBackEnd.Contracts
         Product GetProduct(int PID);
         void CreateProduct(Product newProduct);
         public void UpdateProduct(Product product);
-        public void DeleteProduct(int PID);
+        public void DeleteProductById(int PID);
         public IEnumerable<Product> GetProductByCategory(int id);
+        int GetLatestId();
     }
 }

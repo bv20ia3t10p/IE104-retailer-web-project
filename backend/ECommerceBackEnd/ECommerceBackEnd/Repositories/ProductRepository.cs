@@ -5,60 +5,24 @@ using MongoDB.Driver;
 
 namespace ECommerceBackEnd.Repositories
 {
-    public class ProductRepository:IProductRepository
+    public class ProductRepository : RepositoryBase<Product>, IProductRepository
     {
-        public int latestId = 0;
-        private readonly IMongoCollection<Product> productsCollection;
-        private readonly FilterDefinitionBuilder<Product> filterBuilder = Builders<Product>.Filter;
-        private const string collectionName = "products";
-        public ProductRepository(IMongoDatabase database) {
-            productsCollection = database.GetCollection<Product>(collectionName);
-            latestId = GetLatestId() + 1;
+        public ProductRepository(IMongoDatabase database, string collectionName)
+        : base(database, collectionName)
+        {
         }
 
-        private int GetLatestId()
-        {
-            var sort = Builders<Product>.Sort.Descending("ProductId");
-            return productsCollection.Find(bson => true)
-                .SortBy(bson => bson.ProductCardId)
-                .ThenByDescending(bson=>bson.ProductCardId)
-                .FirstOrDefault().ProductCardId;
-        }
+        public int GetLatestId() => GetAll().ToList().OrderByDescending(c => c.ProductCardId).FirstOrDefault().ProductCardId + 1;
 
 
-        void IProductRepository.CreateProduct(Product newProduct)
-        {
-            productsCollection.InsertOne(newProduct);
-            this.latestId++;
-        }
-        void IProductRepository.DeleteProduct(int PID)
-        {
-            var filter = filterBuilder.Eq(product => product.ProductCardId,PID );
-            productsCollection.DeleteMany(filter);
-        }
+        void IProductRepository.CreateProduct(Product newProduct) => Create(newProduct);
+        void IProductRepository.DeleteProductById(int PID) => Delete(c => c.ProductCardId == PID);
 
-        Product IProductRepository.GetProduct(int PID)
-        {
-            var filter = filterBuilder.Eq(product => product.ProductCardId, PID);
-            Product p = new Product();
-            p = productsCollection.Find(filter).SingleOrDefault();
-            return p;
-        }
+        Product IProductRepository.GetProduct(int PID) => GetByCondition(c => c.ProductCardId == PID);
 
-        IEnumerable<Product> IProductRepository.GetProducts()
-        {
-            return productsCollection.Find(new BsonDocument()).ToList();
-        }
+        IEnumerable<Product> IProductRepository.GetProducts() => GetAll().ToList();
 
-        void IProductRepository.UpdateProduct(Product product)
-        {
-            var filter = filterBuilder.Eq(existingProduct => existingProduct.ProductCardId, product.ProductCardId);
-            productsCollection.ReplaceOne(filter, product);
-        }
-        public IEnumerable<Product> GetProductByCategory(int id)
-        {
-            var filter = filterBuilder.Eq("ProductCategoryId", id);
-            return productsCollection.Find(filter).ToList();
-        }
+        void IProductRepository.UpdateProduct(Product product) => Update(c => c.ProductCardId == product.ProductCardId, product);
+        public IEnumerable<Product> GetProductByCategory(int id) => GetManyByCondition(c => c.ProductCategoryId == id);
     }
 }

@@ -3,5 +3,6 @@
     public interface IServiceManager
     {
         ICategoryService Category { get; }
+        IProductService Product { get; }
     }
 }

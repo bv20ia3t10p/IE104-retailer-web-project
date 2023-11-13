@@ -5,7 +5,6 @@ namespace ECommerceBackEnd.Dtos
 {
     public record CategoryDto
     {
-        public ObjectId Id { get; init; }
         public int CategoryId { get; init; }
         public string? CategoryName { get; init; }
     }

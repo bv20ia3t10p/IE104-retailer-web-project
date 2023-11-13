@@ -13,6 +13,7 @@ namespace ECommerceBackEnd
             CreateMap<Product, ProductDto>();
             CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<CreateProductDto,Product>();
+            CreateMap<UpdateProductDto, Product>();
         }
     }
 }

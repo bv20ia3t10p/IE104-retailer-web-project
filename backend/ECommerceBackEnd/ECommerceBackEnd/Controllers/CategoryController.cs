@@ -38,11 +38,8 @@ namespace ECommerceBackEnd.Controllers
         {
 
             var category = _service.Category.CreateCategory(value);
-            //repository.CreateCategory(value);
-            return CreatedAtAction(nameof(Get), new { id = category.CategoryId },category );
-            // return CreatedAtAction(nameof(Get), new { id = value.CategoryId }, value);
-    }
-        // TODO : Add Delete/Update for both products and categories
+            return CreatedAtAction(nameof(Get), new { id = category.CategoryId }, value);
+        }
         // PUT api/<CategoryController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
