@@ -4,10 +4,12 @@ namespace ECommerceBackEnd.Contracts
 {
     public interface ICustomerRepository
     {
-        IEnumerable<Customer> Get();
-        Customer Get(int id);
-        void Create(Customer customer);
-        void Update(Customer customer);
-        void Delete(int id);
+        IEnumerable<Customer> GetCustomers();
+        Customer GetCustomerById(int id);
+        void CreateCustomer(Customer customer);
+        void UpdateCustomer(Customer customer);
+        void DeleteCustomer(Customer customer);
+        int GetLatestId();
+        //Login(string email, string passwword);
     }
 }

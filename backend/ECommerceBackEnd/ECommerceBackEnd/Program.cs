@@ -15,6 +15,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
+builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -1,5 +1,6 @@
 ﻿using ECommerceBackEnd.Dtos;
 using ECommerceBackEnd.Service.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceBackEnd.Controllers
@@ -22,6 +23,7 @@ namespace ECommerceBackEnd.Controllers
         public ActionResult<ProductDto> GetProduct(int id) => Ok(_services.Product.GetProductById(id));
         //POST /items
         [HttpPost]
+        [Authorize]
         public ActionResult<ProductDto> CreateProduct(CreateProductDto productDto)
         {
             var product = _services.Product.CreateProduct(productDto);

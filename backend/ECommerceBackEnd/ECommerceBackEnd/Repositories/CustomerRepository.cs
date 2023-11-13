@@ -2,54 +2,24 @@
 using ECommerceBackEnd.Entities;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using System.Security.Cryptography;
 
 namespace ECommerceBackEnd.Repositories
 {
-    public class CustomerRepository : ICustomerRepository
+    public class CustomerRepository : RepositoryBase<Customer>, ICustomerRepository
     {
-        public int latestId = 0;
-        private readonly IMongoCollection<Customer> customerCollection;
-        private readonly FilterDefinitionBuilder<Customer> filterBuilder = Builders<Customer>.Filter;
-        private const string collectionName = "customers";
 
-        public CustomerRepository(IMongoDatabase database)
+        public CustomerRepository(IMongoDatabase database, string collectionName) : base (database,collectionName)
         {
-            customerCollection = database.GetCollection<Customer>(collectionName);
-            latestId = GetLatestId() + 1;
         }
-        private int GetLatestId()
-        {
-            var sort = Builders<Customer>.Sort.Descending("CustomerId");
-            return customerCollection.Find(bson => true)
-                .SortBy(bson => bson.CustomerId)
-                .ThenByDescending(bson => bson.CustomerId)
-                .FirstOrDefault().CustomerId;
-        }
-        public void Create(Customer customer)
-        {
-            customerCollection.InsertOne(customer);
-        }
+        public int GetLatestId() => GetAll().ToList().OrderByDescending(c => c.CustomerId).FirstOrDefault().CustomerId + 1;
 
-        public void Delete(int id)
-        {
-            var filter = filterBuilder.Eq(category => category.CustomerId, id);
-            customerCollection.DeleteMany(filter);
-        }
+        public void CreateCustomer(Customer customer) => Create(customer);
 
-        public IEnumerable<Customer> Get()
-        {
-            throw new NotImplementedException();
-        }
+        public void DeleteCustomer(Customer customer) => Delete(c=>c.CustomerId == customer.CustomerId);
 
-        public Customer Get(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Customer> GetCustomers() => GetAll().ToList();
+        public Customer GetCustomerById (int id) => GetByCondition(c=>c.CustomerId==id);
 
-        public void Update(Customer customer)
-        {
-            throw new NotImplementedException();
-        }
+        public void UpdateCustomer(Customer customer) => Update(c=>c.CustomerId == customer.CustomerId, customer);
     }
 }

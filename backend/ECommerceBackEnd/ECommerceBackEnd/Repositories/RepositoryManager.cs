@@ -15,7 +15,7 @@ namespace ECommerceBackEnd.Repositories
             _database = mongoClient.GetDatabase(databaseName);
             _productRepository = new Lazy<IProductRepository>(() => new ProductRepository(_database,"products"));
             _categoryRepository = new Lazy<ICategoryRepository>(() => new CategoryRepository(_database,"categories"));
-            _customerRepository = new Lazy<ICustomerRepository>(() => new CustomerRepository(_database));
+            _customerRepository = new Lazy<ICustomerRepository>(() => new CustomerRepository(_database,"customers"));
         }
         public ICustomerRepository Customer => _customerRepository.Value;
         public ICategoryRepository Category => _categoryRepository.Value;
