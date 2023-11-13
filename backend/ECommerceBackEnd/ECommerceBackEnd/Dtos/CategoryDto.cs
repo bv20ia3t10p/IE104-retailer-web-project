@@ -7,7 +7,7 @@ namespace ECommerceBackEnd.Dtos
     {
         public ObjectId Id { get; init; }
         public int CID { get; init; }
-        public string CName { get; init; }
+        public string? CName { get; init; }
     }
     public record CreateCategoryDto
     {
@@ -20,6 +20,6 @@ namespace ECommerceBackEnd.Dtos
         [Required]
         public int? CID { get; init; }
         [Required]
-        public string CName { get; init; }
+        public string? CName { get; init; }
     }
 }

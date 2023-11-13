@@ -1,5 +1,5 @@
 ﻿using ECommerceBackEnd.Contracts;
-using ECommerceBackEnd.Dtos.Product;
+using ECommerceBackEnd.Dtos;
 using ECommerceBackEnd.Entities;
 using ECommerceBackEnd.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +36,7 @@ namespace ECommerceBackEnd.Controllers
         }
         // POST /items
         [HttpPost]
-        public ActionResult<ProductDto> CreateProduct(CreateProductDto productDto)
+        public ActionResult<ProductDto> CreateProduct(ProductDto productDto)
         {
             int insertId = (repository as ProductsRepository).latestId;
             Product product = new()
