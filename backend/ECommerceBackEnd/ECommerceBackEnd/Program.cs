@@ -48,6 +48,7 @@ IWebHostEnvironment environment = app.Environment;
 app.UseCors("policy");
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 
 app.UseAuthorization();
 

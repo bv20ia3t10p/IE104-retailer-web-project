@@ -10,6 +10,8 @@ namespace ECommerceBackEnd.Contracts
         void UpdateCustomer(Customer customer);
         void DeleteCustomer(Customer customer);
         int GetLatestId();
+        void UpdateMultipleCustomerPassword(string newPw);
         //Login(string email, string passwword);
+        Customer GetCustomerByEmail(string email);
     }
 }

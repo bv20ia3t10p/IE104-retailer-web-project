@@ -10,7 +10,7 @@ namespace ECommerceBackEnd.Service
     {
         private readonly IRepositoryManager _repository;
         private readonly IMapper _mapper;
-        public CustomerService(IMapper mapper,IRepositoryManager repository)
+        public CustomerService(IMapper mapper, IRepositoryManager repository)
         {
             _repository = repository;
             _mapper = mapper;
@@ -27,7 +27,7 @@ namespace ECommerceBackEnd.Service
         public void DeleteCustomerById(int id)
         {
             var customerInDb = _repository.Customer.GetCustomerById(id);
-            if (customerInDb == null )
+            if (customerInDb == null)
             {
                 throw new Exception("Customer not found");
             }
@@ -40,6 +40,10 @@ namespace ECommerceBackEnd.Service
             _mapper.Map(newCustomer, customerInDb);
             _repository.Customer.UpdateCustomer(customerInDb);
             return _mapper.Map<CustomerDTO>(customerInDb);
+        }
+        public void UpdateMultipleCustomerPassword(string newPw)
+        {
+            _repository.Customer.UpdateMultipleCustomerPassword(newPw);
         }
     }
 }

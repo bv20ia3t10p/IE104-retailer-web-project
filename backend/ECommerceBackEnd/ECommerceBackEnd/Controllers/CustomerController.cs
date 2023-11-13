@@ -1,5 +1,6 @@
 ﻿using ECommerceBackEnd.Dtos;
 using ECommerceBackEnd.Service.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +16,7 @@ namespace ECommerceBackEnd.Controllers
             _services = services;
         }
 
-
+        [Authorize]
         [HttpGet]
         public ActionResult<IEnumerable<CustomerDTO>> Get() => Ok(_services.Customer.GetCustomers());
         [HttpGet("{id}", Name = "GetCustomerById")]
@@ -33,6 +34,13 @@ namespace ECommerceBackEnd.Controllers
         {
             var newCustomerEntity = _services.Customer.CreateCustomer(newCustomer);
             return CreatedAtAction("GetCustomerById", new { id = newCustomerEntity.CustomerId }, newCustomerEntity);
+        }
+        [HttpPost("UpdateMultiplePW")]
+        [Authorize(Roles ="ADMINISTRATOR")]
+        public ActionResult<IEnumerable<CustomerDTO>> UpdateMultipleCustomerPasswords(string newPw)
+        {
+            _services.Customer.UpdateMultipleCustomerPassword(newPw);
+            return Ok(_services.Customer.GetCustomers());
         }
     }
 }

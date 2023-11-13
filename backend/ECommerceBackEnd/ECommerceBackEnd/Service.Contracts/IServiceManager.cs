@@ -5,5 +5,6 @@
         ICategoryService Category { get; }
         ICustomerService Customer { get; }
         IProductService Product { get; }
+        IAuthService Auth { get; }
     }
 }

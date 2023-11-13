@@ -3,6 +3,7 @@ using ECommerceBackEnd.Entities;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Linq.Expressions;
+using System.Reflection.Metadata;
 
 namespace ECommerceBackEnd.Repositories
 {
@@ -27,9 +28,9 @@ namespace ECommerceBackEnd.Repositories
         public IQueryable<T> GetAll() => collection.Find(new BsonDocument()).ToList().AsQueryable();
 
         public void Update(Expression<Func<T, bool>> expression, T entity) => collection.ReplaceOne(filterBuilder.Where(expression), entity);
-        public void UpdateMany(Expression<Func<T, bool>> updateField, Expression<Func<T, bool>> expression, dynamic newValue)
+        public void UpdateMany(string updateField, Expression<Func<T, bool>> expression, dynamic newValue)
         {
-            collection.UpdateMany(expression, Builders<T>.Update.Set(updateField, newValue));
+            collection.UpdateMany(expression, Builders<T>.Update.Set(updateField, newValue), new UpdateOptions { IsUpsert = true });
         }
     }
 }

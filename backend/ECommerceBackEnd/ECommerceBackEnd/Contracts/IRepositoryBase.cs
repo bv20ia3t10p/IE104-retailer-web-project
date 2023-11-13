@@ -1,4 +1,6 @@
-﻿using System.Linq.Expressions;
+﻿using MongoDB.Driver;
+using System.Linq.Expressions;
+using System.Reflection.Metadata;
 
 namespace ECommerceBackEnd.Contracts
 {
@@ -11,6 +13,6 @@ namespace ECommerceBackEnd.Contracts
         T GetByCondition(Expression<Func<T, bool>> expression);
         IQueryable<T> GetManyByCondition(Expression<Func<T, bool>> expression);
         void Update(Expression<Func<T, bool>> expression, T entity);
-        void UpdateMany(Expression<Func<T, bool>> updateField, Expression<Func<T, bool>> expression, dynamic newValue);
+        void UpdateMany(string updateField, Expression<Func<T, bool>> expression, dynamic newValue);
     }
 }

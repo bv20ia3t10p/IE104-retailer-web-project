@@ -9,5 +9,6 @@ namespace ECommerceBackEnd.Service.Contracts
         CustomerDTO CreateCustomer(CustomerDTO newCustomer);
         CustomerDTO UpdateCustomer(CustomerDTO newCustomer);
         void DeleteCustomerById(int id);
+        void UpdateMultipleCustomerPassword(string newPw);
     }
 }
