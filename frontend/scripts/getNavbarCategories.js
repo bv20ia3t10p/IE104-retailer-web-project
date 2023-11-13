@@ -1,4 +1,4 @@
-const url = "https://localhost:44390/api"
+const url = "https://localhost:7136/api"
 
 var itemCounter = 0;
 var windowStart = 0;
