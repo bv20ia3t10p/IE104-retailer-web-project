@@ -1,4 +1,5 @@
 using Catalog.Settings;
+using ECommerceBackEnd.Contracts;
 using ECommerceBackEnd.Repositories;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
@@ -31,8 +32,7 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
     var settings = configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
     return new MongoClient(settings.ConnectionString);
 });
-builder.Services.AddSingleton<IProductsRepository, ProductsRepository>();
-builder.Services.AddSingleton<ICategoriesRepository, CategoriesRepository>();
+builder.Services.AddSingleton<IRepositoryManager, RepositoryManager>();
 
 
 

@@ -1,7 +1,6 @@
-﻿
-using ECommerceBackEnd.Entities;
+﻿using ECommerceBackEnd.Entities;
 
-namespace ECommerceBackEnd.Repositories
+namespace ECommerceBackEnd.Contracts
 {
     public interface ICustomerRepository
     {

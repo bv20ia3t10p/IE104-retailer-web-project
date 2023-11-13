@@ -1,4 +1,5 @@
-﻿using ECommerceBackEnd.Entities;
+﻿using ECommerceBackEnd.Contracts;
+using ECommerceBackEnd.Entities;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Security.Cryptography;
@@ -10,12 +11,10 @@ namespace ECommerceBackEnd.Repositories
         public int latestId = 0;
         private readonly IMongoCollection<Customer> customerCollection;
         private readonly FilterDefinitionBuilder<Customer> filterBuilder = Builders<Customer>.Filter;
-        private const string databaseName = "ie104";
         private const string collectionName = "customers";
 
-        public CustomerRepository(IMongoClient mongoClient)
+        public CustomerRepository(IMongoDatabase database)
         {
-            IMongoDatabase database = mongoClient.GetDatabase(databaseName);
             customerCollection = database.GetCollection<Customer>(collectionName);
             latestId = GetLatestId() + 1;
         }

@@ -1,6 +1,4 @@
-﻿using ECommerceBackEnd.Dtos.Category;
-using ECommerceBackEnd.Dtos.Customer;
-using ECommerceBackEnd.Dtos.Product;
+﻿using ECommerceBackEnd.Dtos;
 using ECommerceBackEnd.Entities;
 using System.Runtime.CompilerServices;
 

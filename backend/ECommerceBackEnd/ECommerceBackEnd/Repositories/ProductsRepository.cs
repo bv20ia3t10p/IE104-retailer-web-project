@@ -1,4 +1,5 @@
-﻿using ECommerceBackEnd.Entities;
+﻿using ECommerceBackEnd.Contracts;
+using ECommerceBackEnd.Entities;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -9,10 +10,8 @@ namespace ECommerceBackEnd.Repositories
         public int latestId = 0;
         private readonly IMongoCollection<Product> productsCollection;
         private readonly FilterDefinitionBuilder<Product> filterBuilder = Builders<Product>.Filter;
-        private const string databaseName = "ie104";
         private const string collectionName = "products";
-        public ProductsRepository(IMongoClient mongoClient) {
-            IMongoDatabase database = mongoClient.GetDatabase(databaseName);
+        public ProductsRepository(IMongoDatabase database) {
             productsCollection = database.GetCollection<Product>(collectionName);
             latestId = GetLatestId() + 1;
         }

@@ -1,6 +1,6 @@
 ﻿using ECommerceBackEnd.Entities;
 
-namespace ECommerceBackEnd.Repositories
+namespace ECommerceBackEnd.Contracts
 {
     public interface ICategoriesRepository
     {
