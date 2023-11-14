@@ -36,11 +36,11 @@ const getData = async () => {
   data.map((item) => {
     document.querySelector(".productList ").insertAdjacentHTML(
       "beforeend",
-      `<div class ="items" onClick =openItemDetails(${item.pid})>
-    <img src = "../data/Crawled Images/${item.pid}_1.png"
+      `<div class ="items" onClick =openItemDetails(${item.productCardId})>
+    <img src = "../data/Crawled Images/${item.productCardId}_1.png"
     />
-    <span class="name">${item.pName}</span>
-    <span class="price">$ ${Math.round(item.price*1000)/1000}</span>
+    <span class="name">${item.productName}</span>
+    <span class="price">$ ${Math.round(item.productPrice*1000)/1000}</span>
     <span class="button"><img src="icons/addCart.png"/></span>
     </div>`
     );
@@ -64,7 +64,7 @@ const getSidebarCategories = async () => {
       .querySelector(".sideBar")
       .insertAdjacentHTML(
         "beforeend",
-        `<span class="item"><img class="icon" src ="icons/category_icon/${cat.cid}.png" /><span class="title">${cat.cName}</span></span>`
+        `<span class="item"><img class="icon" src ="icons/category_icon/${cat.categoryId}.png" /><span class="title">${cat.categoryName}</span></span>`
       );
   });
   console.log(data);

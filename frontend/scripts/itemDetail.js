@@ -41,27 +41,27 @@ const getSingleItem = async (id) => {
           (val) =>
             `<img class="${
               val != currentViewing ? "hidden" : ""
-            }" src="../data/Crawled Images/${data.pid}_${val}.png"/>`
+            }" src="../data/Crawled Images/${data.productCardId}_${val}.png"/>`
         )
         .join("")}
     `
   );
   document.querySelector("main .itemDetails").insertAdjacentHTML(
     "beforeend",
-    `      <span class="name">${data.pName}</span>
-  <span class="depName">${data.dName}</span>
-  <span class ="price">${data.price}</span>
-  <span class ="id">${data.pid}</span>
-  <span class="status">${data.available}</span>`
+    `      <span class="name">${data.productName}</span>
+  <span class="depName">${data.departmentName}</span>
+  <span class ="price">${data.productPrice}</span>
+  <span class ="id">${data.productCardId}</span>
+  <span class="status">${data.productStatus}</span>`
   );
   document.querySelector("main .purchase").insertAdjacentHTML(
     "beforeend",
-    `<span class="total">${data.price*currentQuantity}</span>
+    `<span class="total">${data.productPrice*currentQuantity}</span>
     <span class="quantity">${currentQuantity}</span>
-    <button class="add" onClick="addItem(${data.price})">
+    <button class="add" onClick="addItem(${data.productPrice})">
         Add
       </button>
-      <button class="subtract" onClick="subtractItem(${data.price})">
+      <button class="subtract" onClick="subtractItem(${data.productPrice})">
         Subtract
       </button>
       <button class="toCart">

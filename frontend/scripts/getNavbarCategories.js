@@ -23,7 +23,7 @@ const getCategories = async () => {
         .insertAdjacentHTML(
           "beforeend",
           `<span class="item ${key < maxItem ? "" : "hidden"}">${
-            cat.cName
+            cat.categoryName
           }</span>`
         );
     });
