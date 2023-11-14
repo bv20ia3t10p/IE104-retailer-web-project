@@ -21,14 +21,12 @@ namespace ECommerceBackEnd.Service
             _configuration = configuration;
         }
 
-        public bool ValidateUser(CustomerAuthDto user)
+        public bool ValidateUser(CustomerAuthDto user, string GoogleToken = null)
         {
             var customerInDb = _repository.Customer.GetCustomerByEmail(user.CustomerEmail);
             _user = user;
-            if (customerInDb == null || customerInDb.CustomerPassword != user.CustomerPassword)
-            {
-                return false;
-            }
+            if (customerInDb == null) return false;
+            else if (GoogleToken == null && user.CustomerPassword != customerInDb.CustomerPassword) return false;
             return true;
         }
         private SigningCredentials GetSigningCredentials()

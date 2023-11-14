@@ -20,7 +20,7 @@ namespace ECommerceBackEnd.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<CustomerDTO>> Get() => Ok(_services.Customer.GetCustomers());
         [HttpGet("{id}", Name = "GetCustomerById")]
-        public ActionResult<CustomerDTO> Get(int id) => Ok(_services.Customer.GetCustomerById(id));
+        public ActionResult<CustomerDTO> GetById(int id) => Ok(_services.Customer.GetCustomerById(id));
         [HttpPut]
         public ActionResult<CustomerDTO> Replace(CustomerDTO newCustomer) => Ok(_services.Customer.UpdateCustomer(newCustomer));
         [HttpDelete("{id}")]
@@ -33,7 +33,7 @@ namespace ECommerceBackEnd.Controllers
         public ActionResult<CustomerDTO> Create(CustomerDTO newCustomer)
         {
             var newCustomerEntity = _services.Customer.CreateCustomer(newCustomer);
-            return CreatedAtAction("GetCustomerById", new { id = newCustomerEntity.CustomerId }, newCustomerEntity);
+            return CreatedAtAction(nameof(GetById), new { id = newCustomerEntity.CustomerId }, newCustomer);
         }
         [HttpPost("UpdateMultiplePW")]
         [Authorize(Roles ="ADMINISTRATOR")]
