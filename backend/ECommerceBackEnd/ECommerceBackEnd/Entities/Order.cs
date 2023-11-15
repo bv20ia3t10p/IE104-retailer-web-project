@@ -9,6 +9,7 @@ namespace ECommerceBackEnd.Entities
     public class Order
     {
         public ObjectId Id { get; set; }
+        public string OrderId { get; set; }
         public string Type { get; set; }
         [Column("Daysforshipping(real)")]
         public int DayForShippingReal { get; set; }
@@ -34,6 +35,15 @@ namespace ECommerceBackEnd.Entities
         public string OrderCity { get; set; }
         public string OrderCountry { get; set; }
         public int OrderCustomerId { get; set; }
+        public string OrderRegion { get; set; }
+        public string OrderState { get; set; }
+        public string OrderStatus { get; set; }
+        [Column("orderdate(DateOrders)")]
+        public DateTime OrderDate { get; set; }
+        [Column("shippingDate(DateOrders")]
+        public DateTime ShippingDate { get; set; }
+        public string ShippingMode { get; set; }
+        public decimal Total { get; set; }
 
 
     }
