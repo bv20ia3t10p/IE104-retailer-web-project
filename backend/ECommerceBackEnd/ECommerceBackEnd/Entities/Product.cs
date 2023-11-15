@@ -17,5 +17,6 @@ namespace ECommerceBackEnd.Entities
             public double? OrderItemProfitRatio { get; set; }
             public double? Sales {  get; set; }
             public bool? ProductStatus { get; set; }
+            public string? ProductDescription { get; set; }
         }
     }

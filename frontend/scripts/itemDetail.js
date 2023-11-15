@@ -56,7 +56,9 @@ const getSingleItem = async (id) => {
   );
   document.querySelector("main .purchase").insertAdjacentHTML(
     "beforeend",
-    `<span class="total">${data.productPrice*currentQuantity}</span>
+    `
+    <span class ="description">${data.productDescription}</span>
+    <span class="total">${data.productPrice*currentQuantity}</span>
     <span class="quantity">${currentQuantity}</span>
     <button class="add" onClick="addItem(${data.productPrice})">
         Add

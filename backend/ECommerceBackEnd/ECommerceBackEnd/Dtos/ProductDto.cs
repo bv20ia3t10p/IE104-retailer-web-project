@@ -14,6 +14,7 @@ namespace ECommerceBackEnd.Dtos
         public double OrderItemProfitRatio { get; init; }
         public double Sales { get; init; }
         public bool ProductStatus { get; init; }
+        public string ProductDescription { get; set; }
     }
     public record ProductDto
     {
@@ -28,6 +29,8 @@ namespace ECommerceBackEnd.Dtos
         public double OrderItemProfitRatio { get; init; }
         public double Sales { get; init; }
         public bool ProductStatus { get; init; }
+        public string ProductDescription { get; set; }
+
     }
     public record UpdateProductDto
     {
@@ -42,5 +45,7 @@ namespace ECommerceBackEnd.Dtos
         public double OrderItemProfitRatio { get; init; }
         public double Sales { get; init; }
         public bool ProductStatus { get; init; }
+        public string ProductDescription { get; set; }
+
     }
 }
