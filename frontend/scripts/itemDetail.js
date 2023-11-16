@@ -33,32 +33,36 @@ const getSingleItem = async (id) => {
     // body: JSON.stringify({"id":id}), // body data type must match "Content-Type" header
   });
   const data = await resp.json();
-  document.querySelector(".mainItem").insertAdjacentHTML(
+  document.querySelector(".itemDetailMain").insertAdjacentHTML(
     `beforeend`,
-    `
+    `<div class ="itemImages">
       ${Array.from(Array(6).keys())
         .map(
           (val) =>
-            `<img class="${
+            `<img class="singleImages ${
               val != currentViewing ? "hidden" : ""
             }" src="../data/Crawled Images/${data.productCardId}_${val}.png"/>`
         )
         .join("")}
-    `
+    </div>`
   );
-  document.querySelector("main .itemDetails").insertAdjacentHTML(
+  document.querySelector(".itemDetailMain").insertAdjacentHTML(
     "beforeend",
-    `      <span class="name">${data.productName}</span>
+    `
+  <div class="ProductInfo">
+  <span class="name">${data.productName}</span>
   <span class="depName">${data.departmentName}</span>
   <span class ="price">${data.productPrice}</span>
   <span class ="id">${data.productCardId}</span>
-  <span class="status">${data.productStatus}</span>`
+  <span class="status">${data.productStatus}</span>
+  </div>`
   );
-  document.querySelector("main .purchase").insertAdjacentHTML(
+  document.querySelector(".itemDetailMain").insertAdjacentHTML(
     "beforeend",
     `
-    <span class ="description">${data.productDescription}</span>
-    <span class="total">${data.productPrice*currentQuantity}</span>
+    <div class ="description">${data.productDescription}</div>
+    <div class="cart">
+    <span class="total">${data.productPrice * currentQuantity}</span>
     <span class="quantity">${currentQuantity}</span>
     <button class="add" onClick="addItem(${data.productPrice})">
         Add
@@ -68,22 +72,25 @@ const getSingleItem = async (id) => {
       </button>
       <button class="toCart">
         Add to cart
-      </button>`
+      </button></div>`
   );
+
   console.log(data);
 };
 
-
 const addItem = (price) => {
   currentQuantity++;
-  document.querySelector("main .purchase .total").textContent = price*currentQuantity;
-  document.querySelector("main .purchase .quantity").textContent = currentQuantity;
-
-}
+  document.querySelector(".itemDetailMain  .total").textContent =
+    price * currentQuantity;
+  document.querySelector(".itemDetailMain  .quantity").textContent =
+    currentQuantity;
+};
 
 const subtractItem = (price) => {
-  if (currentQuantity - 1 < 1 ) return;
+  if (currentQuantity - 1 < 1) return;
   currentQuantity--;
-  document.querySelector("main .purchase .total").textContent = price*currentQuantity;
-  document.querySelector("main .purchase .quantity").textContent = currentQuantity;
-}
+  document.querySelector(".itemDetailMain  .total").textContent =
+    price * currentQuantity;
+  document.querySelector(".itemDetailMain  .quantity").textContent =
+    currentQuantity;
+};

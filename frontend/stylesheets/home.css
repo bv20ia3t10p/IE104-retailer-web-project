@@ -2,9 +2,9 @@
 
 main {
     display: grid;
-    grid-template-columns: 20% 1fr;
-    padding: 0em 10em;
-    gap: 3em;
+    grid-template-columns: 16% 1fr;
+    padding: 0em 15em;
+    gap: 2.2em;
 }
 
 .sideBar * { 
@@ -17,22 +17,22 @@ main {
     height: 100em;
     overflow-y: scroll;
     background-color: white;
-    box-shadow: var(--shadow-xl);
-    padding: 1em 2em;
-    padding-right: 3em;
-    border-radius: 1em;
-    gap: .2em;
+    box-shadow: var(--shadow-sm);
+    padding: 0.2em 1em;
+    /* padding-right: 3em; */
+    border-radius: 0.2em;
+    gap: .05em;
 }
 
 .sideBar .item {
     margin: 0.2em;
     display: grid;
-    grid-template-columns: 30% 1fr;
+    grid-template-columns: 20% 1fr;
     word-wrap: break-word;
     width: 100%;
     height: 100%;
     font-weight: var(--font-normal);
-    font-size: 1.1em;
+    font-size: 0.9em;
     text-align: start;
     align-items: center;
     justify-items: start;
@@ -46,11 +46,11 @@ main {
     display: flex;
     position: sticky;
     justify-content: start;
-    font-size: 1.4em;
+    font-size: 1em;
     font-weight: var(--font-semibold);
     align-items: center;
     margin-top: 0.4em;
-    color: var(--gray-500);
+    color: var(--gray-900);
 }
 .sideBar .item .title{
     font-size:1em;

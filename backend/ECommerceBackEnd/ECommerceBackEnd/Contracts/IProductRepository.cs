@@ -11,5 +11,6 @@ namespace ECommerceBackEnd.Contracts
         public void DeleteProductById(int PID);
         public IEnumerable<Product> GetProductByCategory(int id);
         int GetLatestId();
+        int GetProductTotalSales();
     }
 }

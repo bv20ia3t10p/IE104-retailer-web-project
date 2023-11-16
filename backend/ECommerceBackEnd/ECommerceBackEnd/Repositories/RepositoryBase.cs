@@ -32,5 +32,7 @@ namespace ECommerceBackEnd.Repositories
         {
             collection.UpdateMany(expression, Builders<T>.Update.Set(updateField, newValue), new UpdateOptions { IsUpsert = true });
         }
+        public int ConditionalCount(Expression<Func<T, bool>> expression) => collection.Find(filterBuilder.Where(expression)).ToList().Count();
+        public double ConditionalSum(Expression<Func<T, bool>> expression, string field) => collection.Find(filterBuilder.Where(expression)).ToList().Sum(c => (double)c.GetType().GetProperty(field).GetValue(c));
     }
 }
