@@ -5,5 +5,6 @@
         IProductRepository Product { get; }
         ICustomerRepository Customer { get; }
         ICategoryRepository Category { get; }
+        IOrderRepository Order { get; }
     }
 }
