@@ -29,7 +29,7 @@ namespace ECommerceBackEnd.Service
             _repository.Order.UpdateOrder(orderInDb);
             return _mapper.Map<OrderDto>(orderInDb);
         }
-        public OrderDto UpdateOrderLoaction(UpdateOrderLocationDto updateOrderLocationDto)
+        public OrderDto UpdateOrderLocation(UpdateOrderLocationDto updateOrderLocationDto)
         {
             var orderInDb = _repository.Order.GetOrderById(updateOrderLocationDto.OrderId);
             if (orderInDb == null)

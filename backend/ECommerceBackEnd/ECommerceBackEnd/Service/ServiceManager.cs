@@ -25,6 +25,6 @@ namespace ECommerceBackEnd.Service
         public ICategoryService Category => _categoryService.Value;
         public IProductService Product => _productService.Value;
         public ICustomerService Customer => _customerService.Value;
-        public IOrderService ORder => _orderService.Value;
+        public IOrderService Order => _orderService.Value;
     }
 }

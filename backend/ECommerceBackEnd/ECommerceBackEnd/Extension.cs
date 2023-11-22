@@ -5,6 +5,7 @@ using ECommerceBackEnd.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using MongoDB.Bson.Serialization;
 
 namespace ECommerceBackEnd
 {
@@ -46,6 +47,21 @@ namespace ECommerceBackEnd
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
                     };
                 });
+        }
+    }
+    public class CustomDateTimeSerializer : IBsonSerializer
+    {
+        public Type ValueType => typeof(DateTime);
+
+        public object Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
+        {
+            var str = context.Reader.ReadString();
+            return DateTime.ParseExact(str, "M/d/yyyy H:m", System.Globalization.CultureInfo.InvariantCulture);
+        }
+
+        public void Serialize(BsonSerializationContext context, BsonSerializationArgs args, object value)
+        {
+            throw new NotImplementedException();
         }
     }
 }
