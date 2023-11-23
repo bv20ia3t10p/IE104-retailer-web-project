@@ -5,7 +5,7 @@ namespace ECommerceBackEnd.Dtos
 {
     public record OrderDto
     {
-        public string OrderId { get; set; }
+        public int OrderId { get; set; }
         public string Type { get; set; }
         public int DayForShippingReal { get; set; }
         public int DayForShipmentScheduled { get; set; }
@@ -15,7 +15,7 @@ namespace ECommerceBackEnd.Dtos
         public string CustomerEmail { get; set; }
         public string CustomerFname { get; set; }
         public int CustomerId { get; set; }
-        public string Lname { get; set; }
+        public string CustomerLname { get; set; }
         public string CustomerSegment { get; set; }
         public string CustomerState { get; set; }
         public int CustomerZipcode { get; set; }

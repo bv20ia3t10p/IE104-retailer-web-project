@@ -61,7 +61,8 @@ namespace ECommerceBackEnd
 
         public void Serialize(BsonSerializationContext context, BsonSerializationArgs args, object value)
         {
-            throw new NotImplementedException();
+            DateTime dateTime = (DateTime)value;
+            context.Writer.WriteString(dateTime.ToString("M/d/yyyy H:m"));
         }
     }
 }

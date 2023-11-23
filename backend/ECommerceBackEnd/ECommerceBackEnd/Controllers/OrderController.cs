@@ -24,7 +24,7 @@ namespace ECommerceBackEnd.Controllers
         public ActionResult<OrderDto> CreateOrder(CreateOrderDto newOrder)
         {
             var createdOrder = _service.Order.CreateOrder(newOrder);
-            return CreatedAtAction(nameof(GetOrder),new {id = createdOrder.OrderId},createdOrder);
+            return CreatedAtAction(nameof(GetOrder),new {id = createdOrder.OrderId},_service.Order.GetOrder(createdOrder.OrderId));
         }
         [HttpPut("Location")]
         public ActionResult<OrderDto> UpdateOrderLocation(UpdateOrderLocationDto newOrder)

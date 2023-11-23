@@ -58,7 +58,14 @@ namespace ECommerceBackEnd.Service
         {
             int latestId = _repository.Order.GetLatestId();
             var orderEntity = _mapper.Map<Order>(newOrder);
+            var customerInDb = _repository.Customer.GetCustomerById(newOrder.CustomerId);
+            if (customerInDb != null )
+            {
+                // This also maps Customer entity object ID to Order Id so we gotta override that by generating new object ID manually, usually this is done by automapper
+                _mapper.Map(customerInDb, orderEntity);
+            }
             orderEntity.OrderId = latestId;
+            orderEntity.Id = new MongoDB.Bson.ObjectId();
             _repository.Order.CreateOrder(orderEntity);
             return _mapper.Map<OrderDto>(orderEntity);
         }
