@@ -14,5 +14,6 @@ namespace ECommerceBackEnd.Contracts
         IQueryable<T> GetManyByCondition(Expression<Func<T, bool>> expression);
         void Update(Expression<Func<T, bool>> expression, T entity);
         void UpdateMany(string updateField, Expression<Func<T, bool>> expression, dynamic newValue);
+        void CreateMany (IEnumerable<T> entities);
     }
 }

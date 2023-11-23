@@ -1,8 +1,9 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace ECommerceBackEnd.Entities
 {
-
+    [BsonIgnoreExtraElements]
         public record Product
         {
             public ObjectId Id { get; set; }
@@ -13,8 +14,6 @@ namespace ECommerceBackEnd.Entities
             public string? ProductName {  get; set; }
             public double? ProductPrice { get; set; }
             public int? OrderItemCardprodId { get; set; }
-            public int? OrderItemId { get; set; }
-            public double? OrderItemProfitRatio { get; set; }
             public double? Sales {  get; set; }
             public bool? ProductStatus { get; set; }
             public string? ProductDescription { get; set; }

@@ -19,8 +19,8 @@ namespace ECommerceBackEnd.Dtos
         public string CustomerSegment { get; set; }
         public string CustomerState { get; set; }
         public int CustomerZipcode { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public string Market { get; set; }
         public string OrderCity { get; set; }
         public string OrderCountry { get; set; }
@@ -30,7 +30,7 @@ namespace ECommerceBackEnd.Dtos
         public DateTime OrderDate { get; set; }
         public DateTime ShippingDate { get; set; }
         public string ShippingMode { get; set; }
-        public decimal Total { get; set; }
+        public double Total { get; set; }
     }
     public record CreateOrderDto
     {
@@ -38,8 +38,8 @@ namespace ECommerceBackEnd.Dtos
         public string DeliveryStatus { get; set; }
         public int LateDeliveryRisk { get; set; }
         public int CustomerId { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public string Market { get; set; }
         public string OrderCity { get; set; }
         public string OrderCountry { get; set; }
@@ -49,7 +49,7 @@ namespace ECommerceBackEnd.Dtos
         public DateTime OrderDate { get; set; }
         public DateTime ShippingDate { get; set; }
         public string ShippingMode { get; set; }
-        public decimal Total { get; set; }
+        public double Total { get; set; }
     }
     public record UpdateOrderStatusDto {
         public int OrderId { get; set; }
@@ -64,12 +64,12 @@ namespace ECommerceBackEnd.Dtos
         public DateTime OrderDate { get; set; }
         public DateTime ShippingDate { get; set; }
         public string ShippingMode { get; set; }
-        public decimal Total { get; set; }
+        public double Total { get; set; }
     }
     public record UpdateOrderLocationDto
     {
         public int OrderId { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

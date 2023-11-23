@@ -10,6 +10,7 @@ namespace ECommerceBackEnd.Repositories
         private readonly Lazy<IProductRepository> _productRepository;
         private readonly Lazy<ICategoryRepository> _categoryRepository;
         private readonly Lazy<IOrderRepository> _orderRepository;
+        private readonly Lazy<IOrderDetailRepository> _orderDetailRepository;
         private readonly IMongoDatabase _database;
         public RepositoryManager(IMongoClient mongoClient)
         {
@@ -18,7 +19,9 @@ namespace ECommerceBackEnd.Repositories
             _categoryRepository = new Lazy<ICategoryRepository>(() => new CategoryRepository(_database,"categories"));
             _customerRepository = new Lazy<ICustomerRepository>(() => new CustomerRepository(_database,"customers"));
             _orderRepository = new Lazy<IOrderRepository>(() => new OrderRepository(_database, "orders"));
+            _orderDetailRepository = new Lazy<IOrderDetailRepository>(() => new OrderDetailRepository(_database, "order_details"));
         }
+        public IOrderDetailRepository OrderDetail => _orderDetailRepository.Value;
         public ICustomerRepository Customer => _customerRepository.Value;
         public ICategoryRepository Category => _categoryRepository.Value;
         public IProductRepository Product => _productRepository.Value;

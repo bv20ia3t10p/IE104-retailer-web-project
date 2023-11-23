@@ -7,5 +7,6 @@
         IProductService Product { get; }
         IAuthService Auth { get; }
         IOrderService Order { get; }
+        IOrderDetailService OrderDetail { get; }
     }
 }

@@ -28,8 +28,8 @@ namespace ECommerceBackEnd.Entities
         public string CustomerState { get; set; }
         public string CustomerCountry { get; set; }
         public int CustomerZipcode { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public string Market { get; set; }
         public string OrderCity { get; set; }
         public string OrderCountry { get; set; }
