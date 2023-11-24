@@ -42,7 +42,8 @@ namespace ECommerceBackEnd.Entities
         public double? ProductPrice { get; set; }
         // From Order
         public int OrderId { get; set; }
-        [BsonElement("orderdate(DateOrders")]
+        [BsonSerializer(typeof(CustomDateTimeSerializer))]
+        [BsonElement("orderdate(DateOrders)")]
         public DateTime OrderDate { get; set; }
         // Exclusives
         public int OrderItemCardprodId { get; set; }

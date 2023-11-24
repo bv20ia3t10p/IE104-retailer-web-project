@@ -11,5 +11,6 @@ namespace ECommerceBackEnd.Service.Contracts
         OrderDetailDto GetByOrderAndProduct(int oid, int pid);
         IEnumerable<OrderDetailDto> GetByProduct(int productId);
         OrderDetailDto UpdateOrderDetail(UpdateOrderDetailDto orderDetail);
+        OrderDetailDto GetById(int id);
     }
 }

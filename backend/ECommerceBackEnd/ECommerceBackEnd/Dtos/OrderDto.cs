@@ -50,6 +50,7 @@ namespace ECommerceBackEnd.Dtos
         public DateTime ShippingDate { get; set; }
         public string ShippingMode { get; set; }
         public double Total { get; set; }
+        public virtual IEnumerable<CreateOrderDetailDto> orderDetails { get; set; }
     }
     public record UpdateOrderStatusDto {
         public int OrderId { get; set; }

@@ -16,6 +16,7 @@ namespace ECommerceBackEnd.Service
             _mapper = mapper;
             _repository = repository;
         }
+        public OrderDetailDto GetById(int id) => _mapper.Map<OrderDetailDto>(_repository.OrderDetail.GetOrderDetailById(id));
         public IEnumerable<OrderDetailDto> GetByOrder(int orderId) => _mapper.Map<IEnumerable<OrderDetailDto>>(_repository.OrderDetail.GetDetailsForOrder(orderId));
         public IEnumerable<OrderDetailDto> GetByProduct(int productId) => _mapper.Map<IEnumerable<OrderDetailDto>>(_repository.OrderDetail.GetOrderDetailsForProduct(productId));
         public OrderDetailDto GetByOrderAndProduct(int oid, int pid) => _mapper.Map<OrderDetailDto>(_repository.OrderDetail.GetDetailByProductAndOrder(oid, pid));

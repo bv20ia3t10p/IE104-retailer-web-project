@@ -17,7 +17,7 @@ namespace ECommerceBackEnd.Dtos
     public record UpdateCategoryDto
     {
         [Required]
-        public int? CategoryId { get; init; }
+        public int CategoryId { get; init; }
         [Required]
         public string? CategoryName { get; init; }
     }

@@ -10,6 +10,5 @@ namespace ECommerceBackEnd.Contracts
         IEnumerable<Category> GetCategories();
         Category GetCategoryById(int CID);
         void UpdateCategory(Category category);
-        object GetCategoryById(int? productCategoryId);
     }
 }
