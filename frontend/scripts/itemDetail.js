@@ -1,3 +1,4 @@
+
 function displayHash() {
   var id = window.location.hash.slice(1);
   console.log(id);

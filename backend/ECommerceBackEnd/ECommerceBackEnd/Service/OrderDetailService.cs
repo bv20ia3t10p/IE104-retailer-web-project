@@ -31,6 +31,9 @@ namespace ECommerceBackEnd.Service
             _mapper.Map(categoryInDb, odEntity);
             odEntity.Id = new MongoDB.Bson.ObjectId();
             odEntity.OrderItemId = _repository.OrderDetail.GetLatestId();
+            //Update product sales
+            productInDb.Sales = productInDb.Sales + orderDetailDto.OrderItemTotal;
+            _repository.Product.UpdateProduct(productInDb);
             _repository.OrderDetail.CreateOrderDetail(odEntity);
             return _mapper.Map<OrderDetailDto>(odEntity);
         }
@@ -51,12 +54,19 @@ namespace ECommerceBackEnd.Service
             var productInDb = _repository.Product.GetProduct(orderDetail.ProductCardId) ?? throw new Exception("Product not found");
             _mapper.Map(productInDb, odEntity);
             odEntity.Id = odEntityId;
+            // Update Product Sales
+            productInDb.Sales = productInDb.Sales + odEntity.OrderItemTotal == orderDetail.OrderItemTotal ? 0 :
+                orderDetail.OrderItemTotal;
+            _repository.Product.UpdateProduct(productInDb);
             _repository.OrderDetail.UpdateOrderDetail(odEntity);
             return _mapper.Map<OrderDetailDto>(odEntity);
         }
         public void DeleteOrderDetail(int id)
         {
             var odEntity = _repository.OrderDetail.GetOrderDetailById(id) ?? throw new Exception("Order detail not found");
+            var productInDb = _repository.Product.GetProduct(odEntity.ProductCardId) ?? throw new Exception("Product not found");
+            productInDb.Sales -= odEntity.OrderItemTotal;
+            _repository.Product.UpdateProduct(productInDb);
             _repository.OrderDetail.DeleteOrderDetail(odEntity);
         }
     }

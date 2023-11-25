@@ -20,6 +20,7 @@ namespace ECommerceBackEnd.Dtos
     {
         public int DepartmentId { get; init; }
         public string DepartmentName { get; init; }
+        [Key]
         public int ProductCardId { get; init; }
         public int ProductCategoryId { get; init; }
         public string ProductName { get; init; }
@@ -30,6 +31,7 @@ namespace ECommerceBackEnd.Dtos
         public double Sales { get; init; }
         public bool ProductStatus { get; init; }
         public string ProductDescription { get; set; }
+        public int ProductSoldQuantity { get; set; }
 
     }
     public record UpdateProductDto

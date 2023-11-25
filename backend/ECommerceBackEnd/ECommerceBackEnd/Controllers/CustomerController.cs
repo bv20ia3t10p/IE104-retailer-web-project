@@ -3,6 +3,7 @@ using ECommerceBackEnd.Service.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace ECommerceBackEnd.Controllers
 {
@@ -18,6 +19,7 @@ namespace ECommerceBackEnd.Controllers
 
         [Authorize]
         [HttpGet]
+        [EnableQuery]
         public ActionResult<IEnumerable<CustomerDTO>> Get() => Ok(_services.Customer.GetCustomers());
         [HttpGet("{id}", Name = "GetCustomerById")]
         public ActionResult<CustomerDTO> GetById(int id) => Ok(_services.Customer.GetCustomerById(id));

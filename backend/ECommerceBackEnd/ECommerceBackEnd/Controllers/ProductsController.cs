@@ -2,6 +2,7 @@
 using ECommerceBackEnd.Service.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace ECommerceBackEnd.Controllers
 {
@@ -16,11 +17,25 @@ namespace ECommerceBackEnd.Controllers
             _services = service;
         }
         [HttpGet]
+        [EnableQuery]
         // GET /products
-        public ActionResult<IEnumerable<ProductDto>> GetProducts() => Ok(_services.Product.GetProducts());
+        public ActionResult<IEnumerable<ProductDto>> GetProducts()
+        {
+            var products = _services.Product.GetProducts();
+            foreach (var product in products)
+            {
+                product.ProductSoldQuantity = _services.Product.GetProductSoldQuantity(product.ProductCardId);
+            }
+            return Ok(products);
+        }
         //GET /products/id
         [HttpGet("{id}")]
-        public ActionResult<ProductDto> GetProduct(int id) => Ok(_services.Product.GetProductById(id));
+        public ActionResult<ProductDto> GetProduct(int id)
+        {
+            var product = _services.Product.GetProductById(id);
+            product.ProductSoldQuantity = _services.Product.GetProductSoldQuantity(id);
+            return Ok(product);
+        }
         //POST /items
         [HttpPost]
         [Authorize]
@@ -31,6 +46,7 @@ namespace ECommerceBackEnd.Controllers
         }
 
         [HttpGet]
+        [EnableQuery]
         [Route(nameof(GetProductByCategory))]
         public ActionResult<IEnumerable<ProductDto>> GetProductByCategory(int id) => Ok(_services.Product.GetProductByCategory(id));
         [HttpPut]

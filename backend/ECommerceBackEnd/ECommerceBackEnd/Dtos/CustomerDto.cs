@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using System.ComponentModel.DataAnnotations;
 
 namespace ECommerceBackEnd.Dtos
 {
@@ -10,6 +11,8 @@ namespace ECommerceBackEnd.Dtos
         public string CustomerStreet { get; set; }
         public string CustomerState { get; set; }
         public int CustomerZipcode { get; set; }
+        [Key]
+
         public int CustomerId { get; set; }
         public string CustomerEmail { get; set; }
         public string CustomerPassword { get; set; }

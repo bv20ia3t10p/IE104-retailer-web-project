@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" href="stylesheets/reset.css">
     <link rel="stylesheet" href="stylesheets/colors.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="scripts/getNavbarCategories.js"></script>
@@ -19,7 +20,7 @@
       <div class="searchBar">
         <input type="text" placeholder="Search bar placeholder" />
       </div>
-      <span class="action" ><a href="login.html">Account</a></span>
+      <span class="action" ><a href="loginOrRegister.html">Account</a></span>
       <span class="action">Cart</span>
       <span class="action">Home</span>
       <div class="categories">
@@ -30,7 +31,15 @@
       <aside class="sideBar">
         <span class="title">Categories</span>
       </aside>
-      <article class="productList">
+      <article class="productList banner">
+        <h3 class="productListTitle">Limited Time Special Offers</h3>
+        <img src="/frontend/icons/banner/saleBanner.webp">
+      </article>
+      <article class="productList trending">
+        <h3 class="productListTitle">What's Hot</h3>
+      </article>
+      <article class="productList allItems">
+        <h3 class="productListTitle">All Products</h3>
       </article>
     </main>
   </body>

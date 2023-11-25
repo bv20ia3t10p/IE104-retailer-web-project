@@ -1,6 +1,7 @@
 ﻿using ECommerceBackEnd.Dtos;
 using ECommerceBackEnd.Service.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace ECommerceBackEnd.Controllers
 {
@@ -14,8 +15,11 @@ namespace ECommerceBackEnd.Controllers
             _service = service;
         }
         [HttpGet("/api/Order/{oid}/Details")]
+        [EnableQuery]
+
         public ActionResult<IEnumerable<OrderDetailDto>> GetDetailsForOrder(int oid) => Ok(_service.OrderDetail.GetByOrder(oid));
         [HttpGet("/api/Product/{pid}/Details")]
+        [EnableQuery]
         public ActionResult<IEnumerable<OrderDetailDto>> GetDetailsForProduct(int pid) => Ok(_service.OrderDetail.GetByProduct(pid));
         [HttpGet("{id}")]
         public ActionResult<OrderDetailDto> GetById(int id) => Ok(_service.OrderDetail.GetById(id));

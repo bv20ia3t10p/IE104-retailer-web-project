@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using System.ComponentModel.DataAnnotations;
 
 namespace ECommerceBackEnd.Dtos
 {
@@ -18,6 +19,8 @@ namespace ECommerceBackEnd.Dtos
         public int OrderItemCardprodId { get; set; }
         public double OrderItemDiscount { get; set; }
         public double OrderItemDiscountRate { get; set; }
+        [Key]
+
         public int OrderItemId { get; set; }
         public double OrderItemProductPrice { get; set; }
         public double OrderItemProfitRatio { get; set; }
@@ -40,6 +43,7 @@ namespace ECommerceBackEnd.Dtos
     }
     public record UpdateOrderDetailDto
     {
+
         public int OrderItemId { get; set; }
         public int ProductCardId { get; set; }
         public double OrderItemDiscount { get; set; }

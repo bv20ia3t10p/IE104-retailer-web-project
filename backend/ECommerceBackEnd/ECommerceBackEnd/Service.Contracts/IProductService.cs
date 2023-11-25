@@ -10,5 +10,6 @@ namespace ECommerceBackEnd.Service.Contracts
         ProductDto CreateProduct(CreateProductDto newProduct);
         ProductDto UpdateProduct(UpdateProductDto updateProduct);
         void DeleteProduct(int id);
+        int GetProductSoldQuantity(int id);
     }
 }

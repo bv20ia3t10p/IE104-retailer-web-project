@@ -11,6 +11,7 @@ namespace ECommerceBackEnd
 {
     public static class Extension
     {
+
         public static void ConfigureCors(this IServiceCollection services) => services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builders =>
@@ -65,4 +66,5 @@ namespace ECommerceBackEnd
             context.Writer.WriteString(dateTime.ToString("M/d/yyyy H:m"));
         }
     }
+
 }

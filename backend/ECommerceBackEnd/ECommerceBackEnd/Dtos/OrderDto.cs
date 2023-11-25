@@ -1,10 +1,12 @@
 ﻿using MongoDB.Bson;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ECommerceBackEnd.Dtos
 {
     public record OrderDto
     {
+        [Key]
         public int OrderId { get; set; }
         public string Type { get; set; }
         public int DayForShippingReal { get; set; }

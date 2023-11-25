@@ -24,6 +24,5 @@ namespace ECommerceBackEnd.Repositories
 
         void IProductRepository.UpdateProduct(Product product) => Update(c => c.ProductCardId == product.ProductCardId, product);
         public IEnumerable<Product> GetProductByCategory(int id) => GetManyByCondition(c => c.ProductCategoryId == id);
-        public int GetProductTotalSales() => 0;
     }
 }

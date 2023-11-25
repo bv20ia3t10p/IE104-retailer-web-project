@@ -2,6 +2,7 @@
 using ECommerceBackEnd.Service.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace ECommerceBackEnd.Controllers
 {
@@ -15,10 +16,12 @@ namespace ECommerceBackEnd.Controllers
             _service = service;
         }
         [HttpGet]
+        [EnableQuery]
         public ActionResult<IEnumerable<OrderDto>> GetOrders() => Ok(_service.Order.GetOrders());
         [HttpGet("{id}")]
         public ActionResult<OrderDto> GetOrder(int id) => Ok(_service.Order.GetOrder(id));
         [HttpGet("Customer/{customerId}")]
+        [EnableQuery]
         public ActionResult<IEnumerable<OrderDto>> GetOrders(int customerId) => Ok(_service.Order.GetOrdersByCustomer(customerId));
         [HttpPost]
         public ActionResult<OrderDto> CreateOrder(CreateOrderDto newOrder)

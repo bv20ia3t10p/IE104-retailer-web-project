@@ -38,5 +38,6 @@ namespace ECommerceBackEnd.Service
             _repository.Product.UpdateProduct(productInDb);
             return _mapper.Map<ProductDto>(productInDb);
         }
+        public int GetProductSoldQuantity(int id) => _repository.OrderDetail.GetOrderDetailsForProduct(id).Sum(c => c.OrderItemQuantity);
     }
 }
