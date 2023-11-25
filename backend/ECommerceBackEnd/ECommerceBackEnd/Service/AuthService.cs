@@ -11,6 +11,7 @@ namespace ECommerceBackEnd.Service
 
     public class AuthService : IAuthService
     {
+        private HttpClient _httpClient;
         private readonly IRepositoryManager _repository;
         private readonly IConfiguration _configuration;
         private CustomerAuthDto? _user;
@@ -19,15 +20,20 @@ namespace ECommerceBackEnd.Service
         {
             _repository = repository;
             _configuration = configuration;
+            _httpClient = new HttpClient();
         }
 
-        public bool ValidateUser(CustomerAuthDto user, string GoogleToken = null)
+        public async Task<bool> ValidateUser(CustomerAuthDto user, string GoogleToken)
         {
             var customerInDb = _repository.Customer.GetCustomerByEmail(user.CustomerEmail);
             _user = user;
             if (customerInDb == null) return false;
-            else if (GoogleToken == null && user.CustomerPassword != customerInDb.CustomerPassword) return false;
-            return true;
+            else if (GoogleToken == "0" && user.CustomerPassword != customerInDb.CustomerPassword) return false;
+            HttpResponseMessage response = await _httpClient
+                .GetAsync("https://www.googleapis.com/oauth2/v3/userinfo?" +
+                    "access_token=" + GoogleToken);
+            if (response.IsSuccessStatusCode) return true;
+            return false;
         }
         private SigningCredentials GetSigningCredentials()
         {
@@ -61,7 +67,7 @@ namespace ECommerceBackEnd.Service
             var jwtSettings = _configuration.GetSection("JwtSettings");
             var tokenOtpions = new JwtSecurityToken
             (
-               issuer: jwtSettings["validIssuer"],
+                issuer: jwtSettings["validIssuer"],
                 audience: jwtSettings["validAudience"],
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings["expires"])),

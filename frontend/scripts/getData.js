@@ -1,22 +1,15 @@
+document.addEventListener("DOMContentLoaded", async () => {
+  await getData();
+  await getCategories();
+  await getSidebarCategories();
+  await getPopularProducts();
+});
 
-document.addEventListener(
-  "DOMContentLoaded",
-  async () => {
-    await getData();
-    await getCategories();
-    await getSidebarCategories();
-    await getPopularProducts();
-  }
-);
+let productsTemp = [];
 
-
-let productsTemp  = [];
-
-const openItemDetails = (id) =>{
-  window.location.replace(
-    `item.html#${id}`,
-  );
-}
+const openItemDetails = (id) => {
+  window.location.replace(`item.html#${id}`);
+};
 
 const getData = async () => {
   itemUrl = url + `/products`;
@@ -37,7 +30,7 @@ const getData = async () => {
     />
     <span class="name">${item.productName}</span>
     <span class="itemSold">${item.productSoldQuantity} sold</span>
-    <span class="price">$ ${Math.round(item.productPrice*1000)/1000}</span>
+    <span class="price">$ ${Math.round(item.productPrice * 1000) / 1000}</span>
     <span class="button"><img src="icons/addCart.png"/></span>
     </div>`
     );
@@ -46,7 +39,8 @@ const getData = async () => {
   console.log(data);
 };
 const getPopularProducts = async () => {
-  itemUrl = "https://localhost:7136/odata/Products?$orderby=ProductSoldQuantity%20desc&top=20";
+  itemUrl =
+    "https://localhost:7136/odata/Products?$orderby=ProductSoldQuantity%20desc&top=20";
   const resp = await fetch(itemUrl, {
     method: "GET",
     headers: {
@@ -64,13 +58,13 @@ const getPopularProducts = async () => {
     />
     <span class="name">${item.ProductName}</span>
     <span class="itemSold">${item.ProductSoldQuantity} sold</span>
-    <span class="price">$ ${Math.round(item.ProductPrice*1000)/1000}</span>
+    <span class="price">$ ${Math.round(item.ProductPrice * 1000) / 1000}</span>
     <span class="button"><img src="icons/addCart.png"/></span>
     </div>`
     );
   });
   console.log(data.value);
-}
+};
 const getSidebarCategories = async () => {
   categoriesUrl = url + "/category";
   const resp = await fetch(categoriesUrl, {
@@ -92,6 +86,3 @@ const getSidebarCategories = async () => {
   });
   console.log(data);
 };
-
-
-

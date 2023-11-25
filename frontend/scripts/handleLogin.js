@@ -2,45 +2,31 @@ oath_url = "https://localhost:7136/api/Auth";
 
 var YOUR_CLIENT_ID =
   "433141860892-7qmra9ujnn35sslqurun4upjapcl2q2p.apps.googleusercontent.com";
-var YOUR_REDIRECT_URI = "http://127.0.0.1:5500/frontend/login.html";
+var YOUR_REDIRECT_URI = "http://127.0.0.1:5500/frontend/loginOrRegister.html";
 
 document.addEventListener("DOMContentLoaded", function () {
+  const currentWindow = new URL(
+    window.location.href.replace("#state=", "?state=")
+  );
+  try {
+    localStorage.setItem(
+      "googleToken",
+      currentWindow.searchParams.get("access_token")
+    );
+    alert(currentWindow.searchParams);
+  } catch {
+    alert("No access token");
+  }
   document
-    .querySelector("#login-form")
-    .addEventListener("submit", () => handleLogin);
+    .querySelector("#register-form")
+    .addEventListener("submit", handleRegister);
+  document
+    .querySelector("#registerWithGoogle")
+    .addEventListener("click", trySampleRequest);
+  document.querySelector("#login-form").addEventListener("submit", handleLogin);
   document
     .querySelector("#signinWithGoogle")
-    .addEventListener("click", () => signInGoogle);
-  try {
-    var params = JSON.parse(localStorage.getItem("oauth2-test-params"));
-    console.log(params["access_token"]);
-    if (params && params["access_token"]) {
-      var xhr = new XMLHttpRequest();
-      xhr.open(
-        "GET",
-        "https://www.googleapis.com/oauth2/v3/userinfo?" +
-          "access_token=" +
-          params["access_token"]
-      );
-      xhr.onreadystatechange = function (e) {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          console.log(xhr.response);
-          serverResponse = JSON.parse(xhr.response);
-          console.log(serverResponse);
-          if (typeof serverResponse.email)
-            document.querySelector("#login-email").value = serverResponse.email;
-          document.querySelector("#login-password").value =
-            serverResponse.email;
-        } else if (xhr.readyState === 4 && xhr.status === 401) {
-          // Token invalid, so prompt for user permission.
-          oauth2SignIn();
-        }
-      };
-      xhr.send(null);
-    }
-  } catch {
-    console.log("No access token");
-  }
+    .addEventListener("click", signInGoogle);
   document.querySelectorAll(".activatePage").forEach((e) =>
     e.addEventListener("click", () => {
       const loginPage = document.querySelector(".loginOrRegister .login");
@@ -62,9 +48,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const signInGoogle = async () => {
-  console.log("clicked");
   trySampleRequest();
-  await document.querySelector("#login-form").submit();
+  // await document.querySelector("#login-form").submit();
 };
 
 const handleLogin = async (e) => {
@@ -75,61 +60,63 @@ const handleLogin = async (e) => {
     customerPassword: inputData.get("customerPassword"),
   };
   console.log(customer);
-  const resp = await fetch(
-    oath_url +
-      `?GoogleToken=${
-        JSON.parse(localStorage.getItem("oauth2-test-params"))["access_token"]
-      }`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-      body: JSON.stringify(customer),
-    }
-  );
+  let ggToken = "0";
+  try {
+    ggToken = JSON.parse(localStorage.getItem("googleToken"));
+  } catch {
+    console.log("No google auth");
+  }
+  const resp = await fetch(oath_url + `?GoogleToken=${ggToken}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify(customer),
+  });
   const data = await resp.json();
   console.log(data.token);
 };
 
-// If there's an access token, try an API request.
-// Otherwise, start OAuth 2.0 flow.
-function trySampleRequest() {
-  var params = JSON.parse(localStorage.getItem("oauth2-test-params"));
-  console.log(params["access_token"]);
-  if (params && params["access_token"]) {
-    var xhr = new XMLHttpRequest();
-    xhr.open(
-      "GET",
+const trySampleRequest = async () => {
+  var ggToken = "";
+  try {
+    ggToken =
+      localStorage.getItem("googleToken") === "null"
+        ? "0"
+        : localStorage.getItem("googleToken");
+    alert(ggToken);
+    if (ggToken === "0" || ggToken == "null") throw new Error("No token");
+    const requestUrl =
       "https://www.googleapis.com/oauth2/v3/userinfo?" +
-        "access_token=" +
-        params["access_token"]
-    );
-    xhr.onreadystatechange = function (e) {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        console.log(xhr.response);
-        serverResponse = JSON.parse(xhr.response);
-        console.log(serverResponse);
-        if (typeof serverResponse.email)
-          document.querySelector("#login-email").value = serverResponse.email;
-        document.querySelector("#login-password").value = serverResponse.email;
-      } else if (xhr.readyState === 4 && xhr.status === 401) {
-        // Token invalid, so prompt for user permission.
-        oauth2SignIn();
-      }
-    };
-    xhr.send(null);
-  } else {
+      "access_token=" +
+      ggToken;
+    console.log(requestUrl);
+    const resp = await fetch(requestUrl);
+    const serverResponse = await resp.json();
+    console.log(serverResponse);
+    if (typeof serverResponse.email)
+      document.querySelector("#login-email").value = serverResponse.email;
+    document.querySelector("#login-password").value = serverResponse.email;
+    if (typeof serverResponse.given_name)
+      document.querySelector("#register-fname").value =
+        serverResponse.given_name;
+    if (typeof serverResponse.family_name)
+      document.querySelector("#register-lname").value =
+        serverResponse.family_name;
+    if (typeof serverResponse.email)
+      document.querySelector("#register-email").value = serverResponse.email;
+  } catch (e) {
     oauth2SignIn();
   }
-}
+};
 
 /*
  * Create form to request access token from Google's OAuth 2.0 server.
  */
 function oauth2SignIn() {
+  alert("sending oauth2");
   // Google's OAuth 2.0 endpoint for requesting an access token
   var oauth2Endpoint = "https://accounts.google.com/o/oauth2/v2/auth";
 
@@ -143,7 +130,7 @@ function oauth2SignIn() {
     client_id: YOUR_CLIENT_ID,
     redirect_uri: YOUR_REDIRECT_URI,
     scope: `profile email`,
-    state: "try_sample_request",
+    state: "pass-through value",
     include_granted_scopes: "true",
     response_type: "token",
   };
@@ -156,13 +143,7 @@ function oauth2SignIn() {
     input.setAttribute("value", params[p]);
     form.appendChild(input);
   }
-
   // Add form to page and submit it to open the OAuth 2.0 endpoint.
   document.body.appendChild(form);
   form.submit();
-  const returnUrl = new URL(window.location.href);
-  const googleToken = returnUrl.searchParams.get("access_token");
-  console.log("Result", googleToken);
-  // To get user profile / check for expiration
-  // https://www.googleapis.com/oauth2/v3/userinfo?access_token={access_token retrieved from above}
 }

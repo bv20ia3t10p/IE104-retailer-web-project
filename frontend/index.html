@@ -2,12 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="stylesheets/reset.css">
+    <link rel="stylesheet" href="stylesheets/reset.css" />
     <link rel="stylesheet" href="stylesheets/colors.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="scripts/getNavbarCategories.js"></script>
-    <script  src="scripts/getData.js"></script>
-    <link rel="stylesheet" href="stylesheets/home.css"/>
+    <script src="scripts/getData.js"></script>
+    <link rel="stylesheet" href="stylesheets/home.css" />
     <link rel="stylesheet" href="stylesheets/navbar-stylesheet.css" />
 
     <title>Document</title>
@@ -20,11 +20,17 @@
       <div class="searchBar">
         <input type="text" placeholder="Search bar placeholder" />
       </div>
-      <span class="action" ><a href="loginOrRegister.html">Account</a></span>
-      <span class="action">Cart</span>
-      <span class="action">Home</span>
+      <form action="/frontend/loginOrRegister.html" class="action account">
+        <button type="submit">Account</button>
+      </form>
+      <form action="/frontend/Cart.html" class="action account">
+        <button type="submit">Cart</button>
+      </form>
+      <form action="/frontend/Dashboard.html" class="action account">
+        <button type="submit">Dashboard</button>
+      </form>
       <div class="categories">
-        <span class="item">Categories</span>
+        <span>Categories</span>
       </div>
     </navbar>
     <main>
@@ -33,7 +39,7 @@
       </aside>
       <article class="productList banner">
         <h3 class="productListTitle">Limited Time Special Offers</h3>
-        <img src="/frontend/icons/banner/saleBanner.webp">
+        <img src="/frontend/icons/banner/saleBanner.webp" />
       </article>
       <article class="productList trending">
         <h3 class="productListTitle">What's Hot</h3>

@@ -8,7 +8,7 @@ namespace ECommerceBackEnd.Service.Contracts
     public interface IAuthService 
     {
         //Task<IdentityResult> Register(CustomerAuthDto user);
-        bool ValidateUser(CustomerAuthDto user, string GoogleToken);
+        Task<bool> ValidateUser(CustomerAuthDto user, string GoogleToken);
         Task<string> CreateToken();
     }
 }
