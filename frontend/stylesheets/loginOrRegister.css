@@ -14,7 +14,11 @@
     justify-content: center;
     align-items: center;
 }
-.loginOrRegister .inactivePage  :not(.activatePage) :not(h1){
+.loginOrRegister .inactivePage.login :not(.activatePage) :not(h1){
+    display: none;
+}
+
+.loginOrRegister .inactivePage :not(.activatePage) :not(h1){
     display: none;
 }
 
@@ -62,14 +66,13 @@
     grid-template-columns: 30% 1fr;
     width: 90%;
     height: 80%;
-    font-style: var;
     font-size: 2em;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
 
-.activePage #login-form .formHeader, #login-form button{
+.activePage .formHeader, .activePage button{
     grid-column: 1/-1;
 }
 
@@ -82,11 +85,12 @@
 .activePage input {
     border: none;
     border-bottom: 1px solid var(--indigo-950);
-    color: var(--indigo-900);
+    color: var(--cyan-950);
     font-size:1em;
+    opacity: 0.6;
 }
 
-.activePage #login-form label {
+.activePage label {
     font-size: 0.8em;
     text-align: left;
     padding-left: 60px;
@@ -107,25 +111,49 @@ label[for="login-password"] {
     background-size: 50px;
 }
 
-.activePage #login-form button[type="submit"] {
+.activePage button[type="submit"] {
     border: none;
     background-color: var(--indigo-950);
     color:white;
     font-size:0.8em;
     width: 30%;
     justify-self: center;
-    height: 2em;
+    height: 2.5em;
     border-radius: 2em;
 }
 
-.activePage #login-form #signinWithGoogle{
+.activePage #signinWithGoogle, .activePage #registerWithGoogle{
     border: 2px solid var(--indigo-950);
     font-size:0.8em;
     width: 50%;
     justify-self: center;
-    height: 2em;
+    height: 2.5em;
     border-radius: 2em;
     background-image: url("/frontend/icons/googleIcon.png");
     background-repeat: no-repeat;
-    background-size: 46px;
+    background-size: 60px;
+}
+
+.activePage #register-form {
+    display: grid;
+    grid-template-columns: 30% 1fr;
+    width: 90%;
+    height: 85%;
+    font-size: 1.6em;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 0.6em;
+}
+
+.activePage #register-form label[for="register-segment"] , .activePage #register-form #register-segment{
+    display: none;
+}
+
+.activePage #registerWithGoogle {
+    background-size: 50px;
+}
+
+.activePage #register-form input{
+    font-size:0.8em;
 }
