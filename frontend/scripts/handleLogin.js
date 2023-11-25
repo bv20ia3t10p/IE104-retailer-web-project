@@ -5,10 +5,10 @@ var YOUR_CLIENT_ID =
 var YOUR_REDIRECT_URI = "http://127.0.0.1:5500/frontend/login.html";
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.querySelector("#login-form").addEventListener("submit", handleLogin);
+  document.querySelector("#login-form").addEventListener("submit",()=> handleLogin);
   document
     .querySelector("#signinWithGoogle")
-    .addEventListener("click", signInGoogle);
+    .addEventListener("click", ()=>signInGoogle);
   var params = JSON.parse(localStorage.getItem("oauth2-test-params"));
   console.log(params["access_token"]);
   if (params && params["access_token"]) {
