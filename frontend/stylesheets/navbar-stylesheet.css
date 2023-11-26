@@ -122,3 +122,40 @@
     transition-duration: 300ms;
 }
 
+.navbar .action{
+    padding: 0.5em;
+}
+
+.navbar .action.account button{
+    background-image: url("../icons/accountIcon.png");
+    background-repeat: no-repeat;
+    background-size: 1.7em;
+    padding-left: 2em;
+}
+.navbar .action.cart button{
+    background-image: url("../icons/shoppingIcon.png");
+    background-repeat: no-repeat;
+    background-size: 1.7em;
+    padding-left: 2em;
+}
+.navbar .action.dashboard button{
+    background-image: url("../icons/monitorIcon.png");
+    background-repeat: no-repeat;
+    background-size: 1.7em;
+    padding-left: 2em;
+}
+.navbar .action.cart .badge{
+    position: absolute;
+    border-radius: 1em;
+    background-color: var(--rose-500);
+    width: 1em;
+    height: 1em;
+    margin-top: -0.4em;
+    margin-left: -0.4em;
+    font-size: 0.8em;
+    padding: 0.1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
