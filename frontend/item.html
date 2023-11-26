@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/frontend/stylesheets/reset.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="stylesheets/colors.css">
     <link rel="stylesheet" href="stylesheets/navbar-stylesheet.css">
@@ -11,15 +12,22 @@
     <title>Document</title>
   </head>
   <navbar class="navbar">
-    <a href="index.html" class="icon"
+    <a href="" class="icon"
       ><img src="icons/appIcon.png" alt="Icon placholder" />
     </a>
     <div class="searchBar">
       <input type="text" placeholder="Search bar placeholder" />
     </div>
-    <span class="action" href="">Account</span>
-    <span class="action">Cart</span>
-    <span class="action">Home</span>
+    <form action="/frontend/loginOrRegister.html" class="action account">
+      <button type="submit">Account</button>
+    </form>
+    <form action="/frontend/Cart.html" class="action cart">
+      <span class="badge"></span>
+      <button type="submit">Cart</button>
+    </form>
+    <form action="/frontend/Dashboard.html" class="action dashboard">
+      <button type="submit">Dashboard</button>
+    </form>
     <div class="categories">
       <span class="item">Categories</span>
     </div>
