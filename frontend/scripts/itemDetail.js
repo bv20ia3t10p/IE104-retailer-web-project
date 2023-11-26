@@ -51,11 +51,39 @@ const updateBadge = (badgeNumber) => {
   try {
     badgeClass.removeChild(badgeClass.lastChild);
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
   badgeClass.appendChild(document.createTextNode(badgeNumber));
 };
-
+const moveSlides = (direction = null, index = null) => {
+  if (index !== null) {
+    currentViewing = index;
+  } else {
+    switch (direction) {
+      case direction < 0:
+        currentViewing = currentViewing === 0 ? 5 : currentViewing - 1;
+        break;
+      default:
+        currentViewing = currentViewing === 5 ? 0 : currentViewing + 1;
+    }
+  }
+  document
+    .querySelectorAll(".itemImages .slideshow .singleImage")
+    .forEach((t, counter) => {
+      t.setAttribute(
+        "class",
+        counter === currentViewing ? "singleImage" : "singleImage hiddenImg"
+      );
+    });
+  document
+    .querySelectorAll(".itemImages .minimizeImage")
+    .forEach((t, counter) => {
+      t.setAttribute(
+        "class",
+        counter === currentViewing ? "minimizeImage highlight" : "minimizeImage"
+      );
+    });
+};
 const getSingleItem = async (id) => {
   itemUrl = url + `/Products/${id}`;
   const resp = await fetch(itemUrl, {
@@ -74,16 +102,34 @@ const getSingleItem = async (id) => {
   document.querySelector(".itemDetailMain").insertAdjacentHTML(
     `beforeend`,
     `<div class ="itemImages">
-      ${Array.from(Array(6).keys())
-        .map(
-          (val) =>
-            `<img class="singleImages ${
-              val != currentViewing ? "hidden" : ""
-            }" src="../data/Crawled Images/${data.productCardId}_${val}.png"/>`
-        )
-        .join("")}
-    </div>`
+    <div class="buttonContainer">
+    <button onclick=moveSlides(-1)></button>
+    <button onclick=moveSlides(1)></button>
+    </div>
+    <div class="slideshow">
+    ${Array.from(Array(6).keys())
+      .map(
+        (val) =>
+          `<img class="singleImage ${
+            val != currentViewing ? "hiddenImg" : ""
+          }" src="../data/Crawled Images/${data.productCardId}_${val}.png"/>`
+      )
+      .join("")}
+    </div>
+    <div class ="itemImagesMinimize">
+    ${Array.from(Array(6).keys())
+      .map(
+        (val) =>
+          `<img onclick=moveSlides(0,${val}) class="minimizeImage ${
+            val === currentViewing ? "highlight" : ""
+          }" src="../data/Crawled Images/${data.productCardId}_${val}.png"/>`
+      )
+      .join("")}
+    </div>
+    </div>
+    `
   );
+
   document.querySelector(".itemDetailMain").insertAdjacentHTML(
     "beforeend",
     `
@@ -114,17 +160,25 @@ const getSingleItem = async (id) => {
     <button class="expand">&#x21E9</button>
     </div>
     <div class="cart">
-    <span class="total">${data.productPrice * currentQuantity}</span>
-    <span class="quantity">${currentQuantity}</span>
+    <div class="quantityControl">
+    <span class="label">Order Quantity</span>
+    </div>
+    <div class="controls">
+    <button class="subtract" onClick="subtractItem(${data.productPrice})">
+    -
+    </button>
+    <input type="number" class="quantity data" value="${currentQuantity}"/>
     <button class="add" onClick="addItem(${data.productPrice})">
-        Add
-      </button>
-      <button class="subtract" onClick="subtractItem(${data.productPrice})">
-        Subtract
-      </button>
-      <button class="toCart">
-        Add to cart
-      </button></div>`
+    +
+    </button>
+    </div>
+    <span class="label">Estimated Totals</span><span class="total">$ ${
+      data.productPrice * currentQuantity
+    }</span>
+    <button class="toCart">
+    Add to cart
+  </button>
+</div>`
   );
   document
     .querySelector(".description .expand")
@@ -154,27 +208,27 @@ const getSingleItem = async (id) => {
     .querySelector(".itemDetailMain .toCart")
     .addEventListener("click", () => {
       addToCart(
-        document.querySelector("body > main > div.AdvancedProductInfo > span.id > span.data")
-          .textContent,
+        document.querySelector(
+          "body > main > div.AdvancedProductInfo > span.id > span.data"
+        ).textContent,
         currentQuantity
       );
     });
+  setInterval(() => moveSlides(1), 3000);
   console.log(data);
 };
 
 const addItem = (price) => {
   currentQuantity++;
   document.querySelector(".itemDetailMain  .total").textContent =
-    price * currentQuantity;
-  document.querySelector(".itemDetailMain  .quantity").textContent =
-    currentQuantity;
+    "$ " + Math.round(price * currentQuantity * 1000) / 1000;
+  document.querySelector(".itemDetailMain .quantity").value = currentQuantity;
 };
 
 const subtractItem = (price) => {
   if (currentQuantity - 1 < 1) return;
   currentQuantity--;
   document.querySelector(".itemDetailMain  .total").textContent =
-    price * currentQuantity;
-  document.querySelector(".itemDetailMain  .quantity").textContent =
-    currentQuantity;
+    "$ " + Math.round(price * currentQuantity * 1000) / 1000;
+  document.querySelector(".itemDetailMain  .quantity").value = currentQuantity;
 };
