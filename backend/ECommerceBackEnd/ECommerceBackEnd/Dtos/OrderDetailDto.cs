@@ -33,13 +33,13 @@ namespace ECommerceBackEnd.Dtos
     {
         public int ProductCardId { get; set; }
         public int OrderId { get; set; }
-        public double OrderItemDiscount { get; set; }
-        public double OrderItemDiscountRate { get; set; }
-        public double OrderItemProductPrice { get; set; }
-        public double OrderItemProfitRatio { get; set; }
+        //public double OrderItemDiscount { get; set; }
+        //public double OrderItemDiscountRate { get; set; }
+        //public double OrderItemProductPrice { get; set; }
+        //public double OrderItemProfitRatio { get; set; }
         public int OrderItemQuantity { get; set; }
-        public double Sales { get; set; }
-        public double OrderItemTotal { get; set; }
+        //public double Sales { get; set; }
+        //public double OrderItemTotal { get; set; }
     }
     public record UpdateOrderDetailDto
     {

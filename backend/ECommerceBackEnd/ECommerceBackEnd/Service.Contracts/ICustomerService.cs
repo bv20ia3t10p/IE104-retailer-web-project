@@ -10,5 +10,6 @@ namespace ECommerceBackEnd.Service.Contracts
         CustomerDTO UpdateCustomer(CustomerDTO newCustomer);
         void DeleteCustomerById(int id);
         void UpdateMultipleCustomerPassword(string newPw);
+        CustomerDTO GetCustomerByEmail(string email);
     }
 }

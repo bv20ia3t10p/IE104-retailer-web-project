@@ -22,6 +22,7 @@ namespace ECommerceBackEnd.Service
         public OrderDetailDto GetByOrderAndProduct(int oid, int pid) => _mapper.Map<OrderDetailDto>(_repository.OrderDetail.GetDetailByProductAndOrder(oid, pid));
         public OrderDetailDto CreateOrderDetail(CreateOrderDetailDto orderDetailDto)
         {
+
             var odEntity = _mapper.Map<OrderDetail>(orderDetailDto);
             var productInDb = _repository.Product.GetProduct(orderDetailDto.ProductCardId) ?? throw new Exception("Product not found");
             var categoryInDb = _repository.Category.GetCategoryById(productInDb.ProductCategoryId) ?? throw new Exception("Category not found");
@@ -30,9 +31,15 @@ namespace ECommerceBackEnd.Service
             _mapper.Map(orderInDb, odEntity);
             _mapper.Map(categoryInDb, odEntity);
             odEntity.Id = new MongoDB.Bson.ObjectId();
+            odEntity.OrderItemDiscount = 0;
+            odEntity.OrderItemDiscountRate = 0;
+            odEntity.OrderItemProfitRatio = 0.2;
+            odEntity.OrderItemProductPrice = (double)productInDb.ProductPrice;
+            odEntity.OrderItemTotal = (double)(productInDb.ProductPrice * odEntity.OrderItemQuantity);
+            odEntity.Sales = odEntity.OrderItemTotal;
             odEntity.OrderItemId = _repository.OrderDetail.GetLatestId();
             //Update product sales
-            productInDb.Sales = productInDb.Sales + orderDetailDto.OrderItemTotal;
+            productInDb.Sales = productInDb.Sales + odEntity.Sales;
             _repository.Product.UpdateProduct(productInDb);
             _repository.OrderDetail.CreateOrderDetail(odEntity);
             return _mapper.Map<OrderDetailDto>(odEntity);
@@ -53,6 +60,9 @@ namespace ECommerceBackEnd.Service
             _mapper.Map(orderDetail, odEntity);
             var productInDb = _repository.Product.GetProduct(orderDetail.ProductCardId) ?? throw new Exception("Product not found");
             _mapper.Map(productInDb, odEntity);
+            odEntity.OrderItemProductPrice = (double)productInDb.ProductPrice;
+            odEntity.OrderItemTotal = (double)(productInDb.ProductPrice * odEntity.OrderItemQuantity);
+            odEntity.Sales = odEntity.OrderItemTotal;
             odEntity.Id = odEntityId;
             // Update Product Sales
             productInDb.Sales = productInDb.Sales + odEntity.OrderItemTotal == orderDetail.OrderItemTotal ? 0 :

@@ -173,7 +173,7 @@ const getSingleItem = async (id) => {
     </button>
     </div>
     <span class="label">Estimated Totals</span><span class="total">$ ${
-      data.productPrice * currentQuantity
+      Math.round(data.productPrice * currentQuantity*1000)/1000
     }</span>
     <button class="toCart">
     Add to cart

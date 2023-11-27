@@ -1,8 +1,10 @@
 ﻿using ECommerceBackEnd.Dtos;
 using ECommerceBackEnd.Service.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ECommerceBackEnd.Controllers
 {
@@ -22,7 +24,31 @@ namespace ECommerceBackEnd.Controllers
         public ActionResult<OrderDto> GetOrder(int id) => Ok(_service.Order.GetOrder(id));
         [HttpGet("Customer/{customerId}")]
         [EnableQuery]
-        public ActionResult<IEnumerable<OrderDto>> GetOrders(int customerId) => Ok(_service.Order.GetOrdersByCustomer(customerId));
+        public ActionResult<IEnumerable<OrderDto>> GetOrders(int customerId)
+        {
+            //Console.WriteLine(Authorization);
+            //var token = Authorization.Substring(7);
+            //var handler = new JwtSecurityTokenHandler();
+            //var jwtSecurityToken = handler.ReadJwtToken(token);
+            //Console.WriteLine(jwtSecurityToken);
+            //var email = jwtSecurityToken.Claims.First(claim => claim.Type == "name").Value;
+            //Console.WriteLine(email);
+            return Ok(_service.Order.GetOrdersByCustomer(customerId));
+        }
+        [HttpGet("Customer/Email/")]
+        [Authorize(Roles ="USER,ADMINISTRATOR")]
+        [EnableQuery]
+        public ActionResult<IEnumerable<OrderDto>> GetOrdersByEmail([FromHeader] string Authorization)
+        {
+            Console.WriteLine(Authorization);
+            var token = Authorization.Substring(7);
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+            Console.WriteLine(jwtSecurityToken);
+            var email = jwtSecurityToken.Claims.First(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value;
+            Console.WriteLine(email);
+            return Ok(_service.Order.GetOrdersByCustomer(_service.Customer.GetCustomerByEmail(email).CustomerId));
+        }
         [HttpPost]
         public ActionResult<OrderDto> CreateOrder(CreateOrderDto newOrder)
         {
@@ -52,5 +78,6 @@ namespace ECommerceBackEnd.Controllers
             _service.Order.DeleteOrder(id);
             return NoContent();
         }
+
     }
 }

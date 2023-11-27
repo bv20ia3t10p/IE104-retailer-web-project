@@ -45,5 +45,6 @@ namespace ECommerceBackEnd.Service
         {
             _repository.Customer.UpdateMultipleCustomerPassword(newPw);
         }
+        public CustomerDTO GetCustomerByEmail(string email) => _mapper.Map<CustomerDTO>(_repository.Customer.GetCustomerByEmail(email));
     }
 }

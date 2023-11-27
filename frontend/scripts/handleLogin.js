@@ -62,7 +62,7 @@ const handleLogin = async (e) => {
   console.log(customer);
   let ggToken = "0";
   try {
-    ggToken = JSON.parse(localStorage.getItem("googleToken"));
+    ggToken = localStorage.getItem("googleToken");
   } catch {
     console.log("No google auth");
   }
