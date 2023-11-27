@@ -35,7 +35,7 @@ namespace ECommerceBackEnd.Controllers
         public ActionResult<CustomerDTO> Create(CustomerDTO newCustomer)
         {
             var newCustomerEntity = _services.Customer.CreateCustomer(newCustomer);
-            return CreatedAtAction(nameof(GetById), new { id = newCustomerEntity.CustomerId }, newCustomer);
+            return CreatedAtAction(nameof(GetById), new { id = newCustomerEntity.CustomerId }, _services.Customer.GetCustomerById(newCustomerEntity.CustomerId));
         }
         [HttpPost("UpdateMultiplePW")]
         [Authorize(Roles ="ADMINISTRATOR")]
