@@ -4,25 +4,16 @@ var YOUR_CLIENT_ID =
   "433141860892-7qmra9ujnn35sslqurun4upjapcl2q2p.apps.googleusercontent.com";
 var YOUR_REDIRECT_URI = "http://127.0.0.1:5500/frontend/loginOrRegister.html";
 
-document.addEventListener("DOMContentLoaded", function () {
-  const currentWindow = new URL(
-    window.location.href.replace("#state=", "?state=")
-  );
-  try {
-    localStorage.setItem(
-      "googleToken",
-      currentWindow.searchParams.get("access_token")
-    );
-    alert(currentWindow.searchParams);
-  } catch {
-    alert("No access token");
-  }
+document.addEventListener("DOMContentLoaded", async function () {
   document
     .querySelector("#register-form")
     .addEventListener("submit", handleRegister);
   document
     .querySelector("#registerWithGoogle")
-    .addEventListener("click", trySampleRequest);
+    .addEventListener("click", () => {
+      trySampleRequest();
+      localStorage.setItem("loginState", "register");
+    });
   document.querySelector("#login-form").addEventListener("submit", handleLogin);
   document
     .querySelector("#signinWithGoogle")
@@ -43,13 +34,49 @@ document.addEventListener("DOMContentLoaded", function () {
           ? "register inactivePage"
           : "register activePage"
       );
+      switch (localStorage.getItem("loginState")) {
+        case "register":
+          localStorage.setItem("loginState", "login");
+          break;
+        case "login":
+          localStorage.setItem("loginState", "register");
+          break;
+        default:
+          localStorage.setItem("loginState", "login");
+      }
     })
   );
+  const currentWindow = new URL(
+    window.location.href.replace("#state=", "?state=")
+  );
+  switch (localStorage.getItem("loginState")) {
+    case "register":
+      try {
+        const tokenFromUrl = currentWindow.searchParams.get("access_token");
+        if (!tokenFromUrl) throw new Error("No token");
+        localStorage.setItem("googleToken", tokenFromUrl);
+        trySampleRequest();
+      } catch {}
+      document.querySelector(".activatePage").click();
+      localStorage.setItem("loginState", "register");
+      break;
+    case "login":
+      try {
+        const tokenFromUrl = currentWindow.searchParams.get("access_token");
+        if (!tokenFromUrl) throw new Error("No token");
+        localStorage.setItem("googleToken", tokenFromUrl);
+        trySampleRequest();
+        document.querySelector('#login-form button[type="submit"]').click();
+        localStorage.removeItem("loginState");
+      } catch {}
+      break;
+    default:
+      localStorage.setItem("loginState", "login");
+  }
 });
 
 const signInGoogle = async () => {
   trySampleRequest();
-  // await document.querySelector("#login-form").submit();
 };
 
 const handleLogin = async (e) => {
@@ -74,9 +101,13 @@ const handleLogin = async (e) => {
     redirect: "follow",
     referrerPolicy: "no-referrer",
     body: JSON.stringify(customer),
-  });
+  }).catch((e) => alert(e));
   const data = await resp.json();
-  console.log(data.token);
+  var form = document.createElement("form");
+  form.setAttribute("method", "GET"); // Send as a GET request.
+  form.setAttribute("action", "index.html");
+  document.body.appendChild(form);
+  form.submit();
 };
 
 const trySampleRequest = async () => {
@@ -86,8 +117,8 @@ const trySampleRequest = async () => {
       localStorage.getItem("googleToken") === "null"
         ? "0"
         : localStorage.getItem("googleToken");
-    alert(ggToken);
-    if (ggToken === "0" || ggToken == "null") throw new Error("No token");
+    if (ggToken === "0" || ggToken === "null" || ggToken === null)
+      throw new Error("No token");
     const requestUrl =
       "https://www.googleapis.com/oauth2/v3/userinfo?" +
       "access_token=" +
@@ -116,7 +147,6 @@ const trySampleRequest = async () => {
  * Create form to request access token from Google's OAuth 2.0 server.
  */
 function oauth2SignIn() {
-  alert("sending oauth2");
   // Google's OAuth 2.0 endpoint for requesting an access token
   var oauth2Endpoint = "https://accounts.google.com/o/oauth2/v2/auth";
 
@@ -149,7 +179,6 @@ function oauth2SignIn() {
 }
 
 register_url = "https://localhost:7136/api/Customer";
-
 
 const handleRegister = async (e) => {
   e.preventDefault();
