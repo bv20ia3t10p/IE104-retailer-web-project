@@ -52,6 +52,10 @@ namespace ECommerceBackEnd.Controllers
             _services.Product.DeleteProduct(id);
             return NoContent();
         }
-
+        [HttpPost("Multiple")]
+        public ActionResult<IEnumerable<ProductDto>> GetMultipleProductsByIds([FromBody] IEnumerable<int> ids)
+        {
+            return Ok(_services.Product.GetMultipleProductsByIds(ids));
+        }
     }
 }

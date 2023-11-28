@@ -76,6 +76,24 @@ namespace ECommerceBackEnd.Controllers
             if (customerInDb == null) return Unauthorized();
             return Ok(_service.Order.GetOrdersWithDetailsForCustomer(customerInDb.CustomerEmail));
         }
-
+        [HttpPut("Customer")]
+        [Authorize(Roles ="USER")]
+        public ActionResult<OrderDto> CreateOrderForCustomer([FromHeader] string Authorization, CreateOrderDto newOrder)
+        {
+            var token = Authorization[7..];
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+            var email = jwtSecurityToken.Claims.First(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value;
+            var customerInDb = _service.Customer.GetCustomerByEmail(email);
+            if (customerInDb == null) return Unauthorized();
+            var createdOrder = _service.Order.CreateOrder(newOrder);
+            foreach (var od in newOrder.orderDetails)
+            {
+                od.OrderId = createdOrder.OrderId;
+                od.CustomerId = customerInDb.CustomerId;
+                _service.OrderDetail.CreateOrderDetail(od);
+            }
+            return CreatedAtAction(nameof(GetOrder), new { id = createdOrder.OrderId }, _service.Order.GetOrder(createdOrder.OrderId));
+        }
     }
 }

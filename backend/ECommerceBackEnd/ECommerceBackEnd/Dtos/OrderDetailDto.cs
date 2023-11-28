@@ -38,6 +38,7 @@ namespace ECommerceBackEnd.Dtos
         public int OrderItemQuantity { get; set; }
         //public double Sales { get; set; }
         //public double OrderItemTotal { get; set; }
+        public int CustomerId { get; set; }
     }
     public record UpdateOrderDetailDto
     {

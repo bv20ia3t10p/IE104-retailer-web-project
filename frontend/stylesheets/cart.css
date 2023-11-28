@@ -1,0 +1,56 @@
+.cartMain {
+  display: grid;
+  grid-template-columns: 80% 1fr;
+  padding: 0.4em 16em;
+  grid-template-rows: 4vh 3.5vh 40vh 1fr;
+  margin-top: -2vh;
+  row-gap: 1em;
+  column-gap: 0.5em;
+  height: 88vh;
+}
+.cartMain > * {
+    height: 95%;
+    width: 99%;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5em;
+    padding: 1vh 1vw;
+    box-sizing: border-box;
+  }
+  
+.cartMain .title {
+  grid-column: 1/-1;
+  height: 100%;
+  width: 100%;
+  font-size: 1.2em;
+  font-weight: var(--font-semibold);
+  background-color: transparent;
+}
+
+
+.cartMain .columns {
+  display: grid;
+  grid-template-columns: 2fr 1fr 0.8fr 0.5fr 1vw;
+  font-size: 0.9em;
+  color: var(--slate-600);
+  height: 100%;
+}
+
+.cartMain .columns * {
+  background-color: white;
+}
+.cartMain .cartDetails {
+  height: 100%;
+  grid-column: 1/1;
+  grid-row: 3/3;
+}
+
+.cartMain .recommendations {
+  grid-column: 1/1;
+  grid-row: 4/4;
+  background-color: white;
+}
+.cartMain .recommendations .title{
+    font-size: 1em;
+}

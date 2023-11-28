@@ -11,5 +11,6 @@ namespace ECommerceBackEnd.Service.Contracts
         ProductDto UpdateProduct(UpdateProductDto updateProduct);
         void DeleteProduct(int id);
         int GetProductSoldQuantity(int id);
+        IEnumerable<ProductDto> GetMultipleProductsByIds(IEnumerable<int> ids);
     }
 }

@@ -38,5 +38,14 @@ namespace ECommerceBackEnd.Service
             return _mapper.Map<ProductDto>(productInDb);
         }
         public int GetProductSoldQuantity(int id) => _repository.OrderDetail.GetOrderDetailsForProduct(id).Sum(c => c.OrderItemQuantity);
+        public IEnumerable<ProductDto> GetMultipleProductsByIds(IEnumerable<int> ids)
+        {
+            var products = new List<ProductDto>();
+            foreach (int i in ids)
+            {
+                products.Add(_mapper.Map<ProductDto>(_repository.Product.GetProduct(i)));
+            }
+            return products;
+        }
     }
 }

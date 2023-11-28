@@ -1,37 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="/stylesheets/reset.css">
-    <link rel="stylesheet" href="/stylesheets/colors.css">
-    <link rel="stylesheet" href="/stylesheets/navbar-stylesheet.css">
-    <link rel="stylesheet" href="/stylesheets/cart.css">
+  <head>
+    <link rel="stylesheet" href="/stylesheets/reset.css" />
+    <link rel="stylesheet" href="/stylesheets/colors.css" />
+    <link rel="stylesheet" href="/stylesheets/navbar-stylesheet.css" />
+    <link rel="stylesheet" href="/stylesheets/cart.css" />
     <script src="/scripts/getNavbarCategories.js"></script>
     <script src="/scripts/handleCart.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <navbar class="navbar">
-        <a href="/" class="icon"
-          ><img src="icons/appIcon.png" alt="Icon placholder" />
-        </a>
-        <div class="searchBar">
-          <input type="text" placeholder="Search bar placeholder" />
+      <a href="/" class="icon"
+        ><img src="icons/appIcon.png" alt="Icon placholder" />
+      </a>
+      <div class="searchBar">
+        <input type="text" placeholder="Search bar placeholder" />
+      </div>
+      <form action="/loginOrRegister.html" class="action account">
+        <button type="submit">Account</button>
+      </form>
+      <form action="/Cart.html" class="action cart">
+        <span class="badge"></span>
+        <button type="submit">Cart</button>
+      </form>
+      <form action="/Dashboard.html" class="action dashboard">
+        <button type="submit">Dashboard</button>
+      </form>
+      <div class="categories">
+        <span class="item">Categories</span>
+      </div>
+    </navbar>
+    <main class="cartMain">
+      <h1 class="title">Your shopping cart</h1>
+      <div class="columns">
+        <div class="allItem">
+          <input type="checkbox" name="allItem" id="cartAllItemChk" />
+          <label for="cartAllItemChk">Select all products (0 product)</label>
         </div>
-        <form action="/loginOrRegister.html" class="action account">
-          <button type="submit">Account</button>
-        </form>
-        <form action="/Cart.html" class="action cart">
-          <span class="badge"></span>
-          <button type="submit">Cart</button>
-        </form>
-        <form action="/Dashboard.html" class="action dashboard">
-          <button type="submit">Dashboard</button>
-        </form>
-        <div class="categories">
-          <span class="item">Categories</span>
+        <div class="price">Product Price</div>
+        <div class="quantity">Quantity</div>
+        <div class="total">Total</div>
+        <button class="delete"></button>
+      </div>
+      <div class="cartDetails"></div>
+      <div class="recommendations">
+        <h1 class="title">Relevant products you might like</h1>
+      </div>
+      <div class="delivery">
+        <div class="title">
+          <h1 class="label">Deliver to</h1>
+          <button class="change">Change</button>
         </div>
-      </navbar>
-</body>
+        <div class="basic">
+          <div class="name">Customer Name</div>
+          <div class="email">Customer Email</div>
+        </div>
+        <div class="advanced">
+          <div class="country">
+            <div class="label">Country</div>
+            <div class="data">Country</div>
+          </div>
+          <div class="city">
+            <div class="label">City</div>
+            <div class="data">City</div>
+          </div>
+          <div class="state">
+            <div class="label">State/District</div>
+            <div class="data">State</div>
+          </div>
+          <div class="zip">
+            <div class="label">Zipcode</div>
+            <div class="data">Zip</div>
+          </div>
+          <div class="street">
+            <div class="label">Street</div>
+            <div class="data">Street</div>
+          </div>
+        </div>
+      </div>
+      <div class="orderTotal">
+        <div class="estimated">
+          <div class="label">Estimated Total</div>
+          <div class="data">000000</div>
+        </div>
+        <div class="final">
+          <div class="label">Order Total</div>
+          <div class="data">000000</div>
+        </div>
+      </div>
+      <button class="purchase">
+        Purchase (0)
+      </button>
+    </main>
+  </body>
 </html>
