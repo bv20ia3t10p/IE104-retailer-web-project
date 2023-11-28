@@ -112,7 +112,7 @@ const getSingleItem = async (id) => {
         (val) =>
           `<img class="singleImage ${
             val != currentViewing ? "hiddenImg" : ""
-          }" src="../data/Crawled Images/${data.productCardId}_${val}.png"/>`
+          }" src="/Crawled Images/${data.productCardId}_${val}.png"/>`
       )
       .join("")}
     </div>
@@ -122,7 +122,7 @@ const getSingleItem = async (id) => {
         (val) =>
           `<img onclick=moveSlides(0,${val}) class="minimizeImage ${
             val === currentViewing ? "highlight" : ""
-          }" src="../data/Crawled Images/${data.productCardId}_${val}.png"/>`
+          }" src="/Crawled Images/${data.productCardId}_${val}.png"/>`
       )
       .join("")}
     </div>

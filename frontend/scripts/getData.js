@@ -34,7 +34,7 @@ const getData = async () => {
       `<div class ="items" >
     <img onClick =openItemDetails(${
       item.productCardId
-    }) src = "../data/Crawled Images/${item.productCardId}_1.png"
+    }) src = "/Crawled Images/${item.productCardId}_1.png"
     />
     <span class="name">${item.productName}</span>
     <span class="itemSold">${item.productSoldQuantity} sold</span>
@@ -100,7 +100,7 @@ const getPopularProducts = async () => {
       `<div class ="items" >
     <img onClick =openItemDetails(${
       item.ProductCardId
-    }) src = "../data/Crawled Images/${item.ProductCardId}_1.png"
+    }) src = "/Crawled Images/${item.ProductCardId}_1.png"
     />
     <span class="name">${item.ProductName}</span>
     <span class="itemSold">${item.ProductSoldQuantity} sold</span>
