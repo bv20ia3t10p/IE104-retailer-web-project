@@ -46,16 +46,14 @@ namespace ECommerceBackEnd.Entities
         [BsonElement("orderdate(DateOrders)")]
         public DateTime OrderDate { get; set; }
         // Exclusives
-        public int OrderItemCardprodId { get; set; }
         public double OrderItemDiscount { get; set; }
         public double OrderItemDiscountRate { get; set; }
         public int OrderItemId { get; set; }
-        public double OrderItemProductPrice { get; set; }
         public double OrderItemProfitRatio { get; set; }
         public int OrderItemQuantity { get; set; }
         public double Sales { get; set; }
         public double OrderItemTotal { get; set; }
-
+        public int CustomerId { get; set; }
 
     }
 }

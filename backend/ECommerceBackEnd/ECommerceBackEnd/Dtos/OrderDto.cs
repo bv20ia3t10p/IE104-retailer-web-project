@@ -21,13 +21,6 @@ namespace ECommerceBackEnd.Dtos
         public string CustomerSegment { get; set; }
         public string CustomerState { get; set; }
         public int CustomerZipcode { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        public string Market { get; set; }
-        public string OrderCity { get; set; }
-        public string OrderCountry { get; set; }
-        public string OrderRegion { get; set; }
-        public string OrderState { get; set; }
         public string OrderStatus { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime ShippingDate { get; set; }
@@ -40,13 +33,6 @@ namespace ECommerceBackEnd.Dtos
         public string DeliveryStatus { get; set; }
         public int LateDeliveryRisk { get; set; }
         public int CustomerId { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        public string Market { get; set; }
-        public string OrderCity { get; set; }
-        public string OrderCountry { get; set; }
-        public string OrderRegion { get; set; }
-        public string OrderState { get; set; }
         public string OrderStatus { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime ShippingDate { get; set; }
@@ -61,18 +47,10 @@ namespace ECommerceBackEnd.Dtos
         public int DayForShipmentScheduled { get; set; }
         public string DeliveryStatus { get; set; }
         public int LateDeliveryRisk { get; set; }
-        public string DepartmentId { get; set; }
-        public string DepartmentName { get; set; }
         public string OrderStatus { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime ShippingDate { get; set; }
         public string ShippingMode { get; set; }
         public double Total { get; set; }
-    }
-    public record UpdateOrderLocationDto
-    {
-        public int OrderId { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
     }
 }

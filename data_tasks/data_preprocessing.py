@@ -13,7 +13,11 @@ project_data = 'G:/Code/IE104-retailer-web-project/data/'
 df = pd.read_csv(project_data+'DataCoSupplyChainDataset.csv',encoding='latin1')
 #%%
 df_items = df[['Department Id','Department Name','Product Card Id','Product Category Id','Product Description','Product Name','Product Price'
-           ,'Product Status','Order Item Cardprod Id','Order Item Id','Order Item Profit Ratio','Sales']].drop_duplicates(subset=['Product Card Id'],keep='last')
+           ,'Product Status','Order Item Cardprod Id','Order Item Id','Order Item Profit Ratio']].drop_duplicates(subset=['Product Card Id'],keep='last')
+df_items['ProductSoldQuantity'] = df_items['Product Card Id'].apply(lambda x : df[['Product Card Id','Order Item Quantity']]
+                                                                    [df['Product Card Id']==x].groupby(['Product Card Id']).sum().values[0,0])
+df_items_with_desc = pd.read_csv("G:/Code/IE104-retailer-web-project/product_descriptions/Products2.csv")
+df_items['Product Description'] = df_items['Product Card Id'].apply(lambda x: df_items_with_desc[df_items_with_desc['ProductCardId'] == x]['ProductDescription'].values[0])
 df_items.to_csv(project_data+'Products.csv',header = [ i.replace(' ','') for i in df_items.columns], index=False)
 #%%
 df_customers = df[['Customer Id', 'Customer City','Customer Country','Customer Email','Customer Fname',
@@ -23,9 +27,9 @@ df_customers['Customer Zipcode'] = df['Customer Zipcode'].apply(lambda x: int(x)
 df_customers.to_csv(project_data+'Customers.csv',header = [ i.replace(' ','') for i in df_customers.columns],index=False)
 #%%
 df_payments = df[['Type','Customer Id','Customer Lname','Customer Fname',
-                  'Order Id','order date (DateOrders)','Market','Order Item Total',
+                  'Order Id','order date (DateOrders)','Order Item Total',
                   'Department Id','Department Name','Order Status']].groupby(['Type','Customer Id','Customer Lname','Customer Fname',
-                                    'Order Id','order date (DateOrders)','Market',
+                                    'Order Id','order date (DateOrders)',
                                     'Department Id','Department Name','Order Status']).sum().reset_index()
 df_payments.to_csv(project_data+"Payments.csv",header = [ i.replace(' ','') for i in df_payments.columns],index=False)
 #%%
@@ -33,19 +37,20 @@ df_orders = df
 df_orders = df_orders.drop(['Benefit per order','Sales per customer','Category Id','Category Name','Order Item Cardprod Id'
                 ,'Order Item Discount','Order Item Id','Order Item Product Price','Order Item Profit Ratio',
                 'Order Item Quantity','Sales','Product Card Id','Product Category Id','Product Description',
+                'Order Zipcode', 'Market','Latitude','Longitude','Department Name','Department Id','Order City',
+                'Order Country','Order Customer Id','Order State','Order Region',
                 'Product Image','Product Name','Product Price','Product Status','Order Item Discount Rate',
-                'Order Profit Per Order','Order Item Total'],axis=1).drop_duplicates(subset=['Order Id'],keep='last')
+                'Order Profit Per Order','Order Item Total','Customer Password','Customer State'],axis=1).drop_duplicates(subset=['Order Id'],keep='last')
 # order_cols = list(df_orders.columns)
 # order_cols.remove('Order Item Total')
 df_test = df[['Order Id','Order Item Total']].groupby(['Order Id'],as_index=False).sum()
 df_orders['Total'] = df_orders['Order Id'].apply(lambda x: df_test[df_test['Order Id'] == x ]['Order Item Total'].values[0])
 df_orders.to_csv(project_data+"Orders.csv",header = [ i.replace(' ','') for i in df_orders.columns],index=False)
 #%%
-df_order_details = df[['Category Id','Category Name','Department Id','Department Name','Order Id','order date (DateOrders)',
-                       'Order Item Cardprod Id','Order Item Discount','Order Item Discount Rate','Order Item Id',
-                       'Order Item Product Price','Order Item Profit Ratio','Order Item Quantity','Sales',
-                       'Order Item Total','Product Card Id','Product Category Id','Product Description','Product Name'
-                       ,'Product Price']]
+df_order_details = df[['Category Id','Category Name','Department Id','Department Name','Order Id',
+                       'Order Item Discount','Order Item Discount Rate','Order Item Id',
+                       'Order Item Profit Ratio','Order Item Quantity','Sales','Product Price',
+                       'Order Item Total','Product Card Id','Product Price','Customer Id']]
 df_order_details.to_csv(project_data+"Order_details.csv",header = [ i.replace(' ','') for i in df_order_details.columns],index=False)
 #%%
 df_departments = df[['Department Name','Department Id']].drop_duplicates(subset=['Department Id'],keep='last')
