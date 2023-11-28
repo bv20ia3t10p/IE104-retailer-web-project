@@ -13,7 +13,7 @@ project_data = 'G:/Code/IE104-retailer-web-project/data/'
 df = pd.read_csv(project_data+'DataCoSupplyChainDataset.csv',encoding='latin1')
 #%%
 df_items = df[['Department Id','Department Name','Product Card Id','Product Category Id','Product Description','Product Name','Product Price'
-           ,'Product Status','Order Item Cardprod Id','Order Item Id','Order Item Profit Ratio']].drop_duplicates(subset=['Product Card Id'],keep='last')
+           ,'Product Status']].drop_duplicates(subset=['Product Card Id'],keep='last')
 df_items['ProductSoldQuantity'] = df_items['Product Card Id'].apply(lambda x : df[['Product Card Id','Order Item Quantity']]
                                                                     [df['Product Card Id']==x].groupby(['Product Card Id']).sum().values[0,0])
 df_items_with_desc = pd.read_csv("G:/Code/IE104-retailer-web-project/product_descriptions/Products2.csv")
