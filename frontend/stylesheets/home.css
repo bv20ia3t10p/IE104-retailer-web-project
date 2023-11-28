@@ -4,7 +4,7 @@ main {
     display: grid;
     grid-template-columns: 16% 1fr;
     padding: 0em 15em;
-    grid-template-rows: 5.8% 5% 1fr;
+    grid-template-rows: 36vh 35vh 1fr;
     gap: 2.8em;
 }
 
@@ -95,7 +95,7 @@ main {
     padding: 0.6em;
     border-radius: 0.5em;
     gap: 0.5em;
-    grid-template-rows: 1fr 25% 6% 12%;
+    grid-template-rows: 1fr 20% 6% 12%;
     grid-template-columns: 70% 1fr;
     display: grid;
     width: 7em;
@@ -166,7 +166,7 @@ main {
 .productList.banner{
     grid-template-rows: 3% 1fr;
     grid-template-columns: 1fr;
-    height: 22em;
+    height: 100%;
 }
 
 .productList.banner img {
@@ -188,4 +188,25 @@ main {
 
 .productList.trending .items{
     grid-row:2/2;
+}
+
+.productList.allItems{
+    height: 100%;
+    width: 100%;
+}
+
+.productList.allItems {
+    width: 100%;
+    display: grid;
+    height: 100%;
+    background-color: white;
+    row-gap: 2vh;
+    column-gap: 3vw;
+    grid-template-columns: repeat(6,1fr);
+    grid-column: 2/2;
+}
+
+.productList.allItems .items{
+    width: 83%;
+    height: 90%;
 }

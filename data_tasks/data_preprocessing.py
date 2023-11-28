@@ -20,10 +20,11 @@ df_items_with_desc = pd.read_csv("G:/Code/IE104-retailer-web-project/product_des
 df_items['Product Description'] = df_items['Product Card Id'].apply(lambda x: df_items_with_desc[df_items_with_desc['ProductCardId'] == x]['ProductDescription'].values[0])
 df_items.to_csv(project_data+'Products.csv',header = [ i.replace(' ','') for i in df_items.columns], index=False)
 #%%
-df_customers = df[['Customer Id', 'Customer City','Customer Country','Customer Email','Customer Fname',
-                     'Customer Password','Customer Lname','Customer Password','Customer Segment','Customer State',
+df_customers = df[['Customer Id', 'Customer City','Customer Country','Customer Fname','Customer Lname','Customer Password','Customer Segment','Customer State',
                      'Customer Street','Customer Zipcode']].drop_duplicates(subset=['Customer Id'],keep='last')
 df_customers['Customer Zipcode'] = df['Customer Zipcode'].apply(lambda x: int(x) if float(x).is_integer() else 0 )
+df_customers['Customer Email']=df['Customer Id'].apply(lambda x: str(x)+"@gmail.com")
+df_customers['Customer Password']=df['Customer Id'].apply(lambda x: "pw"+str(x))
 df_customers.to_csv(project_data+'Customers.csv',header = [ i.replace(' ','') for i in df_customers.columns],index=False)
 #%%
 df_payments = df[['Type','Customer Id','Customer Lname','Customer Fname',

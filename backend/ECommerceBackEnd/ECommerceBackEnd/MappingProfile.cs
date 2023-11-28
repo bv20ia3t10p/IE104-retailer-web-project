@@ -28,6 +28,7 @@ namespace ECommerceBackEnd
             CreateMap<OrderDetailDto, OrderDetail>().ReverseMap();
             CreateMap<CreateOrderDetailDto, OrderDetail>();
             CreateMap<UpdateOrderDetailDto, OrderDetail>();
+            CreateMap<UpdateCustomerDto, Customer>();
         }
     }
 }

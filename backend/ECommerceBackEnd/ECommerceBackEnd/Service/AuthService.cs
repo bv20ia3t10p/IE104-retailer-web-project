@@ -28,12 +28,18 @@ namespace ECommerceBackEnd.Service
             var customerInDb = _repository.Customer.GetCustomerByEmail(user.CustomerEmail);
             _user = user;
             if (customerInDb == null) return false;
-            else if (GoogleToken == "0" && user.CustomerPassword != customerInDb.CustomerPassword) return false;
-            HttpResponseMessage response = await _httpClient
-                .GetAsync("https://www.googleapis.com/oauth2/v3/userinfo?" +
-                    "access_token=" + GoogleToken);
-            if (response.IsSuccessStatusCode) return true;
-            return false;
+            if (customerInDb.CustomerPassword != user.CustomerPassword)
+            {
+                if (GoogleToken.Length > 1)
+                {
+                    HttpResponseMessage response = await _httpClient
+                    .GetAsync("https://www.googleapis.com/oauth2/v3/userinfo?" +
+                        "access_token=" + GoogleToken);
+                    if (!response.IsSuccessStatusCode) return false;
+                }
+                else return false;
+            }
+            return true;
         }
         private SigningCredentials GetSigningCredentials()
         {

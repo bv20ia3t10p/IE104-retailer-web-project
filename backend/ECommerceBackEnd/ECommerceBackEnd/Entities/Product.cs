@@ -13,7 +13,6 @@ namespace ECommerceBackEnd.Entities
         public int ProductCategoryId { get; set; }
         public string ProductName { get; set; }
         public double ProductPrice { get; set; }
-        public int OrderItemCardprodId { get; set; }
         public bool ProductStatus { get; set; }
         public string ProductDescription { get; set; }
         public int ProductSoldQuantity { get; set; }

@@ -24,7 +24,6 @@ namespace ECommerceBackEnd.Service
             var productEntity = _mapper.Map<Product>(newProduct);
             int insertId = _repository.Product.GetLatestId();
             productEntity.ProductCardId = insertId;
-            productEntity.OrderItemCardprodId = insertId;
             _repository.Product.CreateProduct(productEntity);
 
             return _mapper.Map<ProductDto>(productEntity);

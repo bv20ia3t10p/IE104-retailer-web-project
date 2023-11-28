@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ECommerceBackEnd.Controllers
 {
@@ -24,7 +25,7 @@ namespace ECommerceBackEnd.Controllers
         [HttpGet("{id}", Name = "GetCustomerById")]
         public ActionResult<CustomerDTO> GetById(int id) => Ok(_services.Customer.GetCustomerById(id));
         [HttpPut]
-        public ActionResult<CustomerDTO> Replace(CustomerDTO newCustomer) => Ok(_services.Customer.UpdateCustomer(newCustomer));
+        public ActionResult<CustomerDTO> Replace(UpdateCustomerDto newCustomer) => Ok(_services.Customer.UpdateCustomer(newCustomer));
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
@@ -38,11 +39,36 @@ namespace ECommerceBackEnd.Controllers
             return CreatedAtAction(nameof(GetById), new { id = newCustomerEntity.CustomerId }, _services.Customer.GetCustomerById(newCustomerEntity.CustomerId));
         }
         [HttpPost("UpdateMultiplePW")]
-        [Authorize(Roles ="ADMINISTRATOR")]
+        [Authorize(Roles = "ADMINISTRATOR")]
         public ActionResult<IEnumerable<CustomerDTO>> UpdateMultipleCustomerPasswords(string newPw)
         {
             _services.Customer.UpdateMultipleCustomerPassword(newPw);
             return Ok(_services.Customer.GetCustomers());
+        }
+        [HttpGet("Email")]
+        [Authorize(Roles = "ADMINISTRATOR,USER")]
+        public ActionResult<CustomerDTO> GetCustomerByEmail([FromHeader] string Authorization)
+        {
+            var token = Authorization.Substring(7);
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+            var email = jwtSecurityToken.Claims.First(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value;
+            var customerInDb = _services.Customer.GetCustomerByEmail(email);
+            if (customerInDb == null) return Unauthorized();
+            return Ok(customerInDb);
+        }
+        [HttpPut("Update")]
+        [Authorize(Roles = "ADMINISTRATOR,USER")]
+        public ActionResult<CustomerDTO> UpdateCurrentCustomerInfo([FromHeader] string Authorization, [FromBody] UpdateCustomerDto updateCustomerDto)
+        {
+            var token = Authorization.Substring(7);
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+            var email = jwtSecurityToken.Claims.First(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value;
+            var customerInDb = _services.Customer.GetCustomerByEmail(email);
+            if (customerInDb == null) return Unauthorized();
+            var updatedCustomer = _services.Customer.UpdateCustomer(updateCustomerDto);
+            return Ok(updatedCustomer);
         }
     }
 }

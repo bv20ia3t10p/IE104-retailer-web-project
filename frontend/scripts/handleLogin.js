@@ -108,6 +108,7 @@ const handleLogin = async (e) => {
   form.setAttribute("action", "index.html");
   document.body.appendChild(form);
   form.submit();
+  localStorage.setItem("accountToken", data.token);
 };
 
 const trySampleRequest = async () => {

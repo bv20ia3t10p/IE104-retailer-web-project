@@ -7,7 +7,7 @@ namespace ECommerceBackEnd.Service.Contracts
         IEnumerable<CustomerDTO> GetCustomers();
         CustomerDTO GetCustomerById(int id);
         CustomerDTO CreateCustomer(CustomerDTO newCustomer);
-        CustomerDTO UpdateCustomer(CustomerDTO newCustomer);
+        CustomerDTO UpdateCustomer(UpdateCustomerDto newCustomer);
         void DeleteCustomerById(int id);
         void UpdateMultipleCustomerPassword(string newPw);
         CustomerDTO GetCustomerByEmail(string email);

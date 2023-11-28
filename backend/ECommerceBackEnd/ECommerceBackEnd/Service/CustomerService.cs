@@ -33,10 +33,9 @@ namespace ECommerceBackEnd.Service
             }
             _repository.Customer.DeleteCustomer(customerInDb);
         }
-        public CustomerDTO UpdateCustomer(CustomerDTO newCustomer)
+        public CustomerDTO UpdateCustomer(UpdateCustomerDto newCustomer)
         {
-            var customerInDb = _repository.Customer.GetCustomerById(newCustomer.CustomerId);
-            if (customerInDb == null) throw new Exception("Customer not found");
+            var customerInDb = _repository.Customer.GetCustomerByEmail(newCustomer.CustomerEmail) ?? throw new Exception("Customer not found");
             _mapper.Map(newCustomer, customerInDb);
             _repository.Customer.UpdateCustomer(customerInDb);
             return _mapper.Map<CustomerDTO>(customerInDb);
