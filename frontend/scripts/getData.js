@@ -18,7 +18,7 @@ const openItemDetails = (id) => {
 };
 
 const getData = async () => {
-  itemUrl = url + `/products`;
+  itemUrl = url + `/api/products`;
   const resp = await fetch(itemUrl, {
     method: "GET",
     headers: {
@@ -84,7 +84,7 @@ const updateBadge = (badgeNumber) => {
 
 const getPopularProducts = async () => {
   itemUrl =
-    "https://localhost:7136/odata/Products?$orderby=ProductSoldQuantity%20desc&top=20";
+    url+"/odata/Products?$orderby=ProductSoldQuantity%20desc&top=20";
   const resp = await fetch(itemUrl, {
     method: "GET",
     headers: {
@@ -114,7 +114,7 @@ const getPopularProducts = async () => {
   console.log(data.value);
 };
 const getSidebarCategories = async () => {
-  categoriesUrl = url + "/category";
+  categoriesUrl = url + "/api/category";
   const resp = await fetch(categoriesUrl, {
     method: "GET",
     headers: {

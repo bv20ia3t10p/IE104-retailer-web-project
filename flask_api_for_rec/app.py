@@ -79,17 +79,22 @@ test_result_multiple = recommendProductForMultipleIds([1360,1361,1362])
 #%% Order products by result
 df_test_result = test_result.merge(df_products,'left').drop(['Corr'],axis=1)
 #%% Flask API
-from flask import Flask, jsonify, request 
-import json
-app = Flask(__name__) 
+from flask import Flask, request 
+from flask_cors import CORS, cross_origin
+app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
   
 @app.route('/mlApi/ProductRec/<int:i>', methods = ['GET']) 
+@cross_origin()
 def apiForRecommendBySingleItem(i): 
+    
     singleRecs = recommendProductForId(i).merge(df_products,'left').drop(['_id','Corr'],axis=1)
     singleRecs.columns = [ temp[0].lower() + temp[1:] for temp in singleRecs.columns]
     return singleRecs.to_dict(orient='records')
   
 @app.route('/mlApi/ProductRec', methods=['POST'])
+@cross_origin()
 def apiForRecommendByMultipleItems():
     print(request.form.getlist('items'))
     items = request.get_json()
@@ -99,6 +104,5 @@ def apiForRecommendByMultipleItems():
     return multiRecs.to_dict(orient='records')
 # driver function 
 if __name__ == '__main__': 
-  
-    app.run(debug = False) 
+    app.run(debug=False)
 

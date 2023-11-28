@@ -1,4 +1,4 @@
-oath_url = "https://localhost:7136/api/Auth";
+oath_url = url + "/api/Auth";
 
 var YOUR_CLIENT_ID =
   "433141860892-7qmra9ujnn35sslqurun4upjapcl2q2p.apps.googleusercontent.com";

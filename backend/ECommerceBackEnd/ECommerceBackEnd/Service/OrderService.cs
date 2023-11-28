@@ -43,7 +43,7 @@ namespace ECommerceBackEnd.Service
             int latestId = _repository.Order.GetLatestId();
             var orderEntity = _mapper.Map<Order>(newOrder);
             var customerInDb = _repository.Customer.GetCustomerById(newOrder.CustomerId);
-            if (customerInDb != null )
+            if (customerInDb != null)
             {
                 // This also maps Customer entity object ID to Order Id so we gotta override that by generating new object ID manually, usually this is done by automapper
                 _mapper.Map(customerInDb, orderEntity);
@@ -52,6 +52,21 @@ namespace ECommerceBackEnd.Service
             orderEntity.Id = new MongoDB.Bson.ObjectId();
             _repository.Order.CreateOrder(orderEntity);
             return _mapper.Map<OrderDto>(orderEntity);
+        }
+        public OrderWithDetailsDto GetOrderWithDetails(int id)
+        {
+            var orderInDb = _repository.Order.GetOrderById(id) ?? throw new Exception("Order not found");
+            var returnOrder = _mapper.Map<OrderWithDetailsDto>(orderInDb);
+            returnOrder.Details = _mapper.Map<IEnumerable<OrderDetailDto>>(_repository.OrderDetail.GetDetailsForOrder(orderInDb.OrderId));
+            return returnOrder;
+        }
+        public IEnumerable<OrderWithDetailsDto> GetOrdersWithDetailsForCustomer(string email)
+        {
+            var customerInDb = _repository.Customer.GetCustomerByEmail(email) ?? throw new Exception("Customer not found");
+            var returnOrders = _mapper.Map<IEnumerable<OrderWithDetailsDto>>(_repository.Order.GetOrdersByCustomer(customerInDb.CustomerId));
+            foreach (var order in returnOrders)
+                order.Details = _mapper.Map<IEnumerable<OrderDetailDto>>(_repository.OrderDetail.GetDetailsForOrder(order.OrderId));
+            return returnOrders;
         }
     }
 }

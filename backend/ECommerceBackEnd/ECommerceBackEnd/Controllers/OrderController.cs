@@ -65,6 +65,17 @@ namespace ECommerceBackEnd.Controllers
             _service.Order.DeleteOrder(id);
             return NoContent();
         }
+        [HttpGet("Customer")]
+        public ActionResult<IEnumerable<OrderWithDetailsDto>> GetOrderWithDetailsForCustomerEmail([FromHeader] string Authorization)
+        {
+            var token = Authorization[7..];
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+            var email = jwtSecurityToken.Claims.First(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value;
+            var customerInDb = _service.Customer.GetCustomerByEmail(email);
+            if (customerInDb == null) return Unauthorized();
+            return Ok(_service.Order.GetOrdersWithDetailsForCustomer(customerInDb.CustomerEmail));
+        }
 
     }
 }

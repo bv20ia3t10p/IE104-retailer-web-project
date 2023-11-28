@@ -1,4 +1,5 @@
-const url = "https://localhost:7136/api"
+const url = "https://localhost:7136"
+const flask_url = "http://localhost:5000"
 
 var itemCounter = 0;
 var windowStart = 0;
@@ -6,7 +7,7 @@ var windowEnd = 12;
 var maxItem = 7;
 
 const getCategories = async () => {
-    categoriesUrl = url + "/category";
+    categoriesUrl = url + "/api/category";
     const resp = await fetch(categoriesUrl, {
       method: "GET",
       headers: {

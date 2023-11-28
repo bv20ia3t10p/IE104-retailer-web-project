@@ -1,5 +1,5 @@
-function displayHash() {
-  var id = window.location.hash.slice(1);
+var id = window.location.hash.slice(1);
+async function displayHash() {
   console.log(id);
   getSingleItem(id);
   getCategories(); //defined in getNavbarCategoires.js
@@ -18,6 +18,7 @@ window.addEventListener("DOMContentLoaded", function (ev) {
   }
   console.log("DOMContentLoaded event");
   displayHash();
+  getItemRecommendation(id);
 });
 
 currentViewing = 0;
@@ -85,7 +86,7 @@ const moveSlides = (direction = null, index = null) => {
     });
 };
 const getSingleItem = async (id) => {
-  itemUrl = url + `/Products/${id}`;
+  itemUrl = url + `/api/Products/${id}`;
   const resp = await fetch(itemUrl, {
     method: "GET",
     mode: "cors", // no-cors, *cors, same-origin
@@ -173,7 +174,7 @@ const getSingleItem = async (id) => {
     </button>
     </div>
     <span class="label">Estimated Totals</span><span class="total">$ ${
-      Math.round(data.productPrice * currentQuantity*1000)/1000
+      Math.round(data.productPrice * currentQuantity * 1000) / 1000
     }</span>
     <button class="toCart">
     Add to cart
@@ -208,9 +209,11 @@ const getSingleItem = async (id) => {
     .querySelector(".itemDetailMain .toCart")
     .addEventListener("click", () => {
       addToCart(
-        document.querySelector(
-          "body > main > div.AdvancedProductInfo > span.id > span.data"
-        ).textContent,
+        Number(
+          document.querySelector(
+            "body > main > div.AdvancedProductInfo > span.id > span.data"
+          ).textContent
+        ),
         currentQuantity
       );
     });
@@ -231,4 +234,40 @@ const subtractItem = (price) => {
   document.querySelector(".itemDetailMain  .total").textContent =
     "$ " + Math.round(price * currentQuantity * 1000) / 1000;
   document.querySelector(".itemDetailMain  .quantity").value = currentQuantity;
+};
+
+const getItemRecommendation = async (id) => {
+  recItemUrl = flask_url + "/mlApi/ProductRec/" + id;
+  const resp = await fetch(recItemUrl, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    redirect: "follow", // manual, *follow, error
+    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+  });
+  const data = await resp.json();
+  document.querySelector(".itemDetailMain").insertAdjacentHTML(
+    "beforeend",
+    `<div class="relevantItems">
+    <h1 class="header">You might be interested in</h1>
+    ${data.map((item, no) => {
+      if (no < 20)
+        return `
+        <div class ="items" >
+    <img onClick =openItemDetails(${
+      item.productCardId
+    }) src = "/Crawled Images/${item.productCardId}_1.png"
+    />
+    <span class="name">${item.productName}</span>
+    <span class="itemSold">${item.productSoldQuantity} sold</span>
+    <span class="price">$ ${Math.round(item.productPrice * 1000) / 1000}</span>
+    <span class="button"  onclick=addToCart(${
+      item.productCardId
+    },1)><img src="icons/addCart.png"/></span>
+    </div>`;
+    }).join("")}
+    </div>
+    `
+  );
 };
