@@ -28,13 +28,6 @@ namespace ECommerceBackEnd.Entities
         public string CustomerState { get; set; }
         public string CustomerCountry { get; set; }
         public int CustomerZipcode { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        public string Market { get; set; }
-        public string OrderCity { get; set; }
-        public string OrderCountry { get; set; }
-        public string OrderRegion { get; set; }
-        public string OrderState { get; set; }
         public string OrderStatus { get; set; }
         [BsonSerializer(typeof(CustomDateTimeSerializer))]
 

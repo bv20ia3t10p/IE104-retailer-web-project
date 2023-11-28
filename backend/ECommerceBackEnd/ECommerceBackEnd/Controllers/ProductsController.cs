@@ -22,10 +22,6 @@ namespace ECommerceBackEnd.Controllers
         public ActionResult<IEnumerable<ProductDto>> GetProducts()
         {
             var products = _services.Product.GetProducts();
-            foreach (var product in products)
-            {
-                product.ProductSoldQuantity = _services.Product.GetProductSoldQuantity(product.ProductCardId);
-            }
             return Ok(products);
         }
         //GET /products/id
@@ -33,7 +29,6 @@ namespace ECommerceBackEnd.Controllers
         public ActionResult<ProductDto> GetProduct(int id)
         {
             var product = _services.Product.GetProductById(id);
-            product.ProductSoldQuantity = _services.Product.GetProductSoldQuantity(id);
             return Ok(product);
         }
         //POST /items

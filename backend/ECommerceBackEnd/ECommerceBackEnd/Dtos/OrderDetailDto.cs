@@ -15,18 +15,16 @@ namespace ECommerceBackEnd.Dtos
         public string? ProductName { get; set; }
         public double? ProductPrice { get; set; }
         public int OrderId { get; set; }
-        public DateTime OrderDate { get; set; }
-        public int OrderItemCardprodId { get; set; }
         public double OrderItemDiscount { get; set; }
         public double OrderItemDiscountRate { get; set; }
         [Key]
 
         public int OrderItemId { get; set; }
-        public double OrderItemProductPrice { get; set; }
         public double OrderItemProfitRatio { get; set; }
         public int OrderItemQuantity { get; set; }
         public double Sales { get; set; }
         public double OrderItemTotal { get; set; }
+        public int CustomerId { get; set; }
 
     }
     public record CreateOrderDetailDto

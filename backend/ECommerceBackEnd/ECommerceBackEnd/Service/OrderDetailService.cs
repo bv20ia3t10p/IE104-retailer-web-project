@@ -34,12 +34,11 @@ namespace ECommerceBackEnd.Service
             odEntity.OrderItemDiscount = 0;
             odEntity.OrderItemDiscountRate = 0;
             odEntity.OrderItemProfitRatio = 0.2;
-            odEntity.OrderItemProductPrice = (double)productInDb.ProductPrice;
             odEntity.OrderItemTotal = (double)(productInDb.ProductPrice * odEntity.OrderItemQuantity);
             odEntity.Sales = odEntity.OrderItemTotal;
             odEntity.OrderItemId = _repository.OrderDetail.GetLatestId();
             //Update product sales
-            productInDb.Sales = productInDb.Sales + odEntity.Sales;
+            productInDb.ProductSoldQuantity += odEntity.OrderItemQuantity;
             _repository.Product.UpdateProduct(productInDb);
             _repository.OrderDetail.CreateOrderDetail(odEntity);
             return _mapper.Map<OrderDetailDto>(odEntity);
@@ -60,13 +59,12 @@ namespace ECommerceBackEnd.Service
             _mapper.Map(orderDetail, odEntity);
             var productInDb = _repository.Product.GetProduct(orderDetail.ProductCardId) ?? throw new Exception("Product not found");
             _mapper.Map(productInDb, odEntity);
-            odEntity.OrderItemProductPrice = (double)productInDb.ProductPrice;
             odEntity.OrderItemTotal = (double)(productInDb.ProductPrice * odEntity.OrderItemQuantity);
             odEntity.Sales = odEntity.OrderItemTotal;
             odEntity.Id = odEntityId;
             // Update Product Sales
-            productInDb.Sales = productInDb.Sales + odEntity.OrderItemTotal == orderDetail.OrderItemTotal ? 0 :
-                orderDetail.OrderItemTotal;
+            productInDb.ProductSoldQuantity = productInDb.ProductSoldQuantity + odEntity.OrderItemQuantity == orderDetail.OrderItemQuantity ? 0 :
+                orderDetail.OrderItemQuantity;
             _repository.Product.UpdateProduct(productInDb);
             _repository.OrderDetail.UpdateOrderDetail(odEntity);
             return _mapper.Map<OrderDetailDto>(odEntity);
@@ -75,7 +73,7 @@ namespace ECommerceBackEnd.Service
         {
             var odEntity = _repository.OrderDetail.GetOrderDetailById(id) ?? throw new Exception("Order detail not found");
             var productInDb = _repository.Product.GetProduct(odEntity.ProductCardId) ?? throw new Exception("Product not found");
-            productInDb.Sales -= odEntity.OrderItemTotal;
+            productInDb.ProductSoldQuantity -= odEntity.OrderItemQuantity;
             _repository.Product.UpdateProduct(productInDb);
             _repository.OrderDetail.DeleteOrderDetail(odEntity);
         }

@@ -29,22 +29,6 @@ namespace ECommerceBackEnd.Service
             _repository.Order.UpdateOrder(orderInDb);
             return _mapper.Map<OrderDto>(orderInDb);
         }
-        public OrderDto UpdateOrderLocation(UpdateOrderLocationDto updateOrderLocationDto)
-        {
-            var orderInDb = _repository.Order.GetOrderById(updateOrderLocationDto.OrderId);
-            if (orderInDb == null)
-            {
-                throw new Exception("Order not found");
-            }
-            // Call Google API and extract from UpdateDTO Lat and Long
-            //public string Market { get; set; }
-            //public string OrderCity { get; set; }
-            //public string OrderCountry { get; set; }
-            //public string OrderRegion { get; set; }
-            _mapper.Map(updateOrderLocationDto, orderInDb);
-            _repository.Order.UpdateOrder(orderInDb);
-            return _mapper.Map<OrderDto>(orderInDb);
-        }
         public void DeleteOrder(int id)
         {
             var orderInDb = _repository.Order.GetOrderById(id);

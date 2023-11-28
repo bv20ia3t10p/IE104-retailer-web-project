@@ -53,12 +53,6 @@ namespace ECommerceBackEnd.Controllers
             }
             return CreatedAtAction(nameof(GetOrder),new {id = createdOrder.OrderId},_service.Order.GetOrder(createdOrder.OrderId));
         }
-        [HttpPut("Location")]
-        public ActionResult<OrderDto> UpdateOrderLocation(UpdateOrderLocationDto newOrder)
-        {
-            var updatedOrder = _service.Order.UpdateOrderLocation(newOrder);
-            return Ok(updatedOrder);
-        }
         [HttpPut("Status")]
         public ActionResult<OrderDto> UpdateOrderStatus(UpdateOrderStatusDto newOrderStatus)
         {

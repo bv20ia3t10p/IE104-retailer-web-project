@@ -12,7 +12,6 @@ namespace ECommerceBackEnd.Dtos
         public double ProductPrice { get; init; }
         public int OrderItemId { get; init; }
         public double OrderItemProfitRatio { get; init; }
-        public double Sales { get; init; }
         public bool ProductStatus { get; init; }
         public string ProductDescription { get; set; }
     }
@@ -28,7 +27,6 @@ namespace ECommerceBackEnd.Dtos
         public int OrderItemCardprodId { get; init; }
         public int OrderItemId { get; init; }
         public double OrderItemProfitRatio { get; init; }
-        public double Sales { get; init; }
         public bool ProductStatus { get; init; }
         public string ProductDescription { get; set; }
         public int ProductSoldQuantity { get; set; }
@@ -45,7 +43,6 @@ namespace ECommerceBackEnd.Dtos
         public int OrderItemCardprodId { get; init; }
         public int OrderItemId { get; init; }
         public double OrderItemProfitRatio { get; init; }
-        public double Sales { get; init; }
         public bool ProductStatus { get; init; }
         public string ProductDescription { get; set; }
 
