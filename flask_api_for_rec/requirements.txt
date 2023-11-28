@@ -1,0 +1,5 @@
+flask-restful
+numpy
+pandas
+pymongo[srv]
+scikit-learn
