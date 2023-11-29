@@ -1,11 +1,11 @@
 .cartMain {
   display: grid;
-  grid-template-columns: 80% 1fr;
+  grid-template-columns: 75% 1fr;
   padding: 0.4em 16em;
-  grid-template-rows: 4vh 3.5vh 40vh 1fr;
+  grid-template-rows: 1vh 3.5vh 32vh 1fr;
   margin-top: -2vh;
-  row-gap: 1em;
-  column-gap: 0.5em;
+  row-gap: 2vw;
+  column-gap: 2.5vw;
   height: 88vh;
 }
 .cartMain > * {
@@ -15,8 +15,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 0.5em;
-    padding: 1vh 1vw;
-    box-sizing: border-box;
+    padding: 0.8vh 0.5vw;
   }
   
 .cartMain .title {
@@ -48,9 +47,152 @@
 
 .cartMain .recommendations {
   grid-column: 1/1;
-  grid-row: 4/4;
+  grid-row: 4/-1;
   background-color: white;
 }
 .cartMain .recommendations .title{
     font-size: 1em;
+}
+
+.cartMain .delivery{
+    display: block;
+    grid-template-rows: 1fr 2fr 8fr;
+    height: 25vh;
+    grid-row: 2/3;
+    grid-column: 2/2;
+}
+.cartMain .delivery * {
+    background-color: transparent;
+    text-align: left;
+}
+
+.cartMain .delivery > * {
+    width: 100%;
+}
+
+.delivery .basic
+{
+    margin-top: 1vh;
+    display: grid;
+    color: var(--gray-600);
+    font-weight: var(--font-semibold);
+    grid-column: 1/-1;
+    grid-template-columns: 2fr 3fr;
+    font-size: 0.9em;
+    column-gap: 0.5em;
+    text-align: start;
+    justify-content: start;
+    align-items: center;
+}
+
+.delivery .basic .name{
+    border-right: solid 1px var(--slate-300);
+}
+.delivery .title {
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    height: min-content;
+}
+
+.delivery .title .label {
+    font-weight: normal;
+    color: var(--slate-500);
+}
+
+.orderTotal{
+    height: 20vh;
+    grid-row: 4/4;
+}
+
+.purchase{
+    grid-row:5/5;
+    grid-column: 2/2;
+}
+.delivery .advanced div{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 3fr 7fr;
+    row-gap: 1em;
+    margin-top:1vh;
+}
+
+.advanced .label{
+    font-size: 0.9em;
+    font-weight: var(--font-semibold);
+    color: var(--gray-400);
+}
+
+.advanced .data{
+    font-size: 0.9em;
+}
+
+.orderTotal{
+    margin-top: -15.5vh;
+}
+.orderTotal .estimated {
+    width: 90%;
+    height: 20%;
+    display: grid;
+    grid-template-columns: 6fr 7fr;
+    background-color: transparent;
+    padding: 0.5em;
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.orderTotal .estimated .label{
+    background-color: transparent;
+    color:var(--gray-400);
+}
+
+.orderTotal .estimated .data{
+    background-color: transparent;
+    text-align: right;
+    color:var(--gray-300);
+}
+
+.orderTotal .final {
+    width: 90%;
+    display: grid;
+    grid-template-columns: 6fr 7fr;
+    height: 30%;
+    padding: 2em 0.5em;
+    background-color: transparent;
+    justify-content: center;
+    align-items: center;
+}
+
+.orderTotal .final .data{
+    background-color: transparent;
+    text-align: right;
+    font-weight: var(--font-semibold);
+    font-size: 1.5em;
+    background-color: transparent;
+    
+}
+
+.orderTotal .final .label{
+    font-weight: var(--font-semibold);
+    color:var(--gray-600);
+    background-color: transparent;
+    font-size: 1.2em;
+    letter-spacing: 0.1em;
+}
+
+.purchase {
+    margin-top: -30vh;
+    height: 6vh;
+    background-color: var(--rose-600);
+    border: none;
+    color: white;
+    letter-spacing: 0.1em;
+    font-weight: var(--font-semibold);
+    font-size: 1.1em;
+}
+
+.delivery button{
+    border: none;
+    font-weight: var(--font-semibold);
+    color:var(--blue-400);
+    text-decoration: underline;
+    font-size: 0.7em;
 }
