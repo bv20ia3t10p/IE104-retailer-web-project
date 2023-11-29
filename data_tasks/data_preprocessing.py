@@ -51,7 +51,7 @@ df_orders.to_csv(project_data+"Orders.csv",header = [ i.replace(' ','') for i in
 df_order_details = df[['Category Id','Category Name','Department Id','Department Name','Order Id',
                        'Order Item Discount','Order Item Discount Rate','Order Item Id',
                        'Order Item Profit Ratio','Order Item Quantity','Sales','Product Price',
-                       'Order Item Total','Product Card Id','Product Price','Customer Id']]
+                       'Order Item Total','Product Card Id','Product Price','Product Name','Customer Id']]
 df_order_details.to_csv(project_data+"Order_details.csv",header = [ i.replace(' ','') for i in df_order_details.columns],index=False)
 #%%
 df_departments = df[['Department Name','Department Id']].drop_duplicates(subset=['Department Id'],keep='last')
