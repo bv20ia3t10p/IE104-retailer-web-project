@@ -6,18 +6,21 @@ namespace ECommerceBackEnd
 {
     public class MappingProfile : Profile
     {
-        public MappingProfile() {
+        public MappingProfile()
+        {
             CreateMap<Category, CategoryDto>();
             CreateMap<Category, CategoryDto>().ReverseMap();
             CreateMap<CreateCategoryDto, Category>();
             CreateMap<Product, ProductDto>();
             CreateMap<Product, ProductDto>().ReverseMap();
-            CreateMap<CreateProductDto,Product>();
+            CreateMap<CreateProductDto, Product>();
             CreateMap<UpdateProductDto, Product>();
             CreateMap<CustomerDTO, Customer>();
             CreateMap<CustomerDTO, Customer>().ReverseMap();
-            CreateMap<OrderDto,Order>();
-            CreateMap<OrderDto,Order>().ReverseMap();
+            CreateMap<OrderDto, Order>();
+            CreateMap<OrderDto, Order>().ReverseMap().
+                ForMember(c => c.ShippingDate, opt => opt.MapFrom(x => x.ShippingDate.ToLocalTime())).
+                ForMember(c => c.OrderDate, opt => opt.MapFrom(x => x.OrderDate.ToLocalTime()));
             CreateMap<CreateOrderDto, Order>();
             CreateMap<UpdateOrderStatusDto, Order>();
             CreateMap<Customer, Order>();

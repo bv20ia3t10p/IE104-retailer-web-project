@@ -30,13 +30,7 @@ namespace ECommerceBackEnd.Dtos
     public record CreateOrderDto
     {
         public string Type { get; set; }
-        public string DeliveryStatus { get; set; }
-        public int LateDeliveryRisk { get; set; }
         public int CustomerId { get; set; }
-        public string OrderStatus { get; set; }
-        public DateTime OrderDate { get; set; }
-        public DateTime ShippingDate { get; set; }
-        public string ShippingMode { get; set; }
         public double Total { get; set; }
         public virtual IEnumerable<CreateOrderDetailDto> orderDetails { get; set; }
     }

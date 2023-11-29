@@ -17,7 +17,12 @@ namespace ECommerceBackEnd.Service
         }
         public IEnumerable<OrderDto> GetOrders() => _mapper.Map<IEnumerable<OrderDto>>(_repository.Order.GetOrders());
         public IEnumerable<OrderDto> GetOrdersByCustomer(int id) => _mapper.Map<IEnumerable<OrderDto>>(_repository.Order.GetOrdersByCustomer(id));
-        public OrderDto GetOrder(int id) => _mapper.Map<OrderDto>(_repository.Order.GetOrderById(id));
+        public OrderDto GetOrder(int id)
+        {
+            var order = _mapper.Map<OrderDto>(_repository.Order.GetOrderById(id));
+            return order;
+        }
+
         public OrderDto UpdateOrderStatus(UpdateOrderStatusDto updateOrderStatus)
         {
             var orderInDb = _repository.Order.GetOrderById(updateOrderStatus.OrderId);
@@ -50,6 +55,12 @@ namespace ECommerceBackEnd.Service
             }
             orderEntity.OrderId = latestId;
             orderEntity.Id = new MongoDB.Bson.ObjectId();
+            orderEntity.OrderDate = DateTime.Now;
+            orderEntity.ShippingDate = DateTime.Now.AddDays(3);
+            orderEntity.ShippingMode = "NORMAL";
+            orderEntity.OrderStatus = "UNCONFIRMED";
+            orderEntity.LateDeliveryRisk = 0;
+            orderEntity.DeliveryStatus = "NOT DELIVERED";
             _repository.Order.CreateOrder(orderEntity);
             return _mapper.Map<OrderDto>(orderEntity);
         }
@@ -65,7 +76,10 @@ namespace ECommerceBackEnd.Service
             var customerInDb = _repository.Customer.GetCustomerByEmail(email) ?? throw new Exception("Customer not found");
             var returnOrders = _mapper.Map<IEnumerable<OrderWithDetailsDto>>(_repository.Order.GetOrdersByCustomer(customerInDb.CustomerId));
             foreach (var order in returnOrders)
+            {
                 order.Details = _mapper.Map<IEnumerable<OrderDetailDto>>(_repository.OrderDetail.GetDetailsForOrder(order.OrderId));
+            }
+
             return returnOrders;
         }
     }

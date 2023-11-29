@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ECommerceBackEnd.Entities
 {
-    [BsonIgnoreExtraElements]
     public class Order
     {
         public ObjectId Id { get; set; }
@@ -27,6 +26,7 @@ namespace ECommerceBackEnd.Entities
         public string CustomerSegment { get; set; }
         public string CustomerState { get; set; }
         public string CustomerCountry { get; set; }
+        public string CustomerStreet { get; set; }
         public int CustomerZipcode { get; set; }
         public string OrderStatus { get; set; }
         [BsonSerializer(typeof(CustomDateTimeSerializer))]
@@ -35,7 +35,7 @@ namespace ECommerceBackEnd.Entities
         public DateTime OrderDate { get; set; }
         [BsonSerializer(typeof(CustomDateTimeSerializer))]
 
-        [BsonElement("shippingDate(DateOrders")]
+        [BsonElement("shippingdate(DateOrders)")]
         public DateTime ShippingDate { get; set; }
         public string ShippingMode { get; set; }
         public double Total { get; set; }
