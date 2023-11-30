@@ -7,7 +7,7 @@ var windowEnd = 12;
 var maxItem = 7;
 
 const getCategories = async () => {
-    categoriesUrl = url + "/api/category";
+    categoriesUrl = url + "/api/Category";
     const resp = await fetch(categoriesUrl, {
       method: "GET",
       headers: {

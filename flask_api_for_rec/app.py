@@ -12,7 +12,7 @@ try:
 except Exception as e:
     print(e)
 #%%
-mydb = client["ie104"]
+mydb = client["wobble"]
 mycol = mydb["order_details"]
 
 # myquery = { "address": "Park Lane 38" }

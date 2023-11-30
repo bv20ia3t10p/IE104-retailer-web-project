@@ -241,6 +241,7 @@ const getItemRecommendation = async (id) => {
   const resp = await fetch(recItemUrl, {
     method: "GET",
     headers: {
+      "Access-Control-Allow-Origin":"no-cors",
       "Content-Type": "application/json",
     },
     redirect: "follow", // manual, *follow, error
