@@ -111,6 +111,7 @@ const getPopularProducts = async () => {
     );
   });
   console.log(data.value);
+  document.querySelector(".loadingScreen").setAttribute("class","loadingScreen finished")
 };
 const getSidebarCategories = async () => {
   categoriesUrl = url + "/api/category";

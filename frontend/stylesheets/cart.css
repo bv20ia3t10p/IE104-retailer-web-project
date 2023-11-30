@@ -375,3 +375,7 @@
 .itemRecs * {
     background-color: transparent;
 }
+
+.itemRecs .recommendations::-webkit-scrollbar{
+  display: none;
+}

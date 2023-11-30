@@ -254,6 +254,8 @@ const getItemRecommendation = async (ids) => {
       })
       .join("")}    `
   );
+  document.querySelector(".loadingScreen").setAttribute("class","loadingScreen finished")
+
 };
 
 const accountInfoLoad = async () => {
