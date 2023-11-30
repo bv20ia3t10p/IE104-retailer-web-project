@@ -30,7 +30,7 @@ namespace ECommerceBackEnd.Controllers
             return Ok(_service.Order.GetOrdersByCustomer(customerId));
         }
         [HttpGet("Customer/Email/")]
-        [Authorize(Roles ="USER,ADMINISTRATOR")]
+        [Authorize(Roles = "USER,ADMINISTRATOR")]
         [EnableQuery]
         public ActionResult<IEnumerable<OrderDto>> GetOrdersByEmail([FromHeader] string Authorization)
         {
@@ -46,12 +46,12 @@ namespace ECommerceBackEnd.Controllers
         public ActionResult<OrderDto> CreateOrder(CreateOrderDto newOrder)
         {
             var createdOrder = _service.Order.CreateOrder(newOrder);
-            foreach ( var od in newOrder.orderDetails )
+            foreach (var od in newOrder.orderDetails)
             {
                 od.OrderId = createdOrder.OrderId;
                 _service.OrderDetail.CreateOrderDetail(od);
             }
-            return CreatedAtAction(nameof(GetOrder),new {id = createdOrder.OrderId},_service.Order.GetOrder(createdOrder.OrderId));
+            return CreatedAtAction(nameof(GetOrder), new { id = createdOrder.OrderId }, _service.Order.GetOrder(createdOrder.OrderId));
         }
         [HttpPut("Status")]
         public ActionResult<OrderDto> UpdateOrderStatus(UpdateOrderStatusDto newOrderStatus)
@@ -76,8 +76,8 @@ namespace ECommerceBackEnd.Controllers
             if (customerInDb == null) return Unauthorized();
             return Ok(_service.Order.GetOrdersWithDetailsForCustomer(customerInDb.CustomerEmail));
         }
-        [HttpPut("Customer")]
-        [Authorize(Roles ="USER")]
+        [HttpPost("Customer")]
+        [Authorize(Roles = "USER")]
         public ActionResult<OrderDto> CreateOrderForCustomer([FromHeader] string Authorization, CreateOrderDto newOrder)
         {
             var token = Authorization[7..];
@@ -86,12 +86,24 @@ namespace ECommerceBackEnd.Controllers
             var email = jwtSecurityToken.Claims.First(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value;
             var customerInDb = _service.Customer.GetCustomerByEmail(email);
             if (customerInDb == null) return Unauthorized();
+            //var createdOrder = _service.Order.CreateOrder(newOrder);
+            double total = 0;
+            foreach (var od in newOrder.orderDetails)
+            {
+                //od.OrderId = createdOrder.OrderId;
+                //od.CustomerId = customerInDb.CustomerId;
+                //var createdOd = _service.OrderDetail.CreateOrderDetail(od);
+                //total += createdOd.OrderItemTotal;
+                var productInDb = _service.Product.GetProductById(od.ProductCardId) ?? throw new Exception("Product not found");
+                total += od.OrderItemQuantity * productInDb.ProductPrice;
+            }
+            newOrder.Total = total;
             var createdOrder = _service.Order.CreateOrder(newOrder);
             foreach (var od in newOrder.orderDetails)
             {
                 od.OrderId = createdOrder.OrderId;
                 od.CustomerId = customerInDb.CustomerId;
-                _service.OrderDetail.CreateOrderDetail(od);
+                var createdOd = _service.OrderDetail.CreateOrderDetail(od);
             }
             return CreatedAtAction(nameof(GetOrder), new { id = createdOrder.OrderId }, _service.Order.GetOrder(createdOrder.OrderId));
         }

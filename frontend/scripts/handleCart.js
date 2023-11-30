@@ -2,11 +2,19 @@ var cart = [];
 var productsFromCart = [];
 var fetchedProducts = [];
 var customerInfo = {};
+var accountToken = "";
 
 window.addEventListener("DOMContentLoaded", function (ev) {
   try {
     cart = JSON.parse(localStorage.getItem("cart"));
     updateBadge(cart.length);
+    if (cart.length === 0) throw new Error("Empty cart");
+  } catch (e) {
+    console.log(e);
+  }
+  try {
+    accountToken = this.localStorage.getItem("accountToken");
+    if (!accountToken) throw new Error("Not logged in");
   } catch (e) {
     console.log(e);
   }
@@ -23,6 +31,10 @@ window.addEventListener("DOMContentLoaded", function (ev) {
       checkChanged();
     });
   accountInfoLoad();
+  checkChanged();
+  this.document
+    .querySelector(".cartMain .purchase")
+    .addEventListener("click", createOrder);
 });
 
 const modifyQuantity = (id, quantity, replace = false) => {
@@ -99,10 +111,19 @@ const checkChanged = () => {
   const itemCheckBoxes = Array.from(
     document.querySelectorAll(".cartDetails .single .itemCheck")
   );
-  const checkedCount = itemCheckBoxes.filter((e) => e.checked).length;
-  if (checkedCount === cart.length) {
-    document.querySelector("#cartAllItemChk").checked = true;
-  }
+  itemCheckBoxes.map((e) => {
+    let id = Number(e.parentNode.parentNode.getAttribute("productid"));
+    console.log(id);
+    cart = cart.map((t) => {
+      if (t.id === id) t.checked = e.checked;
+      return t;
+    });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    if (e.checked) return e;
+  });
+  const checkedCount = cart.filter((e) => e.checked).length;
+  document.querySelector("#cartAllItemChk").checked =
+    checkedCount === cart.length;
   console.log(checkedCount);
   const purchaseNode = document.querySelector(".cartMain .purchase");
   purchaseNode.removeChild(purchaseNode.childNodes[0]);
@@ -181,6 +202,11 @@ const getItemsFromCart = async () => {
   document
     .querySelectorAll(".cartDetails .single .itemCheck")
     .forEach((e) => e.addEventListener("change", checkChanged));
+  document.querySelectorAll(".cartDetails .single .itemCheck").forEach((e) => {
+    e.checked = cart.filter(
+      (t) => t.id === Number(e.parentNode.parentNode.getAttribute("productid"))
+    )[0].checked;
+  });
   updateItemTotal();
 };
 
@@ -280,15 +306,35 @@ const accountInfoLoad = async () => {
   );
 };
 
-const createOrder = () => {
-  var date = new Date();
-  var day = date.getDate(); // yields date
-  var month = date.getMonth() + 1; // yields month (add one as '.getMonth()' is zero indexed)
-  var year = date.getFullYear(); // yields year
-  var hour = date.getHours(); // yields hours
-  var minute = date.getMinutes(); // yields minutes
-  var second = date.getSeconds(); // yields seconds
-  var time = day + "/" + month + "/" + year + " " + hour + ':' + minute + ':' + second; 
+const createOrder = async () => {
+  let orderCreationRequestBody = {
+    type: "CASH",
+    customerId: customerInfo.customerId,
+    orderDetails: [],
+  };
+  cart.forEach((e) => {
+    if (e.checked)
+      orderCreationRequestBody = {
+        ...orderCreationRequestBody,
+        orderDetails: [
+          ...orderCreationRequestBody.orderDetails,
+          { productCardId: e.id, orderItemQuantity: e.quantity },
+        ],
+      };
+  });
+  const createOrderUrl = url + "/api/Order/Customer";
+  const resp = await fetch(createOrderUrl, {
+    method: "POST",
+    body: JSON.stringify(orderCreationRequestBody),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + accountToken,
+    },
+    redirect: "follow", // manual, *follow, error
+    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+  });
+  const data = await resp.json();
+  console.log("Created order", data);
 };
 
 const removeAndReplaceNodeText = (node, text) => {

@@ -37,7 +37,7 @@ const addToCart = (id, quantity) => {
       }
     });
     if (!exist) {
-      let newCart = [...cart, { id, quantity }];
+      let newCart = [...cart, { id, quantity, checked: false }];
       localStorage.setItem("cart", JSON.stringify(newCart));
       updateBadge(newCart.length);
     }
@@ -251,9 +251,10 @@ const getItemRecommendation = async (id) => {
     "beforeend",
     `<div class="relevantItems">
     <h1 class="header">You might be interested in</h1>
-    ${data.map((item, no) => {
-      if (no < 20)
-        return `
+    ${data
+      .map((item, no) => {
+        if (no < 20)
+          return `
         <div class ="items" >
     <img onClick =openItemDetails(${
       item.productCardId
@@ -266,9 +267,9 @@ const getItemRecommendation = async (id) => {
       item.productCardId
     },1)><img src="icons/addCart.png"/></span>
     </div>`;
-    }).join("")}
+      })
+      .join("")}
     </div>
     `
   );
 };
-

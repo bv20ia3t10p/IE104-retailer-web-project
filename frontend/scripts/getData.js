@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     updateBadge(JSON.parse(localStorage.getItem("cart")).length);
-  }
-  catch (e) {
+  } catch (e) {
     console.log(e);
   }
   await getData();
@@ -51,6 +50,7 @@ const getData = async () => {
 
 const addToCart = (id, quantity) => {
   try {
+    id = Number(id);
     let cart = JSON.parse(localStorage.getItem("cart"));
     console.log(cart);
     let exist = 0;
@@ -62,7 +62,7 @@ const addToCart = (id, quantity) => {
       }
     });
     if (!exist) {
-      let newCart = [...cart, { id, quantity }];
+      let newCart = [...cart, { id, quantity, checked: false }];
       localStorage.setItem("cart", JSON.stringify(newCart));
       updateBadge(newCart.length);
     }
@@ -83,8 +83,7 @@ const updateBadge = (badgeNumber) => {
 };
 
 const getPopularProducts = async () => {
-  itemUrl =
-    url+"/odata/Products?$orderby=ProductSoldQuantity%20desc&top=20";
+  itemUrl = url + "/odata/Products?$orderby=ProductSoldQuantity%20desc&top=20";
   const resp = await fetch(itemUrl, {
     method: "GET",
     headers: {
