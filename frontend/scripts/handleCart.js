@@ -329,6 +329,7 @@ const createOrder = async () => {
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + accountToken,
+      "Access-Control-Allow-Origin":"*"
     },
     redirect: "follow", // manual, *follow, error
     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
