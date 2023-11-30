@@ -104,7 +104,7 @@ const handleLogin = async (e) => {
   }).catch((e) => alert(e));
   const data = await resp.json();
   var form = document.createElement("form");
-  form.setAttribute("method", "GET"); // Send as a GET request.
+  form.setAttribute("method", "POST"); // Send as a GET request.
   form.setAttribute("action", "index.html");
   document.body.appendChild(form);
   form.submit();
