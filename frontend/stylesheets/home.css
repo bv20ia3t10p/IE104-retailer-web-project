@@ -201,12 +201,13 @@ main {
 .productList.allItems {
     width: 100%;
     display: grid;
-    height: 100%;
+    height: 50vh;
     background-color: white;
     row-gap: 1.2vw;
     column-gap: 1.2vw;
     grid-template-columns: repeat(8,1fr);
     grid-column: 2/2;
+    overflow-y: scroll;
 }
 
 .productList.allItems .items{
@@ -227,3 +228,6 @@ aside.sideBar::-webkit-scrollbar{
     position: fixed;
 }
 
+.productList::-webkit-scrollbar{
+    display: none;
+}

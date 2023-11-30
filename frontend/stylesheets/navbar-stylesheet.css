@@ -165,11 +165,16 @@
 }
 ::-webkit-scrollbar-track {
     border-radius: 8px;
-    background-color: #95a5a6;
+    background-color: #95a5a675;
     border: 1px solid #cacaca;
 }
 
 ::-webkit-scrollbar-thumb {
     border-radius: 8px;
-    background-color: #2c3e50b2;
+    background-color: #2c3e503f;
+}
+
+.items > img{
+    border-radius: 0.5em;
+    box-shadow: var(--shadow-sm);
 }
