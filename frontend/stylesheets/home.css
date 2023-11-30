@@ -151,9 +151,9 @@ main {
 .productList .items .itemSold{
     grid-column: 1/-1;
     font-size: 0.8em;
-    text-align: center;
     font-weight: var(--font-semibold);
     color: var(--orange-800);
+    text-align: center;
     background-image: url("../icons/soldIcon.png");
     background-repeat: no-repeat;
     background-size: 1em;
@@ -184,6 +184,7 @@ main {
 .productList.trending{
     margin-top: -0.7em;
     overflow: scroll;
+    column-gap: 1.2vw;
     grid-auto-flow: column;
     overflow-y: hidden;
 }

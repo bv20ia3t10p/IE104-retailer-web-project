@@ -294,6 +294,8 @@
 .recommendations .items .itemSold {
   grid-column: 1/-1;
   font-size: 0.8em;
+  font-weight: var(--font-semibold);
+  color: var(--orange-800);
   text-align: center;
   background-image: url("../icons/soldIcon.png");
   background-repeat: no-repeat;
