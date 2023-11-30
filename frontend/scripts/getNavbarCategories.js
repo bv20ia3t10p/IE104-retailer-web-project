@@ -1,5 +1,5 @@
-const url = "https://localhost:7136"
-const flask_url = "http://localhost:5000"
+const url = "https://ecommercebackend20231127233624.azurewebsites.net"
+const flask_url = "http://itemrecforwobblestore.azurewebsites.net"
 
 var itemCounter = 0;
 var windowStart = 0;

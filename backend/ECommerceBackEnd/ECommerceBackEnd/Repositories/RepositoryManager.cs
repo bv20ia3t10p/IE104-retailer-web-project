@@ -5,7 +5,7 @@ namespace ECommerceBackEnd.Repositories
 {
     public class RepositoryManager : IRepositoryManager
     {
-        private const string databaseName = "ie104";
+        private const string databaseName = "wobble";
         private readonly Lazy<ICustomerRepository> _customerRepository;
         private readonly Lazy<IProductRepository> _productRepository;
         private readonly Lazy<ICategoryRepository> _categoryRepository;
