@@ -82,7 +82,7 @@
 
 .activePage input {
   border: none;
-  border-bottom: 1px solid var(--orange-700);
+  border-bottom: 0.1svh solid var(--orange-700);
   color: var(--cyan-950);
   font-size: 1em;
   opacity: 0.6;
@@ -91,7 +91,7 @@
 .activePage label {
   font-size: 0.8em;
   text-align: left;
-  padding-left: 60px;
+  padding-left: 6svh;
   height: 30%;
   display: flex;
   align-items: center;
@@ -101,12 +101,12 @@
 label[for="login-email"] {
   background-image: url("/icons/accountSticker.png");
   background-repeat: no-repeat;
-  background-size: 50px;
+  background-size: 5svh;
 }
 label[for="login-password"] {
   background-image: url("/icons/passwordIcon.png");
   background-repeat: no-repeat;
-  background-size: 50px;
+  background-size: 5svh;
 }
 
 .activePage button[type="submit"] {
@@ -122,7 +122,7 @@ label[for="login-password"] {
 
 .activePage #signinWithGoogle,
 .activePage #registerWithGoogle {
-  border: 2px solid var(--orange-700);
+  border: 0.2svh solid var(--orange-700);
   font-size: 0.8em;
   width: 50%;
   justify-self: center;
@@ -130,7 +130,7 @@ label[for="login-password"] {
   border-radius: 2em;
   background-image: url("/icons/googleIcon.png");
   background-repeat: no-repeat;
-  background-size: 60px;
+  background-size: 6svh;
 }
 
 .activePage #register-form {
@@ -151,7 +151,7 @@ label[for="login-password"] {
 }
 
 .activePage #registerWithGoogle {
-  background-size: 50px;
+  background-size: 6svh;
 }
 
 .activePage #register-form input {

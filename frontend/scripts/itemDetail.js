@@ -147,6 +147,9 @@ const getSingleItem = async (id) => {
     <button class="toCart">
     Add to cart
   </button>
+  <button class ="instaBuy">
+  Buy now
+  </button>
 </div>`
   );
   document
