@@ -385,3 +385,11 @@
 .itemRecs .recommendations::-webkit-scrollbar{
   display: none;
 }
+
+.cartDetails .single:not(:first-of-type){
+  margin-top:3vh;
+}
+.cartDetails .single img{
+  border-radius: 0.5em;
+  box-sizing: var(--shadow-xl);
+}
