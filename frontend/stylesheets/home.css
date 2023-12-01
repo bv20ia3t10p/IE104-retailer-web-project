@@ -242,12 +242,14 @@ aside.sideBar::-webkit-scrollbar{
 }
 .productList.trending .productListTitle{ 
     color: white;
+    margin-top: -0.5svh;
 }
 .productList.trending .items *{
     background-color: transparent;
     color: white;
 }
 .productList.trending .items {
+    margin-top:1vh;
     background-color: rgba(0,0,0,0.1);
     color: white;
 }
