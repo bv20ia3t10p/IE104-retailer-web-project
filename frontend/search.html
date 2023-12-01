@@ -3,23 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="stylesheets/loading.css" />
-    <link rel="stylesheet" href="stylesheets/reset.css" />
-    <link rel="stylesheet" href="stylesheets/colors.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="icons/appIcon.png" />
-    <script src="scripts/utils.js"></script>
-    <script src="scripts/getNavbarCategories.js"></script>
-    <script src="scripts/getData.js"></script>
-    <link rel="stylesheet" href="stylesheets/home.css" />
+    <link rel="stylesheet" href="/stylesheets/reset.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="stylesheets/colors.css" />
     <link rel="stylesheet" href="stylesheets/navbar-stylesheet.css" />
     <link rel="stylesheet" href="stylesheets/button.css" />
+    <script src="scripts/utils.js"></script>
+    <script
+      type="text/javascript"
+      src="scripts/getNavbarCategories.js"
+    ></script>
     <title>Wobble</title>
   </head>
   <body>
-    <div class="loadingScreen">
-      <h1 class="title">Loading</h1>
-      <div class="rainbow-marker-loader"></div>
-    </div>
     <navbar class="navbar">
       <a href="/" class="icon"
         ><img src="icons/appIcon.png" alt="Icon placholder" />
@@ -46,20 +43,6 @@
         <span class="item">Categories</span>
       </div>
     </navbar>
-    <main>
-      <aside class="sideBar">
-        <span class="title">Categories</span>
-      </aside>
-      <article class="productList banner">
-        <h3 class="productListTitle">Limited Time Special Offers</h3>
-        <img src="/icons/banner/saleBanner.webp" />
-      </article>
-      <article class="productList trending">
-        <h3 class="productListTitle">What's Hot</h3>
-      </article>
-      <article class="productList allItems">
-        <h3 class="productListTitle">All Products</h3>
-      </article>
-    </main>
+    <main class="searchMain"></main>
   </body>
 </html>

@@ -2,17 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="/stylesheets/reset.css">
+    <link rel="stylesheet" href="stylesheets/loading.css" />
+    <link rel="icon" href="icons/appIcon.png" />
+    <link rel="stylesheet" href="/stylesheets/reset.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="stylesheets/colors.css">
-    <link rel="stylesheet" href="stylesheets/item-detail.css"/>
-    <link rel="stylesheet" href="stylesheets/navbar-stylesheet.css">
-    <link rel="stylesheet" href="stylesheets/loading.css">
-    <link rel="stylesheet" href="stylesheets/button.css">
+    <link rel="stylesheet" href="stylesheets/colors.css" />
+    <link rel="stylesheet" href="stylesheets/item-detail.css" />
+    <link rel="stylesheet" href="stylesheets/navbar-stylesheet.css" />
+    <link rel="stylesheet" href="stylesheets/button.css" />
     <script src="scripts/utils.js"></script>
     <script src="scripts/itemDetail.js"></script>
-    <script type="text/javascript" src="scripts/getNavbarCategories.js"></script>
-    <title>Document</title>
+    <script
+      type="text/javascript"
+      src="scripts/getNavbarCategories.js"
+    ></script>
+    <title>Wobble</title>
   </head>
   <div class="loadingScreen">
     <h1 class="title">Loading</h1>
@@ -22,9 +26,14 @@
     <a href="/" class="icon"
       ><img src="icons/appIcon.png" alt="Icon placholder" />
     </a>
-    <div class="searchBar">
-      <input type="text" placeholder="Search bar placeholder" />
-    </div>
+    <form class="searchBar" method="GET" action="search.html">
+      <input
+        type="text"
+        name="searchQuery"
+        placeholder="Search bar placeholder"
+      />
+      <button type="submit">Search</button>
+    </form>
     <form action="/loginOrRegister.html" class="action account">
       <button type="submit">Login</button>
     </form>
@@ -39,6 +48,5 @@
       <span class="item">Categories</span>
     </div>
   </navbar>
-  <main class="itemDetailMain">
-  </main>
+  <main class="itemDetailMain"></main>
 </html>

@@ -4,7 +4,7 @@ main {
     display: grid;
     grid-template-columns: 16% 1fr;
     padding: 0em 15em;
-    grid-template-rows: 36vh 35vh 1fr;
+    grid-template-rows: 36vh 31vh 1fr;
     gap: 2.8em;
 }
 
@@ -230,4 +230,44 @@ aside.sideBar::-webkit-scrollbar{
 
 .productList::-webkit-scrollbar{
     display: none;
+}
+.productList.trending *{
+    background-color: transparent;
+}
+.productList.trending {
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+    height: 30vh;
+}
+.productList.trending .productListTitle{ 
+    color: white;
+}
+.productList.trending .items *{
+    background-color: transparent;
+    color: white;
+}
+.productList.trending .items {
+    background-color: rgba(0,0,0,0.1);
+    color: white;
+}
+.productList.trending .items:hover{
+    background-color: rgba(0,0,0,0.3);
+}
+.productList.trending .items:hover *{
+    color: white;
+}
+
+
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }

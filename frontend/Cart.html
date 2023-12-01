@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="stylesheets/universalLoader.css" />
     <link rel="stylesheet" href="/stylesheets/reset.css" />
     <link rel="stylesheet" href="/stylesheets/colors.css" />
     <link rel="stylesheet" href="/stylesheets/navbar-stylesheet.css" />
     <link rel="stylesheet" href="/stylesheets/cart.css" />
-    <link rel="stylesheet" href="/stylesheets/loading.css">
-    <link rel="stylesheet" href="stylesheets/universalLoader.css">
-    <link rel="stylesheet" href="stylesheets/button.css">
+    <link rel="stylesheet" href="/stylesheets/loading.css" />
+    <link rel="icon" href="icons/appIcon.png" />
+    <link rel="stylesheet" href="stylesheets/button.css" />
     <script src="/scripts/utils.js"></script>
     <script src="/scripts/getNavbarCategories.js"></script>
     <script src="/scripts/handleCart.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Wobble</title>
   </head>
   <body>
     <div class="loadingScreen">
@@ -21,17 +22,21 @@
       <div class="rainbow-marker-loader"></div>
     </div>
     <div class="universalLoader finished">
-      <div class="loader">
-      </div>
+      <div class="loader"></div>
       <h1 class="title">Logging in...</h1>
-  </div>
+    </div>
     <navbar class="navbar">
       <a href="/" class="icon"
         ><img src="icons/appIcon.png" alt="Icon placholder" />
       </a>
-      <div class="searchBar">
-        <input type="text" placeholder="Search bar placeholder" />
-      </div>
+      <form class="searchBar" method="GET" action="search.html">
+        <input
+          type="text"
+          name="searchQuery"
+          placeholder="Search bar placeholder"
+        />
+        <button type="submit">Search</button>
+      </form>
       <form action="/loginOrRegister.html" class="action account">
         <button type="submit">Login</button>
       </form>
