@@ -1,8 +1,8 @@
 const url = "https://ecommercebackend20231127233624.azurewebsites.net";
 const flask_url = "https://itemrecforwobblestore.azurewebsites.net";
 
-
 const showLoadingPopup = (visibility, main, title = "") => {
+  const navbar = document.querySelector("navbar");
   const currentClass = main.getAttribute("class");
   const loaderElement = document.querySelector(".universalLoader");
   switch (visibility) {
@@ -11,10 +11,12 @@ const showLoadingPopup = (visibility, main, title = "") => {
       const titleElement = document.querySelector(".universalLoader .title");
       removeAndReplaceNodeText(titleElement, title);
       loaderElement.setAttribute("class", "universalLoader");
+      navbar.setAttribute("class", "navbar dimmed");
       break;
     default:
       main.setAttribute("class", currentClass.replace(" dimmed", ""));
       loaderElement.setAttribute("class", "universalLoader finished");
+      navbar.setAttribute("class", "navbar");
   }
 };
 
@@ -54,7 +56,6 @@ const updateBadge = (badgeNumber) => {
   }
   badgeClass.appendChild(document.createTextNode(badgeNumber));
 };
-
 
 const removeAndReplaceNodeText = (node, text) => {
   node.removeChild(node.childNodes[0]);

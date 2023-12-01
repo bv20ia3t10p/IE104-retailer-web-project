@@ -1,7 +1,7 @@
-var id = window.location.hash.slice(1);
+var viewingProductId = window.location.hash.slice(1);
 async function displayHash() {
-  console.log(id);
-  getSingleItem(id);
+  console.log(viewingProductId);
+  getSingleItem(viewingProductId);
   getCategories(); //defined in getNavbarCategoires.js
 }
 
@@ -18,44 +18,12 @@ window.addEventListener("DOMContentLoaded", function (ev) {
   }
   console.log("DOMContentLoaded event");
   displayHash();
-  getItemRecommendation(id);
+  getItemRecommendation(viewingProductId);
 });
 
 currentViewing = 0;
 currentQuantity = 1;
 
-const addToCart = (id, quantity) => {
-  try {
-    let cart = JSON.parse(localStorage.getItem("cart"));
-    console.log(cart);
-    let exist = 0;
-    cart.forEach((item) => {
-      if (item.id === id) {
-        exist = 1;
-        item.quantity += quantity;
-        localStorage.setItem("cart", JSON.stringify(cart));
-      }
-    });
-    if (!exist) {
-      let newCart = [...cart, { id, quantity, checked: false }];
-      localStorage.setItem("cart", JSON.stringify(newCart));
-      updateBadge(newCart.length);
-    }
-  } catch (e) {
-    localStorage.setItem("cart", JSON.stringify([{ id, quantity }]));
-    updateBadge(1);
-  }
-};
-
-const updateBadge = (badgeNumber) => {
-  const badgeClass = document.querySelector(".navbar .action.cart .badge");
-  try {
-    badgeClass.removeChild(badgeClass.lastChild);
-  } catch (e) {
-    // console.log(e);
-  }
-  badgeClass.appendChild(document.createTextNode(badgeNumber));
-};
 const moveSlides = (direction = null, index = null) => {
   if (index !== null) {
     currentViewing = index;
@@ -241,7 +209,7 @@ const getItemRecommendation = async (id) => {
   const resp = await fetch(recItemUrl, {
     method: "GET",
     headers: {
-      "Access-Control-Allow-Origin":"no-cors",
+      "Access-Control-Allow-Origin": "no-cors",
       "Content-Type": "application/json",
     },
     redirect: "follow", // manual, *follow, error

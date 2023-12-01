@@ -210,7 +210,6 @@ const getItemsFromCart = async () => {
   updateItemTotal();
 };
 
-
 const getItemRecommendation = async (ids) => {
   recItemUrl = flask_url + "/mlApi/ProductRec";
   const resp = await fetch(recItemUrl, {
@@ -245,8 +244,9 @@ const getItemRecommendation = async (ids) => {
       })
       .join("")}    `
   );
-  document.querySelector(".loadingScreen").setAttribute("class","loadingScreen finished")
-
+  document
+    .querySelector(".loadingScreen")
+    .setAttribute("class", "loadingScreen finished");
 };
 
 const accountInfoLoad = async () => {
@@ -300,6 +300,11 @@ const accountInfoLoad = async () => {
 };
 
 const createOrder = async () => {
+  showLoadingPopup(
+    true,
+    document.querySelector("main.cartMain"),
+    "Processing your order..."
+  );
   let orderCreationRequestBody = {
     type: "CASH",
     customerId: customerInfo.customerId,
@@ -322,16 +327,16 @@ const createOrder = async () => {
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + accountToken,
-      "Access-Control-Allow-Origin":"*"
+      "Access-Control-Allow-Origin": "*",
     },
     redirect: "follow", // manual, *follow, error
     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
   });
   const data = await resp.json();
   console.log("Created order", data);
-};
-
-const removeAndReplaceNodeText = (node, text) => {
-  node.removeChild(node.childNodes[0]);
-  node.appendChild(document.createTextNode(text));
+  showLoadingPopup(
+    false,
+    document.querySelector("main.cartMain"),
+    "Processing..."
+  );
 };

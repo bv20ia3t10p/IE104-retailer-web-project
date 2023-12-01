@@ -78,12 +78,12 @@
     background-color: transparent;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-weight: var(--font-semibold);
-    letter-spacing: 1em;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
     text-align: center;
     padding-top: 23vh;
     width: 100%;
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: var(--rose-600);
 }
 .loader {
