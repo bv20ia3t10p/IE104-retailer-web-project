@@ -210,15 +210,6 @@ const getItemsFromCart = async () => {
   updateItemTotal();
 };
 
-const updateBadge = (badgeNumber) => {
-  const badgeClass = document.querySelector(".navbar .action.cart .badge");
-  try {
-    badgeClass.removeChild(badgeClass.lastChild);
-  } catch (e) {
-    // console.log(e);
-  }
-  badgeClass.appendChild(document.createTextNode(badgeNumber));
-};
 
 const getItemRecommendation = async (ids) => {
   recItemUrl = flask_url + "/mlApi/ProductRec";

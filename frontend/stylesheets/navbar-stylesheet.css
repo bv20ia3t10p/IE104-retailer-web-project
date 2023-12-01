@@ -181,7 +181,7 @@
 
 .navbar .action.dashboard{
     padding-left: 1em;
-    border-left: 0.2em solid var(--orange-500);
+    border-left: 0.2em solid var(--orange-400);
 }
 
 .action.dashboard *{

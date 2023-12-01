@@ -80,6 +80,11 @@ const signInGoogle = async () => {
 };
 
 const handleLogin = async (e) => {
+  showLoadingPopup(
+    true,
+    document.querySelector("main.loginOrRegister"),
+    "Logging in..."
+  );
   e.preventDefault();
   inputData = new FormData(e.target);
   const customer = {
@@ -97,7 +102,7 @@ const handleLogin = async (e) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin":"*"
+      "Access-Control-Allow-Origin": "*",
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
