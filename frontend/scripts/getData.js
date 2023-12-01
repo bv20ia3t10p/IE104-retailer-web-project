@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateBadge(JSON.parse(localStorage.getItem("cart")).length);
   } catch (e) {
     console.log(e);
+    updateBadge(0);
+
   }
   await getData();
   await getCategories();

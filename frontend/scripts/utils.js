@@ -51,8 +51,8 @@ const openItemDetails = (id) => {
   var params = {
     productId: id,
   };
-   // Add form parameters as hidden input values.
-   for (var p in params) {
+  // Add form parameters as hidden input values.
+  for (var p in params) {
     var input = document.createElement("input");
     input.setAttribute("type", "hidden");
     input.setAttribute("name", p);
@@ -84,4 +84,29 @@ const setLoadingPageVisibility = (visibility) => {
       "class",
       visibility ? "loadingScreen" : "loadingScreen finished"
     );
+};
+
+const clearAllContent = (e) => {
+  while (e.lastElementChild) e.removeChild(e.lastElementChild);
+};
+
+const checkLoggedIn = () => {
+  const loginAction = document.querySelector(".navbar .action.account");
+  try {
+    if (localStorage.getItem("accountToken").length > 0) {
+      removeAndReplaceNodeText(loginAction.querySelector("button"), "Logout");
+      loginAction.addEventListener("submit", (e) => {
+        e.preventDefault();
+        localStorage.clear();
+        const tempForm = document.createElement("form");
+        tempForm.setAttribute("method", "GET");
+        tempForm.setAttribute("action", "/");
+        document.body.appendChild(tempForm);
+        tempForm.submit();
+      });
+    } else throw new Error("Not logged in");
+  } catch (e) {
+    removeAndReplaceNodeText(loginAction.querySelector("button"), "Login");
+    loginAction.addEventListener("submit", () => {});
+  }
 };

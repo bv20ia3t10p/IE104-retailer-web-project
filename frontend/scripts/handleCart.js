@@ -21,7 +21,7 @@ window.addEventListener("DOMContentLoaded", async function (ev) {
   console.log("DOMContentLoaded event");
   await getCategories();
   await getItemsFromCart();
-  await getItemRecommendation(cart.map((e) => e.id));
+  if (cart) await getItemRecommendation(cart.map((e) => e.id));
   this.document
     .querySelector("#cartAllItemChk")
     .addEventListener("change", (e) => {
@@ -65,15 +65,37 @@ const updateQuantity = (id) => {
   )[0].quantity;
 };
 
-const removeItemFromCart = (id) => {
+const addAndUpdateRecs = async (id, quantity) => {
+  showLoadingPopup(true, document.querySelector("main"), "Updating cart...");
+  addToCart(id, quantity);
+  cart = JSON.parse(localStorage.getItem("cart"));
+  clearAllContent(document.querySelector(".itemRecs .recommendations"));
+  clearAllContent(document.querySelector(".cartDetails"));
+  await getItemsFromCart();
+  await getItemRecommendation(cart.map((e) => e.id));
+  updateItemTotal();
+  checkChanged();
+  updateBadge(cart.length);
+  showLoadingPopup(false, document.querySelector("main"));
+};
+
+const removeItemFromCart = async (id) => {
+  showLoadingPopup(true, document.querySelector("main"), "Updating cart...");
   const node = document.querySelector(
     `.cartDetails .single[productid="${id}"]`
   );
   node.parentElement.removeChild(node);
   cart = cart.filter((e) => e.id !== id);
   console.log(cart);
+  clearAllContent(document.querySelector(".itemRecs .recommendations"));
+  clearAllContent(document.querySelector(".cartDetails"));
   localStorage.setItem("cart", JSON.stringify(cart));
+  await getItemsFromCart();
+  await getItemRecommendation(cart.map((e) => e.id));
   updateItemTotal();
+  checkChanged();
+  updateBadge(cart.length);
+  showLoadingPopup(false, document.querySelector("main"));
 };
 
 const updateItemTotal = () => {
@@ -102,7 +124,9 @@ const updateItemTotal = () => {
         '.columns label[for="cartAllItemChk"]'
       );
       selectLabel.removeChild(selectLabel.childNodes[0]);
-      selectLabel.append(document.createTextNode(`Select all products`));
+      selectLabel.append(
+        document.createTextNode(`Select all products (${cart.length} products)`)
+      );
     }
   } catch (error) {
     console.log(error);
@@ -122,6 +146,7 @@ const checkChanged = () => {
     localStorage.setItem("cart", JSON.stringify(cart));
     if (e.checked) return e;
   });
+  if (!cart) return;
   const checkedCount = cart.filter((e) => e.checked).length;
   document.querySelector("#cartAllItemChk").checked =
     checkedCount === cart.length;
@@ -135,6 +160,10 @@ const checkChanged = () => {
 };
 
 const getItemsFromCart = async () => {
+  if (!cart) {
+    updateBadge(0);
+    return;
+  }
   if (!cart.length) return;
   const requestBody = cart.map((e) => e.id);
   console.log(requestBody);
@@ -163,7 +192,7 @@ const getItemsFromCart = async () => {
         <p class ="productName">${e.productName}</p>
       </div>
       <div class="price">
-        ${e.productPrice}
+        ${Math.round(e.productPrice * 1000) / 1000}
       </div>
       <div class="quantityControl">
         <button class="subtract" onclick=modifyQuantity(${
@@ -212,17 +241,34 @@ const getItemsFromCart = async () => {
 };
 
 const getItemRecommendation = async (ids) => {
-  recItemUrl = flask_url + "/mlApi/ProductRec";
-  const resp = await fetch(recItemUrl, {
-    method: "POST",
-    body: JSON.stringify(ids),
-    headers: {
-      "Content-Type": "application/json",
-    },
-    redirect: "follow", // manual, *follow, error
-    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-  });
-  const data = await resp.json();
+  let resp;
+  let flag = !ids.length;
+  if (flag) {
+    recItemUrl =
+      url + "/odata/Products?$orderby=ProductSoldQuantity%20desc&top=20";
+    resp = await fetch(recItemUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    });
+  } else {
+    recItemUrl = flask_url + "/mlApi/ProductRec";
+    resp = await fetch(recItemUrl, {
+      method: "POST",
+      body: JSON.stringify(ids),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    });
+  }
+  let data = await resp.json();
+  if (flag) data = data.value;
+  console.log(data);
   document.querySelector(".recommendations").insertAdjacentHTML(
     "beforeend",
     `
@@ -232,14 +278,22 @@ const getItemRecommendation = async (ids) => {
           return `
         <div class ="items" >
     <img onClick =openItemDetails(${
-      item.productCardId
-    }) src = "/Crawled Images/${item.productCardId}_1.png"
+      flag ? item.ProductCardId : item.productCardId
+    }) src = "/Crawled Images/${
+            flag ? item.ProductCardId : item.productCardId
+          }_1.png"
     />
-    <span class="name">${item.productName}</span>
-    <span class="itemSold">${item.productSoldQuantity} sold</span>
-    <span class="price">$ ${Math.round(item.productPrice * 1000) / 1000}</span>
-    <span class="button"  onclick=addToCart(${
-      item.productCardId
+    <span class="name">${flag ? item.ProductName : item.productName}</span>
+    <span class="itemSold">${
+      flag ? item.ProductSoldQuantity : item.productSoldQuantity
+    } sold</span>
+    <span class="price">$ ${
+      flag
+        ? Math.round(item.ProductPrice * 1000) / 1000
+        : Math.round(item.productPrice * 1000) / 1000
+    }</span>
+    <span class="button"  onclick=addAndUpdateRecs(${
+      flag ? item.ProductCardId : item.productCardId
     },1)><img src="icons/addCart.png"/></span>
     </div>`;
       })

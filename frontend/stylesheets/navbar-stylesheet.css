@@ -114,6 +114,7 @@
     cursor:pointer;
 }
 
+
 .categories .item:hover{
     color:var(--gray-800);
     scale:120%;
@@ -158,6 +159,7 @@
     align-items: center;
     justify-content: center;
     color: var(--rose-100);
+    z-index: 10;
 }
 
 ::-webkit-scrollbar {

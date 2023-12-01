@@ -1,10 +1,10 @@
-
 var itemCounter = 0;
 var windowStart = 0;
 var windowEnd = 12;
 var maxItem = 7;
 
 const getCategories = async () => {
+  checkLoggedIn();
   categoriesUrl = url + "/api/Category";
   const resp = await fetch(categoriesUrl, {
     method: "GET",

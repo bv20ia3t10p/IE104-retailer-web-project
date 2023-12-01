@@ -49,6 +49,7 @@
 }
 
 .cartMain .itemRecs {
+  padding-top: 1em;
   grid-column: 1/1;
   grid-row: 4/-1;
   background-color: white;
@@ -368,6 +369,7 @@
   overflow-y: hidden;
   padding: 0.5em;
   grid-template-columns: auto;
+  background-color: white;
 }
 
 .itemRecs .title{
@@ -382,6 +384,12 @@
     background-color: transparent;
 }
 
+.recommendations .items *{
+  background-color: transparent;
+}
+.recommendations .items:hover{
+  background-color: var(--slate-200);
+}
 .itemRecs .recommendations::-webkit-scrollbar{
   display: none;
 }
