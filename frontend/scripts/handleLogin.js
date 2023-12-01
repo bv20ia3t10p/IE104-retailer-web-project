@@ -103,7 +103,7 @@ const handleLogin = async (e) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*"
+      'Access-Control-Allow-Origin': "*/*"
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
@@ -186,7 +186,7 @@ function oauth2SignIn() {
   form.submit();
 }
 
-register_url = "https://localhost:7136/api/Customer";
+register_url = url+"/api/Customer";
 
 const handleRegister = async (e) => {
   e.preventDefault();
