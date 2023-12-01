@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await getCategories();
   await getSidebarCategories();
   await getPopularProducts();
+  setLoadingPageVisibility(false);
 });
 
 let productsTemp = [];
@@ -73,9 +74,6 @@ const getPopularProducts = async () => {
     );
   });
   console.log(data.value);
-  document
-    .querySelector(".loadingScreen")
-    .setAttribute("class", "loadingScreen finished");
 };
 const getSidebarCategories = async () => {
   categoriesUrl = url + "/api/category";

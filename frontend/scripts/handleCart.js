@@ -4,7 +4,7 @@ var fetchedProducts = [];
 var customerInfo = {};
 var accountToken = "";
 
-window.addEventListener("DOMContentLoaded", function (ev) {
+window.addEventListener("DOMContentLoaded", async function (ev) {
   try {
     cart = JSON.parse(localStorage.getItem("cart"));
     updateBadge(cart.length);
@@ -19,9 +19,9 @@ window.addEventListener("DOMContentLoaded", function (ev) {
     console.log(e);
   }
   console.log("DOMContentLoaded event");
-  getCategories();
-  getItemsFromCart();
-  getItemRecommendation(cart.map((e) => e.id));
+  await getCategories();
+  await getItemsFromCart();
+  await getItemRecommendation(cart.map((e) => e.id));
   this.document
     .querySelector("#cartAllItemChk")
     .addEventListener("change", (e) => {
@@ -30,11 +30,12 @@ window.addEventListener("DOMContentLoaded", function (ev) {
         .forEach((t) => (t.checked = e.target.checked));
       checkChanged();
     });
-  accountInfoLoad();
+  await accountInfoLoad();
   checkChanged();
   this.document
     .querySelector(".cartMain .purchase")
     .addEventListener("click", createOrder);
+  setLoadingPageVisibility(false);
 });
 
 const modifyQuantity = (id, quantity, replace = false) => {
@@ -244,9 +245,6 @@ const getItemRecommendation = async (ids) => {
       })
       .join("")}    `
   );
-  document
-    .querySelector(".loadingScreen")
-    .setAttribute("class", "loadingScreen finished");
 };
 
 const accountInfoLoad = async () => {

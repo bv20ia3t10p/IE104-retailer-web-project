@@ -1,24 +1,24 @@
-var viewingProductId = window.location.hash.slice(1);
-async function displayHash() {
-  console.log(viewingProductId);
-  getSingleItem(viewingProductId);
-  getCategories(); //defined in getNavbarCategoires.js
-}
+var viewingProductId = 0;
 
-window.addEventListener("hashchange", function () {
-  console.log("hashchange event");
-  displayHash();
-});
-
-window.addEventListener("DOMContentLoaded", function (ev) {
+window.addEventListener("DOMContentLoaded",async function (ev) {
+  const currentWindow = new URL(
+    window.location.href.replace("#state=", "?state=")
+  );
+  try {
+    viewingProductId = currentWindow.searchParams.get("productId");
+  } catch (e) {
+    this.alert(e);
+  }
   try {
     updateBadge(JSON.parse(localStorage.getItem("cart")).length);
   } catch (e) {
     console.log(e);
   }
   console.log("DOMContentLoaded event");
-  displayHash();
-  getItemRecommendation(viewingProductId);
+  await getCategories();
+  await getSingleItem(viewingProductId);
+  await getItemRecommendation(viewingProductId);
+  setLoadingPageVisibility(false);
 });
 
 currentViewing = 0;

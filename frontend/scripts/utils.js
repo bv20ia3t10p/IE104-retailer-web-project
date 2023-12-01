@@ -11,12 +11,12 @@ const showLoadingPopup = (visibility, main, title = "") => {
       const titleElement = document.querySelector(".universalLoader .title");
       removeAndReplaceNodeText(titleElement, title);
       loaderElement.setAttribute("class", "universalLoader");
-      navbar.setAttribute("class", "navbar dimmed");
+      if (navbar) navbar.setAttribute("class", "navbar dimmed");
       break;
     default:
       main.setAttribute("class", currentClass.replace(" dimmed", ""));
       loaderElement.setAttribute("class", "universalLoader finished");
-      navbar.setAttribute("class", "navbar");
+      if (navbar) navbar.setAttribute("class", "navbar");
   }
 };
 
@@ -45,7 +45,22 @@ const addToCart = (id, quantity) => {
 };
 
 const openItemDetails = (id) => {
-  window.location.replace(`item.html#${id}`);
+  const tempForm = document.createElement("form");
+  tempForm.setAttribute("method", "GET");
+  tempForm.setAttribute("action", "item.html");
+  var params = {
+    productId: id,
+  };
+   // Add form parameters as hidden input values.
+   for (var p in params) {
+    var input = document.createElement("input");
+    input.setAttribute("type", "hidden");
+    input.setAttribute("name", p);
+    input.setAttribute("value", params[p]);
+    tempForm.appendChild(input);
+  }
+  document.body.appendChild(tempForm);
+  tempForm.submit();
 };
 const updateBadge = (badgeNumber) => {
   const badgeClass = document.querySelector(".navbar .action.cart .badge");
@@ -60,4 +75,13 @@ const updateBadge = (badgeNumber) => {
 const removeAndReplaceNodeText = (node, text) => {
   node.removeChild(node.childNodes[0]);
   node.appendChild(document.createTextNode(text));
+};
+
+const setLoadingPageVisibility = (visibility) => {
+  document
+    .querySelector(".loadingScreen")
+    .setAttribute(
+      "class",
+      visibility ? "loadingScreen" : "loadingScreen finished"
+    );
 };

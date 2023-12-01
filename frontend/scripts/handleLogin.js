@@ -80,12 +80,12 @@ const signInGoogle = async () => {
 };
 
 const handleLogin = async (e) => {
+  e.preventDefault();
   showLoadingPopup(
     true,
-    document.querySelector("main.loginOrRegister"),
+    document.querySelector("main"),
     "Logging in..."
   );
-  e.preventDefault();
   inputData = new FormData(e.target);
   const customer = {
     customerEmail: inputData.get("customerEmail"),
