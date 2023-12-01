@@ -11,6 +11,7 @@ window.addEventListener("DOMContentLoaded", async function (ev) {
     if (cart.length === 0) throw new Error("Empty cart");
   } catch (e) {
     console.log(e);
+    updateBadge(0);
   }
   try {
     accountToken = this.localStorage.getItem("accountToken");
@@ -18,10 +19,10 @@ window.addEventListener("DOMContentLoaded", async function (ev) {
   } catch (e) {
     console.log(e);
   }
-  console.log("DOMContentLoaded event");
   await getCategories();
   await getItemsFromCart();
   if (cart) await getItemRecommendation(cart.map((e) => e.id));
+  else await getItemRecommendation([]);
   this.document
     .querySelector("#cartAllItemChk")
     .addEventListener("change", (e) => {
@@ -386,6 +387,15 @@ const createOrder = async () => {
   });
   const data = await resp.json();
   console.log("Created order", data);
+  cart = cart.filter(e=>!e.checked);
+  localStorage.setItem("cart",JSON.stringify(cart));
+  clearAllContent(document.querySelector(".itemRecs .recommendations"));
+  clearAllContent(document.querySelector(".cartDetails"));
+  await getItemsFromCart();
+  await getItemRecommendation(cart.map((e) => e.id));
+  updateItemTotal();
+  checkChanged();
+  updateBadge(cart.length);
   showLoadingPopup(
     false,
     document.querySelector("main.cartMain"),
