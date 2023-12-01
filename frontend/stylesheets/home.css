@@ -237,7 +237,7 @@ aside.sideBar::-webkit-scrollbar{
 .productList.trending {
 	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
 	background-size: 400% 400%;
-	animation: gradient 10s ease infinite;
+	animation: gradient 15s ease infinite;
     height: 30vh;
 }
 .productList.trending .productListTitle{ 
@@ -250,11 +250,11 @@ aside.sideBar::-webkit-scrollbar{
 }
 .productList.trending .items {
     margin-top:1vh;
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(0,0,0,0.25);
     color: white;
 }
 .productList.trending .items:hover{
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.5);
 }
 .productList.trending .items:hover *{
     color: white;

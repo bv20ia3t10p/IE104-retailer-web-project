@@ -433,3 +433,8 @@ input {
 .relevantItems::-webkit-scrollbar{
   display: none;
 }
+
+.navbar .searchBar button{
+  left:67.5vw;
+  top:1.3svh;
+}
