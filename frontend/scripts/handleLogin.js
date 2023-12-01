@@ -99,7 +99,7 @@ const handleLogin = async (e) => {
   } catch {
     console.log("No google auth");
   }
-  const resp = await fetch(oath_url + `?GoogleToken=${ggToken}`, {
+  const resp = await fetch(oath_url + `?GoogleToken="${ggToken}"`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
