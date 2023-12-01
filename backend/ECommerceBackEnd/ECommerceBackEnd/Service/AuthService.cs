@@ -44,6 +44,7 @@ namespace ECommerceBackEnd.Service
                 if (customerInDb is not null) return true;
                 _repository.Customer.CreateCustomer(new Entities.Customer
                 {
+                    CustomerId = _repository.Customer.GetLatestId(),
                     CustomerEmail = content.email,
                     CustomerFname = content.firstName,
                     CustomerPassword = content.email + content.firstName

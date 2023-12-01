@@ -15,11 +15,11 @@ namespace ECommerceBackEnd.Controllers
             _service = services;
         }
         [HttpPost]
-        public async Task<IActionResult> Authenticate(CustomerAuthDto user, string GoogleToken)
+        public async Task<IActionResult> Authenticate([FromBody(EmptyBodyBehavior = Microsoft.AspNetCore.Mvc.ModelBinding.EmptyBodyBehavior.Allow)] CustomerAuthDto user,[FromHeader] string GoogleToken)
         {
-            if (await _service.Auth.ValidateUser(user,GoogleToken)) return Ok(new { Token = await _service.Auth.CreateToken() });
+            if (await _service.Auth.ValidateUser(user, GoogleToken)) return Ok(new { Token = await _service.Auth.CreateToken() });
             return Unauthorized();
-        }  
+        }
     }
 }
 

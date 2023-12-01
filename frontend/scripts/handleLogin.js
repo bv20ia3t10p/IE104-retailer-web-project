@@ -2,7 +2,7 @@ oath_url = url + "/api/Auth";
 
 var YOUR_CLIENT_ID =
   "433141860892-7qmra9ujnn35sslqurun4upjapcl2q2p.apps.googleusercontent.com";
-var currentUrl = new URL(window.location.href)
+var currentUrl = new URL(window.location.href);
 var YOUR_REDIRECT_URI = currentUrl.origin + currentUrl.pathname;
 
 document.addEventListener("DOMContentLoaded", async function () {
@@ -82,15 +82,15 @@ const signInGoogle = async () => {
 
 const handleLogin = async (e) => {
   e.preventDefault();
-  showLoadingPopup(
-    true,
-    document.querySelector("main"),
-    "Logging in..."
-  );
+  showLoadingPopup(true, document.querySelector("main"), "Logging in...");
   inputData = new FormData(e.target);
   const customer = {
-    customerEmail: inputData.get("customerEmail"),
-    customerPassword: inputData.get("customerPassword"),
+    customerEmail: inputData.get("customerEmail")
+      ? inputData.get("customerEmail")
+      : "",
+    customerPassword: inputData.get("customerPassword")
+      ? inputData.get("customerPassword")
+      : "",
   };
   console.log(customer);
   let ggToken = "0";
@@ -99,11 +99,12 @@ const handleLogin = async (e) => {
   } catch {
     console.log("No google auth");
   }
-  const resp = await fetch(oath_url + `?GoogleToken="${ggToken}"`, {
+  // Testing
+  const resp = await fetch(oath_url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      'Access-Control-Allow-Origin': "*/*"
+      GoogleToken: ggToken,
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
@@ -132,28 +133,35 @@ const trySampleRequest = async () => {
       "access_token=" +
       ggToken;
     console.log(requestUrl);
-    const resp = await fetch(requestUrl);
-    const serverResponse = await resp.json();
-    console.log(serverResponse);
-    if (typeof serverResponse.email)
-      document.querySelector("#login-email").value = serverResponse.email;
-    document.querySelector("#login-password").value = serverResponse.email;
-    if (typeof serverResponse.given_name)
-      document.querySelector("#register-fname").value =
-        serverResponse.given_name;
-    if (typeof serverResponse.family_name)
-      document.querySelector("#register-lname").value =
-        serverResponse.family_name;
-    if (typeof serverResponse.email)
-      document.querySelector("#register-email").value = serverResponse.email;
+    await fetch(requestUrl)
+      .then((e) => {
+        if (e.ok) return e.json();
+        throw new Error("Failed");
+      })
+      .then((serverResponse) => {
+        console.log(serverResponse);
+        if (typeof serverResponse.email)
+          document.querySelector("#login-email").value = serverResponse.email;
+        document.querySelector("#login-password").value = serverResponse.email;
+        if (typeof serverResponse.given_name)
+          document.querySelector("#register-fname").value =
+            serverResponse.given_name;
+        if (typeof serverResponse.family_name)
+          document.querySelector("#register-lname").value =
+            serverResponse.family_name;
+        if (typeof serverResponse.email)
+          document.querySelector("#register-email").value =
+            serverResponse.email;
+      })
+      .catch((e) => {
+        localStorage.clear();
+        oauth2SignIn();
+      });
   } catch (e) {
     oauth2SignIn();
   }
 };
 
-/*
- * Create form to request access token from Google's OAuth 2.0 server.
- */
 function oauth2SignIn() {
   // Google's OAuth 2.0 endpoint for requesting an access token
   var oauth2Endpoint = "https://accounts.google.com/o/oauth2/v2/auth";
@@ -186,7 +194,7 @@ function oauth2SignIn() {
   form.submit();
 }
 
-register_url = url+"/api/Customer";
+register_url = url + "/api/Customer";
 
 const handleRegister = async (e) => {
   e.preventDefault();

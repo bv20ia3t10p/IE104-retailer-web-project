@@ -29,7 +29,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
 builder.Services.ConfigureJWT(builder.Configuration);
-builder.Services.AddControllers().AddOData(options => options
+builder.Services.AddControllers(options => { options.AllowEmptyInputInBodyModelBinding = true; }).AddOData(options => options
         .AddRouteComponents("odata", GetEdmModel())
         .Select()
         .Filter()
@@ -37,7 +37,7 @@ builder.Services.AddControllers().AddOData(options => options
         .SetMaxTop(20)
         .Count()
         .Expand()
-    ); 
+    );
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 IConfiguration configuration = new ConfigurationBuilder()
