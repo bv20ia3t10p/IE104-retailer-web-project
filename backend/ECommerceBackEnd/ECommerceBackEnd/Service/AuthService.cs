@@ -5,6 +5,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Nodes;
+using MongoDB.Bson.IO;
 
 namespace ECommerceBackEnd.Service
 {
@@ -25,19 +27,37 @@ namespace ECommerceBackEnd.Service
 
         public async Task<bool> ValidateUser(CustomerAuthDto user, string GoogleToken)
         {
+            dynamic content = "";
+            if (GoogleToken.Length > 1)
+            {
+                HttpResponseMessage response = await _httpClient.GetAsync("https://www.googleapis.com/oauth2/v3/userinfo?" +
+    "access_token=" + GoogleToken);
+                if (!response.IsSuccessStatusCode) return false;
+                content = Newtonsoft.Json.JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync());
+                user.CustomerEmail = content.email;
+                Console.WriteLine(user);
+            }
             var customerInDb = _repository.Customer.GetCustomerByEmail(user.CustomerEmail);
             _user = user;
-            if (customerInDb == null) return false;
+            if ( GoogleToken.Length > 1 )
+            {
+                if (customerInDb is not null) return true;
+                _repository.Customer.CreateCustomer(new Entities.Customer
+                {
+                    CustomerEmail = content.email,
+                    CustomerFname = content.firstName,
+                    CustomerPassword = content.email + content.firstName
+                });
+                _user = new CustomerAuthDto
+                {
+                    CustomerEmail = content.customerEmail,
+                    CustomerPassword = content.email + content.firstName
+                };
+                return true;
+            }
             if (customerInDb.CustomerPassword != user.CustomerPassword)
             {
-                if (GoogleToken.Length > 1)
-                {
-                    HttpResponseMessage response = await _httpClient
-                    .GetAsync("https://www.googleapis.com/oauth2/v3/userinfo?" +
-                        "access_token=" + GoogleToken);
-                    if (!response.IsSuccessStatusCode) return false;
-                }
-                else return false;
+                return false;
             }
             return true;
         }

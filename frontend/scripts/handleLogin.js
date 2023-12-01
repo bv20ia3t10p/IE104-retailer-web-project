@@ -2,7 +2,8 @@ oath_url = url + "/api/Auth";
 
 var YOUR_CLIENT_ID =
   "433141860892-7qmra9ujnn35sslqurun4upjapcl2q2p.apps.googleusercontent.com";
-var YOUR_REDIRECT_URI = "http://127.0.0.1:5500/frontend/loginOrRegister.html";
+var currentUrl = new URL(window.location.href)
+var YOUR_REDIRECT_URI = currentUrl.origin + currentUrl.pathname;
 
 document.addEventListener("DOMContentLoaded", async function () {
   document
@@ -102,7 +103,7 @@ const handleLogin = async (e) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": "*"
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",

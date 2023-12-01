@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qr7cC+g6E+dIrldumffEdrz1lrOEjK2pqVEafGn0CPpugJckmfFwZSYbpFxyBWFxEzS1EhtylTdGEBdLViksvQ==",
+  "dgSpecHash": "qJp3fYjLgmDfs6pKA8Ay4HIxrjco9KhhIi99dglhyYgp82iyv2JtJxo+KuhcX7APW2hOwoVvYhAUqDGsDeDZXg==",
   "success": true,
   "projectFilePath": "G:\\Code\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\ECommerceBackEnd\\ECommerceBackEnd.csproj",
   "expectedPackageFiles": [
@@ -66,6 +66,7 @@
     "C:\\Users\\beave\\.nuget\\packages\\mongodb.driver\\2.22.0\\mongodb.driver.2.22.0.nupkg.sha512",
     "C:\\Users\\beave\\.nuget\\packages\\mongodb.driver.core\\2.22.0\\mongodb.driver.core.2.22.0.nupkg.sha512",
     "C:\\Users\\beave\\.nuget\\packages\\mongodb.libmongocrypt\\1.8.0\\mongodb.libmongocrypt.1.8.0.nupkg.sha512",
+    "C:\\Users\\beave\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\beave\\.nuget\\packages\\sharpcompress\\0.30.1\\sharpcompress.0.30.1.nupkg.sha512",
     "C:\\Users\\beave\\.nuget\\packages\\snappier\\1.0.0\\snappier.1.0.0.nupkg.sha512",
     "C:\\Users\\beave\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",

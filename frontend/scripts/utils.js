@@ -110,3 +110,11 @@ const checkLoggedIn = () => {
     loginAction.addEventListener("submit", () => {});
   }
 };
+
+const navigateToNewPage = (url, params = null) => {
+  var form = document.createElement("form");
+  form.setAttribute("method", "GET"); // Send as a GET request.
+  form.setAttribute("action", url);
+  document.body.appendChild(form);
+  form.submit();
+};
