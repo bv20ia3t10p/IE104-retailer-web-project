@@ -104,8 +104,8 @@
   display: none !important;
 }
 
-.items:hover,
-.items:hover * {
+.item:hover,
+.item:hover * {
   background-color: var(--slate-200);
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
   transition-duration: 300ms;
@@ -173,7 +173,7 @@
   background-color: #2c3e503f;
 }
 
-.items > img {
+.item > img {
   border-radius: 0.5em;
   box-shadow: var(--shadow-sm);
 }

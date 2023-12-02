@@ -6,7 +6,7 @@
 }
 button:active,
 .button:active,
-.items:active,
+.item:active,
 .item:active {
   animation: press 0.2s 1 linear;
 }

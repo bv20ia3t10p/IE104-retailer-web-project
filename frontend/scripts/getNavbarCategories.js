@@ -21,7 +21,9 @@ const getCategories = async () => {
       .querySelector(".navbar .categories")
       .insertAdjacentHTML(
         "beforeend",
-        `<span class="item ${key < maxItem ? "" : "hidden"}">${
+        `<span 
+        onclick=newSearch("category",${cat.categoryId})
+        class="item ${key < maxItem ? "" : "hidden"}">${
           cat.categoryName
         }</span>`
       );

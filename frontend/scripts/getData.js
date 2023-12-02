@@ -29,7 +29,7 @@ const getData = async () => {
   data.map((item) => {
     document.querySelector(".productList.allItems").insertAdjacentHTML(
       "beforeend",
-      `<div class ="items" >
+      `<div class ="item" >
     <img onClick =openItemDetails(${
       item.productCardId
     }) src = "/Crawled Images/${item.productCardId}_1.png"
@@ -61,7 +61,7 @@ const getPopularProducts = async () => {
   data.value.map((item) => {
     document.querySelector(".productList.trending").insertAdjacentHTML(
       "beforeend",
-      `<div class ="items" >
+      `<div class ="item" >
     <img onClick =openItemDetails(${
       item.ProductCardId
     }) src = "/Crawled Images/${item.ProductCardId}_1.png"
@@ -93,7 +93,9 @@ const getSidebarCategories = async () => {
       .querySelector(".sideBar")
       .insertAdjacentHTML(
         "beforeend",
-        `<span class="item"><img class="icon" src ="icons/category_icon/${cat.categoryId}.png" /><span class="title">${cat.categoryName}</span></span>`
+        `<span
+        onclick = newSearch("category",${cat.categoryId})
+        class="item"><img class="icon" src ="icons/category_icon/${cat.categoryId}.png" /><span class="title">${cat.categoryName}</span></span>`
       );
   });
   console.log(data);

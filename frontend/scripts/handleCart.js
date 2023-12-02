@@ -277,7 +277,7 @@ const getItemRecommendation = async (ids) => {
       .map((item, no) => {
         if (no < 20)
           return `
-        <div class ="items" >
+        <div class ="item" >
     <img onClick =openItemDetails(${
       flag ? item.ProductCardId : item.productCardId
     }) src = "/Crawled Images/${

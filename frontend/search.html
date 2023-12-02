@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="/stylesheets/reset.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="stylesheets/colors.css" />
-    <link rel="stylesheet" href="stylesheets/navbar-stylesheet.css" />
+    <link rel="stylesheet" href="stylesheets/navbar.css" />
     <link rel="stylesheet" href="stylesheets/button.css" />
     <script src="scripts/utils.js"></script>
     <script
       type="text/javascript"
       src="scripts/getNavbarCategories.js"
     ></script>
+    <script src="scripts/handleSearch.js"></script>
     <title>Wobble</title>
   </head>
   <body>
@@ -32,7 +33,7 @@
       <form action="/loginOrRegister.html" class="action account">
         <button type="submit">Login</button>
       </form>
-      <form action="/Cart.html" class="action cart">
+      <form action="/cart.html" class="action cart">
         <span class="badge">0</span>
         <button type="submit">Cart</button>
       </form>
@@ -43,6 +44,9 @@
         <span class="item">Categories</span>
       </div>
     </navbar>
-    <main class="searchMain"></main>
+    <main class="searchMain">
+      <div class="searchControls"></div>
+      <div class="searchResult"></div>
+    </main>
   </body>
 </html>

@@ -118,3 +118,16 @@ const navigateToNewPage = (url, params = null) => {
   document.body.appendChild(form);
   form.submit();
 };
+
+const newSearch = (param, value) => {
+  var form = document.createElement("form");
+  var input = document.createElement("input");
+  input.setAttribute("type", "hidden");
+  input.setAttribute("name", param);
+  input.setAttribute("value", value);
+  form.appendChild(input);
+  form.setAttribute("method", "GET"); // Send as a GET request.
+  form.setAttribute("action", "search.html");
+  document.body.appendChild(form);
+  form.submit();
+};

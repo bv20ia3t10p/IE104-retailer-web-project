@@ -89,7 +89,7 @@ main {
     grid-column: 2/2;
 }
 
-.productList .items{
+.productList .item{
     /* border-color: var(--gray-200); */
     border: 0.1em solid var(--gray-200);
     padding: 0.6em;
@@ -103,7 +103,7 @@ main {
     background-color: white;
 }
 
-.productList .items img{
+.productList .item img{
     grid-row-start: 1;
     grid-column: 1/span 2;
     grid-row-end:1;
@@ -112,7 +112,7 @@ main {
     height: 7em;
 }
 
-.productList .items .name {
+.productList .item .name {
     grid-row-start: 2;
     grid-column: 1/span 2;
     display: flex;
@@ -127,7 +127,7 @@ main {
     overflow: hidden;
 }
 
-.productList .items .price{
+.productList .item .price{
     grid-row-start: 4;
     font-family: sans-serif;
     font-size:1em;
@@ -140,16 +140,16 @@ main {
     align-items: center;
     font-weight: var(--font-bold);
 }
-.productList .items .button{
+.productList .item .button{
     grid-row-start: 4;
 }
 
-.productList .items .button img{
+.productList .item .button img{
     width: 100%;
     height: 100%;
     object-fit: fill;
 }
-.productList .items .itemSold{
+.productList .item .itemSold{
     grid-column: 1/-1;
     font-size: 0.8em;
     font-weight: var(--font-semibold);
@@ -190,7 +190,7 @@ main {
     overflow-y: hidden;
 }
 
-.productList.trending .items{
+.productList.trending .item{
     grid-row:2/2;
 }
 
@@ -211,7 +211,7 @@ main {
     overflow-y: scroll;
 }
 
-.productList.allItems .items{
+.productList.allItems .item{
     width: 83%;
     height: 90%;
 }
@@ -245,19 +245,19 @@ aside.sideBar::-webkit-scrollbar{
     color: white;
     margin-top: -0.5svh;
 }
-.productList.trending .items *{
+.productList.trending .item *{
     background-color: transparent;
     color: white;
 }
-.productList.trending .items {
+.productList.trending .item {
     margin-top:1vh;
     background-color: rgba(0,0,0,0.25);
     color: white;
 }
-.productList.trending .items:hover{
+.productList.trending .item:hover{
     background-color: rgba(0,0,0,0.5);
 }
-.productList.trending .items:hover *{
+.productList.trending .item:hover *{
     color: white;
 }
 
