@@ -87,7 +87,9 @@ const setLoadingPageVisibility = (visibility) => {
 };
 
 const clearAllContent = (e) => {
-  while (e.lastElementChild) e.removeChild(e.lastElementChild);
+  while (e.lastElementChild) {
+    e.removeChild(e.lastElementChild);
+  }
 };
 
 const checkLoggedIn = () => {
@@ -119,13 +121,21 @@ const navigateToNewPage = (url, params = null) => {
   form.submit();
 };
 
-const newSearch = (param, value) => {
+const createNewSearch = (param, value, additionalOpt = null, sort = null) => {
   var form = document.createElement("form");
   var input = document.createElement("input");
-  input.setAttribute("type", "hidden");
-  input.setAttribute("name", param);
-  input.setAttribute("value", value);
-  form.appendChild(input);
+  var params = {
+    [param]: value,
+  };
+  if (sort) params = { ...params, sort };
+  if (additionalOpt) params = { ...params, additionalOpt };
+  for (var p in params) {
+    var input = document.createElement("input");
+    input.setAttribute("type", "hidden");
+    input.setAttribute("name", p);
+    input.setAttribute("value", params[p]);
+    form.appendChild(input);
+  }
   form.setAttribute("method", "GET"); // Send as a GET request.
   form.setAttribute("action", "search.html");
   document.body.appendChild(form);

@@ -16,6 +16,7 @@ window.addEventListener("DOMContentLoaded", async function (ev) {
   try {
     accountToken = this.localStorage.getItem("accountToken");
     if (!accountToken) throw new Error("Not logged in");
+    await accountInfoLoad();
   } catch (e) {
     console.log(e);
   }
@@ -31,7 +32,6 @@ window.addEventListener("DOMContentLoaded", async function (ev) {
         .forEach((t) => (t.checked = e.target.checked));
       checkChanged();
     });
-  await accountInfoLoad();
   checkChanged();
   this.document
     .querySelector(".cartMain .purchase")
