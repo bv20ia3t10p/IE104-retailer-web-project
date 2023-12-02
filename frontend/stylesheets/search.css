@@ -1,7 +1,7 @@
 .searchMain {
   display: grid;
   grid-template-rows: 5svh 1fr 1fr;
-  height: 86.6svh;
+  height: 86svh;
   row-gap: 3svh;
   padding: 0 10.5svw;
   padding-top: 0.1svh;
@@ -282,7 +282,7 @@ input[type="range"]:focus::-ms-fill-upper {
   display: grid;
   grid-auto-flow: column;
   grid-template-rows: 3svh 1fr;
-  grid-template-columns: max-content;
+  grid-template-columns: repeat(9,1fr);
   row-gap: 1svh;
   column-gap: 1svw;
   overflow-y: hidden;
