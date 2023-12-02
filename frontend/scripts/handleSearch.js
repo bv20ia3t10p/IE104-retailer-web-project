@@ -29,7 +29,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       )
     );
   if (!categorySearch && (!searchQuery || searchQuery.length === 0)) {
-    await getItemRecommendation([]);
+    if (cart && cart.length) await getItemRecommendation(cart.map((e) => e.id));
+    else await getItemRecommendation([]);
     setLoadingPageVisibility(false);
   }
 });
@@ -192,11 +193,6 @@ const getItemRecommendation = async (ids) => {
 };
 
 const addAndUpdateRecs = async (id, quantity) => {
-  showLoadingPopup(
-    true,
-    document.querySelector("main"),
-    "Updating recommendations..."
-  );
   addToCart(id, quantity);
   cart = JSON.parse(localStorage.getItem("cart"));
   window.location.reload();
