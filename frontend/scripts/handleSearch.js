@@ -82,16 +82,15 @@ const getItemsByCategory = async (id) => {
 };
 
 const getItemsByName = async (query) => {
-  const queryUrl = encodeURI(
+  const queryUrl =
     url +
       `/odata/Products?${
         query.length > 0
-          ? " $filter=contains(tolower(ProductName),'" + query + "')"
+          ? "$filter=contains(tolower(ProductName),tolower('" + query + "'))"
           : ""
       }  ${additionalOpt ? "and " + additionalOpt : ""} ${
         sortOptions ? "&$orderby=" + sortOptions : ""
-      }`
-  );
+      }`;
   console.log(queryUrl);
   fetch(queryUrl)
     .then((e) => (e.ok ? e.json() : e))
