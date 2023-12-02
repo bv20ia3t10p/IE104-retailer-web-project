@@ -23,6 +23,6 @@ namespace ECommerceBackEnd.Repositories
         IEnumerable<Product> IProductRepository.GetProducts() => GetAll().ToList();
 
         void IProductRepository.UpdateProduct(Product product) => Update(c => c.ProductCardId == product.ProductCardId, product);
-        public IEnumerable<Product> GetProductByCategory(int id) => GetManyByCondition(c => c.ProductCategoryId == id);
+        public IEnumerable<Product> GetProductByCategory(int id) => GetManyByCondition(c => c.CategoryId == id);
     }
 }

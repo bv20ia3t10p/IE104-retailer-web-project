@@ -40,7 +40,7 @@
 }
 
 .cartMain .columns * {
-  background-color: white;
+  background-color: transparent;
 }
 .cartMain .cartDetails {
   height: 100%;

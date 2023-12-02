@@ -27,6 +27,7 @@ namespace ECommerceBackEnd
             CreateMap<Product, OrderDetail>();
             CreateMap<Order, OrderDetail>();
             CreateMap<Category, OrderDetail>();
+            CreateMap<Category, Product>();
             CreateMap<OrderDetailDto, OrderDetail>();
             CreateMap<OrderDetailDto, OrderDetail>().ReverseMap();
             CreateMap<CreateOrderDetailDto, OrderDetail>();

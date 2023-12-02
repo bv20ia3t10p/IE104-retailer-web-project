@@ -25,7 +25,7 @@ namespace ECommerceBackEnd.Service
 
             var odEntity = _mapper.Map<OrderDetail>(orderDetailDto);
             var productInDb = _repository.Product.GetProduct(orderDetailDto.ProductCardId) ?? throw new Exception("Product not found");
-            var categoryInDb = _repository.Category.GetCategoryById(productInDb.ProductCategoryId) ?? throw new Exception("Category not found");
+            var categoryInDb = _repository.Category.GetCategoryById(productInDb.CategoryId) ?? throw new Exception("Category not found");
             var orderInDb = _repository.Order.GetOrderById(orderDetailDto.OrderId) ?? throw new Exception("Order not found");
             _mapper.Map(productInDb, odEntity);
             _mapper.Map(orderInDb, odEntity);

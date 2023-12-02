@@ -12,7 +12,7 @@ project_data = 'G:/Code/IE104-retailer-web-project/data/'
 #%%
 df = pd.read_csv(project_data+'DataCoSupplyChainDataset.csv',encoding='latin1')
 #%%
-df_items = df[['Department Id','Department Name','Product Card Id','Product Category Id','Product Description','Product Name','Product Price'
+df_items = df[['Department Id','Department Name','Category Name','Category Id','Product Card Id','Product Description','Product Name','Product Price'
            ,'Product Status']].drop_duplicates(subset=['Product Card Id'],keep='last')
 df_items['ProductSoldQuantity'] = df_items['Product Card Id'].apply(lambda x : df[['Product Card Id','Order Item Quantity']]
                                                                     [df['Product Card Id']==x].groupby(['Product Card Id']).sum().values[0,0])
@@ -23,7 +23,7 @@ df_items.to_csv(project_data+'Products.csv',header = [ i.replace(' ','') for i i
 df_customers = df[['Customer Id', 'Customer City','Customer Country','Customer Fname','Customer Lname','Customer Password','Customer Segment','Customer State',
                      'Customer Street','Customer Zipcode']].drop_duplicates(subset=['Customer Id'],keep='last')
 df_customers['Customer Zipcode'] = df['Customer Zipcode'].apply(lambda x: int(x) if float(x).is_integer() else 0 )
-df_customers['Customer Email']=df['Customer Id'].apply(lambda x: str(x)+"@fakeadress.wobble")
+df_customers['Customer Email']=df['Customer Id'].apply(lambda x: str(x)+"@fakeaddress.wobble")
 df_customers['Customer Password']=df['Customer Id'].apply(lambda x: "pw"+str(x))
 df_customers.to_csv(project_data+'Customers.csv',header = [ i.replace(' ','') for i in df_customers.columns],index=False)
 #%%

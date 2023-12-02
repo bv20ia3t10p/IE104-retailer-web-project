@@ -22,6 +22,8 @@ namespace ECommerceBackEnd.Service
 
         {
             var productEntity = _mapper.Map<Product>(newProduct);
+            var categoryInDb = _repository.Category.GetCategoryById(newProduct.CategoryId) ?? throw new Exception("Category not found");
+            _mapper.Map(categoryInDb, productEntity);
             int insertId = _repository.Product.GetLatestId();
             productEntity.ProductCardId = insertId;
             _repository.Product.CreateProduct(productEntity);
@@ -32,7 +34,12 @@ namespace ECommerceBackEnd.Service
 
         public ProductDto UpdateProduct(UpdateProductDto newProduct)
         {
-            var productInDb = _repository.Product.GetProduct(newProduct.ProductCardId);
+            var productInDb = _repository.Product.GetProduct(newProduct.CategoryId);
+            if ( productInDb.CategoryId != newProduct.CategoryId)
+            {
+                var categoryInDb = _repository.Category.GetCategoryById(newProduct.CategoryId);
+                _mapper.Map(categoryInDb, productInDb);
+            }
             _mapper.Map(newProduct,productInDb);
             _repository.Product.UpdateProduct(productInDb);
             return _mapper.Map<ProductDto>(productInDb);
