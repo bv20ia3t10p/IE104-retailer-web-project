@@ -28,7 +28,7 @@ namespace ECommerceBackEnd.Service
         public async Task<bool> ValidateUser(CustomerAuthDto user, string GoogleToken)
         {
             dynamic content = "";
-            if (GoogleToken.Length > 1)
+            if (GoogleToken.Length > 10)
             {
                 HttpResponseMessage response = await _httpClient.GetAsync("https://www.googleapis.com/oauth2/v3/userinfo?" +
     "access_token=" + GoogleToken);
@@ -39,20 +39,20 @@ namespace ECommerceBackEnd.Service
             }
             var customerInDb = _repository.Customer.GetCustomerByEmail(user.CustomerEmail);
             _user = user;
-            if ( GoogleToken.Length > 1 )
+            if ( GoogleToken.Length > 10 )
             {
                 if (customerInDb is not null) return true;
                 _repository.Customer.CreateCustomer(new Entities.Customer
                 {
                     CustomerId = _repository.Customer.GetLatestId(),
                     CustomerEmail = content.email,
-                    CustomerFname = content.firstName,
-                    CustomerPassword = content.email + content.firstName
+                    CustomerFname = content.name,
+                    CustomerPassword = content.email + content.name
                 });
                 _user = new CustomerAuthDto
                 {
-                    CustomerEmail = content.customerEmail,
-                    CustomerPassword = content.email + content.firstName
+                    CustomerEmail = content.email,
+                    CustomerPassword = content.email + content.name
                 };
                 return true;
             }

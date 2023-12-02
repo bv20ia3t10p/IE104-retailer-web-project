@@ -62,6 +62,7 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
 
 
 var app = builder.Build();
+app.UseCors("policy");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -70,8 +71,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 IWebHostEnvironment environment = app.Environment;
-
-app.UseCors("policy");
+app.UseOptions();
 
 app.UseHttpsRedirection();
 app.UseAuthentication();

@@ -1,24 +1,26 @@
-oath_url = url + "/api/Auth";
-
+const currentWindow = new URL(
+  window.location.href.replace("html#state=", "html?state=")
+);
 var YOUR_CLIENT_ID =
   "433141860892-7qmra9ujnn35sslqurun4upjapcl2q2p.apps.googleusercontent.com";
-var currentUrl = new URL(window.location.href);
-var YOUR_REDIRECT_URI = currentUrl.origin + currentUrl.pathname;
+var YOUR_REDIRECT_URI = currentWindow.origin + currentWindow.pathname;
+var oath_url = url + "/api/Auth";
 
 document.addEventListener("DOMContentLoaded", async function () {
   document
     .querySelector("#register-form")
     .addEventListener("submit", handleRegister);
   document
-    .querySelector("#registerWithGoogle")
-    .addEventListener("click", () => {
-      trySampleRequest();
-      localStorage.setItem("loginState", "register");
+    .querySelector("#login-form")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await handleLogin(e);
     });
-  document.querySelector("#login-form").addEventListener("submit", handleLogin);
   document
     .querySelector("#signinWithGoogle")
-    .addEventListener("click", signInGoogle);
+    .addEventListener("click", async (e) => {
+      loginWithGoogle();
+    });
   document.querySelectorAll(".activatePage").forEach((e) =>
     e.addEventListener("click", () => {
       const loginPage = document.querySelector(".loginOrRegister .login");
@@ -47,28 +49,17 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
     })
   );
-  const currentWindow = new URL(
-    window.location.href.replace("#state=", "?state=")
-  );
+
   switch (localStorage.getItem("loginState")) {
     case "register":
-      try {
-        const tokenFromUrl = currentWindow.searchParams.get("access_token");
-        if (!tokenFromUrl) throw new Error("No token");
-        localStorage.setItem("googleToken", tokenFromUrl);
-        trySampleRequest();
-      } catch {}
       document.querySelector(".activatePage").click();
       localStorage.setItem("loginState", "register");
       break;
     case "login":
       try {
         const tokenFromUrl = currentWindow.searchParams.get("access_token");
-        if (!tokenFromUrl) throw new Error("No token");
-        localStorage.setItem("googleToken", tokenFromUrl);
-        trySampleRequest();
-        document.querySelector('#login-form button[type="submit"]').click();
-        localStorage.removeItem("loginState");
+        if (!tokenFromUrl) throw new Error("No token from Url");
+        loginWithGoogle(tokenFromUrl);
       } catch {}
       break;
     default:
@@ -76,12 +67,36 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 });
 
-const signInGoogle = async () => {
-  trySampleRequest();
+const loginWithGoogle = async (tokenFromUrl = null) => {
+  if (!tokenFromUrl) {
+    oauth2SignIn();
+  }
+  showLoadingPopup(
+    true,
+    document.querySelector("main"),
+    "Logging in with google..."
+  );
+  localStorage.setItem("googleToken", tokenFromUrl);
+  await fetch(oath_url + "?googletoken=" + tokenFromUrl, {
+    method: "POST",
+    body: JSON.stringify({ customerEmail: "", customerPassword: "" }),
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  })
+    .then((e) => {
+      if (e.ok) return e.json();
+    })
+    .then((data) => {
+      localStorage.setItem("accountToken", data.token);
+      localStorage.removeItem("loginState");
+      localStorage.removeItem("googleToken");
+      navigateToNewPage("/index.html");
+    })
+    .catch((error) => console.log(error));
 };
 
 const handleLogin = async (e) => {
-  e.preventDefault();
   showLoadingPopup(true, document.querySelector("main"), "Logging in...");
   inputData = new FormData(e.target);
   const customer = {
@@ -92,86 +107,23 @@ const handleLogin = async (e) => {
       ? inputData.get("customerPassword")
       : "",
   };
-  console.log(customer);
-  let ggToken = "0";
-  try {
-    ggToken = localStorage.getItem("googleToken");
-  } catch {
-    console.log("No google auth");
-  }
-  // Testing
-  const resp = await fetch(oath_url, {
+  const resp = await fetch(oath_url + '?googletoken=" "', {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      GoogleToken: ggToken,
+      "Content-Type": "application/json; charset=utf-8",
     },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
     body: JSON.stringify(customer),
   }).catch((e) => alert(e));
   const data = await resp.json();
-  var form = document.createElement("form");
-  form.setAttribute("method", "GET"); // Send as a GET request.
-  form.setAttribute("action", "index.html");
-  document.body.appendChild(form);
-  form.submit();
   localStorage.setItem("accountToken", data.token);
-};
-
-const trySampleRequest = async () => {
-  var ggToken = "";
-  try {
-    ggToken =
-      localStorage.getItem("googleToken") === "null"
-        ? "0"
-        : localStorage.getItem("googleToken");
-    if (ggToken === "0" || ggToken === "null" || ggToken === null)
-      throw new Error("No token");
-    const requestUrl =
-      "https://www.googleapis.com/oauth2/v3/userinfo?" +
-      "access_token=" +
-      ggToken;
-    console.log(requestUrl);
-    await fetch(requestUrl)
-      .then((e) => {
-        if (e.ok) return e.json();
-        throw new Error("Failed");
-      })
-      .then((serverResponse) => {
-        console.log(serverResponse);
-        if (typeof serverResponse.email)
-          document.querySelector("#login-email").value = serverResponse.email;
-        document.querySelector("#login-password").value = serverResponse.email;
-        if (typeof serverResponse.given_name)
-          document.querySelector("#register-fname").value =
-            serverResponse.given_name;
-        if (typeof serverResponse.family_name)
-          document.querySelector("#register-lname").value =
-            serverResponse.family_name;
-        if (typeof serverResponse.email)
-          document.querySelector("#register-email").value =
-            serverResponse.email;
-      })
-      .catch((e) => {
-        localStorage.clear();
-        oauth2SignIn();
-      });
-  } catch (e) {
-    oauth2SignIn();
-  }
+  navigateToNewPage("/index.html");
 };
 
 function oauth2SignIn() {
-  // Google's OAuth 2.0 endpoint for requesting an access token
   var oauth2Endpoint = "https://accounts.google.com/o/oauth2/v2/auth";
-
-  // Create element to open OAuth 2.0 endpoint in new window.
   var form = document.createElement("form");
   form.setAttribute("method", "GET"); // Send as a GET request.
   form.setAttribute("action", oauth2Endpoint);
-
-  // Parameters to pass to OAuth 2.0 endpoint.
   var params = {
     client_id: YOUR_CLIENT_ID,
     redirect_uri: YOUR_REDIRECT_URI,
@@ -181,7 +133,6 @@ function oauth2SignIn() {
     response_type: "token",
   };
 
-  // Add form parameters as hidden input values.
   for (var p in params) {
     var input = document.createElement("input");
     input.setAttribute("type", "hidden");
@@ -189,7 +140,6 @@ function oauth2SignIn() {
     input.setAttribute("value", params[p]);
     form.appendChild(input);
   }
-  // Add form to page and submit it to open the OAuth 2.0 endpoint.
   document.body.appendChild(form);
   form.submit();
 }
