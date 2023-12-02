@@ -28,6 +28,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         "Minimum product price: $" + e.target.value
       )
     );
+  if (!categorySearch && (!searchQuery || searchQuery.length === 0)) {
+    await getItemRecommendation([]);
+    setLoadingPageVisibility(false);
+  }
 });
 
 const waitAndLoadRecs = async () => {
@@ -79,9 +83,13 @@ const getItemsByCategory = async (id) => {
 const getItemsByName = async (query) => {
   const queryUrl = encodeURI(
     url +
-      `/odata/Products?$filter=contains(tolower(ProductName),'${query}') ${
-        additionalOpt ? "and " + additionalOpt : ""
-      } ${sortOptions ? "&$orderby=" + sortOptions : ""}`
+      `/odata/Products?${
+        query.length > 0
+          ? " $filter=contains(tolower(ProductName),'" + query + "')"
+          : ""
+      }  ${additionalOpt ? "and " + additionalOpt : ""} ${
+        sortOptions ? "&$orderby=" + sortOptions : ""
+      }`
   );
   console.log(queryUrl);
   fetch(queryUrl)
