@@ -211,7 +211,7 @@ input[type="range"]:focus::-ms-fill-upper {
   width: 7em;
   height: 15em;
   background-color: white;
-  font-size: 1.1em;
+  font-size: 1.05em;
 }
 
 .searchResult .item img, .recommendations .item img {
