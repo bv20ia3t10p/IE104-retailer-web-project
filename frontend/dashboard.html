@@ -2,23 +2,30 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="stylesheets/loading.css" />
-    <link rel="stylesheet" href="stylesheets/reset.css" />
-    <link rel="stylesheet" href="stylesheets/colors.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="stylesheets/loading.css" />
     <link rel="icon" href="icons/appIcon.png" />
+    <link rel="stylesheet" href="/stylesheets/reset.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="stylesheets/colors.css" />
+    <link rel="stylesheet" href="stylesheets/navbar.css" />
+    <link rel="stylesheet" href="stylesheets/dashboard.css" />
+    <link rel="stylesheet" href="stylesheets/button.css" />
+    <link rel="stylesheet" href="stylesheets/universalLoader.css" />
+    <link rel="stylesheet" href="stylesheets/loading.css" />
     <script src="scripts/utils.js"></script>
     <script src="scripts/handleNavbar.js"></script>
-    <script src="scripts/handleIndex.js"></script>
-    <link rel="stylesheet" href="stylesheets/home.css" />
-    <link rel="stylesheet" href="stylesheets/navbar.css" />
-    <link rel="stylesheet" href="stylesheets/button.css" />
+    <script src="scripts/handleDashboard.js"></script>
     <title>Wobble</title>
   </head>
   <body>
     <div class="loadingScreen">
       <h1 class="title">Loading</h1>
       <div class="rainbow-marker-loader"></div>
+    </div>
+    <div class="universalLoader finished">
+      <div class="loader"></div>
+      <h1 class="title">Logging in...</h1>
     </div>
     <navbar class="navbar">
       <a href="/" class="icon"
@@ -46,20 +53,19 @@
         <span class="item">Categories</span>
       </div>
     </navbar>
-    <main>
-      <aside class="sideBar">
-        <span class="title">Categories</span>
-      </aside>
-      <article class="productList banner">
-        <h3 class="productListTitle">Limited Time Special Offers</h3>
-        <img src="/icons/banner/saleBanner.webp" />
-      </article>
-      <article class="productList trending">
-        <h3 class="productListTitle">What's Hot</h3>
-      </article>
-      <article class="productList allItems">
-        <h3 class="productListTitle">All Products</h3>
-      </article>
+    <aside class="sideMenu">
+      <div class="userInfo">Account information</div>
+      <div class="pastOrders">Past orders</div>
+    </aside>
+    <main class="dashboardMain">
+        <div class="userInfoMain">
+            
+            <div class="city">
+                <h3></h3>
+            </div>
+        </div>
+        <div class="updateInfo hidden"></div>
+        <div class="pastOrder hidden"></div>
     </main>
   </body>
 </html>

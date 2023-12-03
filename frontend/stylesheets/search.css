@@ -32,16 +32,16 @@
 .searchMain .searchControls select {
   -webkit-appearance: none;
   border-radius: 0.5svh;
-  border: 0.25svh solid var(--orange-400);
-  color: var(--orange-700);
-  font-weight: var(--font-semibold);
+  border: 0.25svh solid var(--gray-200);
+  color: var(--gray-800);
+  /* font-weight: var(--font-semibold); */
   font-size: 0.9em;
   letter-spacing: 0.025svw;
   height: 70%;
 }
 
 .searchMain .searchControls select option {
-  font-weight: var(--font-semibold);
+  /* font-weight: var(--font-semibold); */
 }
 
 .searchMain .searchControls * {
@@ -87,8 +87,8 @@
 }
 
 .searchControls h3{
-    margin-top:-0.5svh;
-    color: var(--orange-500);
+    margin-top:0.5svh;
+    color: var(--slate-400);
 }
 
 .searchMain .searchControls label{
@@ -125,13 +125,13 @@ input[type="range"]::-webkit-slider-runnable-track {
   height: 0.5svh;
   cursor: pointer;
   box-shadow: 0px 0px 0px #000000;
-  background: var(--orange-400);
+  background: var(--orange-600);
   border-radius: 0.1svh;
   border: 0px solid #000000;
 }
 input[type="range"]::-webkit-slider-thumb {
   box-shadow: 0px 0px 0px #000000;
-  border: 0.1svh solid var(--orange-300);
+  border: 0.1svh solid var(--orange-600);
   height: 1.8svh;
   width: 1.8svh;
   border-radius: 2.5svh;
@@ -141,7 +141,7 @@ input[type="range"]::-webkit-slider-thumb {
   margin-top: -0.7svh;
 }
 input[type="range"]:focus::-webkit-slider-runnable-track {
-  background: var(--orange-400);
+  background: var(--orange-600);
 }
 input[type="range"]::-moz-range-track {
   width: 100%;
@@ -154,7 +154,7 @@ input[type="range"]::-moz-range-track {
 }
 input[type="range"]::-moz-range-thumb {
   box-shadow: 0px 0px 0px #000000;
-  border: 0.1svh solid var(--orange-300);
+  border: 0.1svh solid var(--orange-600);
   height: 1.8svh;
   width: 1.8svh;
   border-radius: 2.5svh;
@@ -170,13 +170,13 @@ input[type="range"]::-ms-track {
   color: transparent;
 }
 input[type="range"]::-ms-fill-lower {
-  background: var(--orange-400);
+  background: var(--orange-600);
   border: 0px solid #000000;
   border-radius: 0.2svh;
   box-shadow: 0px 0px 0px #000000;
 }
 input[type="range"]::-ms-fill-upper {
-  background: var(--orange-400);
+  background: var(--orange-600);
   border: 0px solid #000000;
   border-radius: 0.2svh;
   box-shadow: 0px 0px 0px #000000;
@@ -184,7 +184,7 @@ input[type="range"]::-ms-fill-upper {
 input[type="range"]::-ms-thumb {
   margin-top: 1px;
   box-shadow: 0px 0px 0px #000000;
-  border: 0.1svh solid var(--orange-300);
+  border: 0.1svh solid var(--orange-600);
   height: 1.8svh;
   width: 1.8svh;
   border-radius: 2.5svh;
@@ -192,10 +192,10 @@ input[type="range"]::-ms-thumb {
   cursor: pointer;
 }
 input[type="range"]:focus::-ms-fill-lower {
-  background:var(--orange-400);
+  background:var(--orange-600);
 }
 input[type="range"]:focus::-ms-fill-upper {
-  background: var(--orange-400);
+  background: var(--orange-600);
 }
 
 .recommendations .item,.searchResult .item {
@@ -296,8 +296,8 @@ h2.title{
 }
 
 
-.searchResult::-webkit-scrollbar {
-  /* display: none; */
+::-webkit-scrollbar {
+  display: none;
 }
 
 .searchResult{
@@ -310,8 +310,8 @@ h2.title{
 }
 
 .searchControls button {
-    background-color: var(--orange-500) !important;
-    color: var(--orange-50);
+    background-color: var(--orange-600) !important;
+    color: white;
     border-radius: 0.5svw;
     height: 3.5svh !important;
 }
