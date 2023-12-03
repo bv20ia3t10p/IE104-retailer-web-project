@@ -11,7 +11,7 @@ main {
   margin-top: -2svh;
   display: grid;
   column-gap: 2svw;
-  grid-template-columns: 1fr 9fr;
+  grid-template-columns: 1fr 8fr;
   padding: 2svh 12.5svw;
   grid-template-rows: 5svh 1fr;
 }
@@ -106,3 +106,25 @@ main .title {
   color: var(--gray-600);
   letter-spacing: 0.05em;
 }
+
+aside{
+    display: grid;
+    grid-template-rows: max-content;
+    row-gap: 0.8em;
+    grid-row: 1/-1;
+    font-weight: var(--font-semibold);
+    text-transform: capitalize;
+    color: var(--gray-500);
+}
+
+aside * {
+    padding-bottom: 0.2em;
+}
+
+aside :first-child{
+    /* text-decoration: underline; */
+    color: var(--blue-700);
+    border-bottom: 0.1em solid var(--blue-700);
+}
+
+

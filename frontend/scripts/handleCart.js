@@ -20,6 +20,9 @@ window.addEventListener("DOMContentLoaded", async function (ev) {
   } catch (e) {
     console.log(e);
   }
+  this.document
+    .querySelector(".delivery button.change")
+    .addEventListener("click", () => navigateToNewPage("/dashboard.html"));
   await getCategories();
   await getItemsFromCart();
   if (cart) await getItemRecommendation(cart.map((e) => e.id));
@@ -387,8 +390,8 @@ const createOrder = async () => {
   });
   const data = await resp.json();
   console.log("Created order", data);
-  cart = cart.filter(e=>!e.checked);
-  localStorage.setItem("cart",JSON.stringify(cart));
+  cart = cart.filter((e) => !e.checked);
+  localStorage.setItem("cart", JSON.stringify(cart));
   clearAllContent(document.querySelector(".itemRecs .recommendations"));
   clearAllContent(document.querySelector(".cartDetails"));
   await getItemsFromCart();
