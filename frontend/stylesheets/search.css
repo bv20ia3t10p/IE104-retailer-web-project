@@ -5,7 +5,7 @@
   row-gap: 3svh;
   padding: 0 10.5svw;
   padding-top: 0.1svh;
-  padding-bottom: 2svh;
+  padding-bottom: 0svh;
 }
 
 .searchMain .searchControls {
@@ -31,6 +31,7 @@
 }
 .searchMain .searchControls select {
   -webkit-appearance: none;
+  appearance: none;
   border-radius: 0.5svh;
   border: 0.25svh solid var(--gray-200);
   color: var(--gray-800);
@@ -40,9 +41,9 @@
   height: 70%;
 }
 
-.searchMain .searchControls select option {
-  /* font-weight: var(--font-semibold); */
-}
+/* .searchMain .searchControls select option {
+  font-weight: var(--font-semibold);
+} */
 
 .searchMain .searchControls * {
   font-size: 1em;
@@ -55,6 +56,7 @@
   text-align: center;
   background-color: transparent;
 }
+
 .searchMain .searchControls .title{
     grid-column: 1/-1;
     grid-row:1/1;
@@ -114,6 +116,7 @@
 input[type="range"] {
   height: 2.5svh;
   -webkit-appearance: none;
+  appearance: none;
   margin: 1svh 0;
   width: 100%;
 }
@@ -289,6 +292,7 @@ input[type="range"]:focus::-ms-fill-upper {
   width: 97%;
 }
 
+
 h2.title{
     background-color: transparent;
     font-weight: var(--font-semibold);
@@ -306,9 +310,13 @@ h2.title{
 
 .recommendations {
     margin-top: -1svh;
-    height: 93%;
+
+    /* height: 93%; */
 }
 
+.recommendations .item{
+  margin-top: 1.5svh;
+}
 .searchControls button {
     background-color: var(--orange-600) !important;
     color: white;

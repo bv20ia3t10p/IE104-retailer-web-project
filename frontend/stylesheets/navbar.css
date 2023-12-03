@@ -195,9 +195,9 @@
     margin-top:0.5vh;
 }
 
-.navbar .searchBar input {
-  /* font-weight: var(--font-semibold); */
-}
+/* .navbar .searchBar input {
+  font-weight: var(--font-semibold);
+} */
 
 .navbar .searchBar input:focus {
   outline-color: var(--gray-50);
