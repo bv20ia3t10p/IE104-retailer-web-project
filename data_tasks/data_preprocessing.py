@@ -41,7 +41,7 @@ df_orders = df_orders.drop(['Benefit per order','Sales per customer','Category I
                 'Order Zipcode', 'Market','Latitude','Longitude','Department Name','Department Id','Order City',
                 'Order Country','Order Customer Id','Order State','Order Region',
                 'Product Image','Product Name','Product Price','Product Status','Order Item Discount Rate',
-                'Order Profit Per Order','Order Item Total','Customer Password','Customer State'],axis=1).drop_duplicates(subset=['Order Id'],keep='last')
+                'Order Profit Per Order','Order Item Total','Customer Password'],axis=1).drop_duplicates(subset=['Order Id'],keep='last')
 # order_cols = list(df_orders.columns)
 # order_cols.remove('Order Item Total')
 df_test = df[['Order Id','Order Item Total']].groupby(['Order Id'],as_index=False).sum()
