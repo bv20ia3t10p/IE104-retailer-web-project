@@ -5,12 +5,13 @@
 
 main {
     display: grid;
-    grid-template-rows: 50svh 2svh 6svh 6svh 1fr;
+    grid-template-rows: 62svh 2svh 6svh 6svh 1fr;
     height: 86.8svh;
     row-gap: 1.2em;
     grid-template-columns: 5fr 1.5fr;
     align-items: end;
     justify-content: end;
+    /* background-color: blue; */
 }
 
 main select{
