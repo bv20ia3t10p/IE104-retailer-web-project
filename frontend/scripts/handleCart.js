@@ -13,9 +13,10 @@ window.addEventListener("DOMContentLoaded", async function (ev) {
     console.log(e);
     updateBadge(0);
   }
-    accountToken = this.localStorage.getItem("accountToken");
-    if (!accountToken) throw new Error("Not logged in");
-    await accountInfoLoad();
+  accountToken = this.localStorage.getItem("accountToken");
+  if (!accountToken) throw new Error("Not logged in");
+  await accountInfoLoad();
+  checkNullFields();
   this.document
     .querySelector(".delivery button.change")
     .addEventListener("click", () => navigateToNewPage("/dashboard.html"));
@@ -65,6 +66,14 @@ const updateQuantity = (id) => {
   )[0].quantity;
 };
 
+const checkNullFields = () => {
+  if (Object.values(customerInfo).filter((e) => e === null || e === 0).length) {
+    alert(
+      "Please fill out all fields that are currently null or 0 before continuing to order"
+    );
+    navigateToNewPage("/dashboard.html");
+  }
+};
 const addAndUpdateRecs = async (id, quantity) => {
   showLoadingPopup(true, document.querySelector("main"), "Updating cart...");
   addToCart(id, quantity);

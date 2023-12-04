@@ -126,7 +126,7 @@ const handleUpdate = async (e) => {
     customerState: formInput.get("customerState")
       ? formInput.get("customerState")
       : loadedUser.customerState,
-    customerCountry: formInput.get("customerCoutnry")
+    customerCountry: formInput.get("customerCountry")
       ? formInput.get("customerCountry")
       : loadedUser.customerCountry,
     customerZipcode: formInput.get("customerZipcode")
@@ -138,6 +138,9 @@ const handleUpdate = async (e) => {
     customerCity: formInput.get("customerCity")
       ? formInput.get("customerCity")
       : loadedUser.customerCity,
+    customerSegment: !loadedUser.customerSegment
+      ? "Consumer"
+      : loadedUser.customerSegment,
   };
   await fetch(updateUrl, {
     method: "PUT",
@@ -150,12 +153,21 @@ const handleUpdate = async (e) => {
     .then((e) => {
       if (e.ok) {
         return e.json();
-      }
+      } else
+        return e.text().then((text) => {
+          throw new Error(text);
+        });
     })
     .then((e) => {
       loadedUser = e;
+      console.log(e);
       loadCustomerInfo(e);
+      updateUserFields(loadedUser);
       document.querySelector('main form button[type="reset"]').click();
+      showLoadingPopup(false, document.querySelector("main"));
+    })
+    .catch((e) => {
+      alert(e);
       showLoadingPopup(false, document.querySelector("main"));
     });
 };

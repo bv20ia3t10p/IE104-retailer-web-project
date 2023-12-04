@@ -168,7 +168,7 @@ const handleRegister = async (e) => {
     customerId: 123,
   };
   console.log(newUser);
-  const resp = await fetch(register_url, {
+  const data = await fetch(register_url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -176,26 +176,42 @@ const handleRegister = async (e) => {
     redirect: "follow",
     referrerPolicy: "no-referrer",
     body: JSON.stringify(newUser),
-  });
-  const data = await resp.json();
-  console.log(data);
-  showLoadingPopup(true, document.querySelector("main"), "Logging you in...");
-  await fetch(oath_url + '?googletoken=" "', {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-    },
-    body: JSON.stringify({
-      customerPassword: data.customerPassword,
-      customerEmail: data.customerEmail,
-    }),
   })
     .then((e) => {
-      if (e.ok) return e.json();
+      if (e.status === 400)
+        return e.text().then((text) => {
+          throw new Error(text);
+        });
+      e.json();
     })
-    .then((e) => {
-      localStorage.setItem("accountToken", e.token);
-      navigateToNewPage("/index.html");
+    .then((data) => {
+      console.log(data);
+      showLoadingPopup(
+        true,
+        document.querySelector("main"),
+        "Logging you in..."
+      );
+      fetch(oath_url + '?googletoken=" "', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+        body: JSON.stringify({
+          customerPassword: data.customerPassword,
+          customerEmail: data.customerEmail,
+        }),
+      })
+        .then((e) => {
+          if (e.ok) return e.json();
+        })
+        .then((e) => {
+          localStorage.setItem("accountToken", e.token);
+          navigateToNewPage("/index.html");
+        })
+        .catch((e) => alert(e));
     })
-    .catch((e) => alert(e));
+    .catch((e) => {
+      alert(e);
+      showLoadingPopup(false, document.querySelector("main"));
+    });
 };
