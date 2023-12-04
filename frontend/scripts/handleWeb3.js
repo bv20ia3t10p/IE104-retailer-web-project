@@ -10,9 +10,9 @@ export const connect = async () => {
 
 export const fund = async (loadedOrder) => {
   console.log(`Processing payment...`);
-  //Currently taking 0.000001 eth for 1 usd
+  //Currently taking 0.0001 eth for 1 usd
   const roundedTotal = Math.round(loadedOrder.total * 1000) / 1000;
-  const ethAmount = roundedTotal * 0.000001;
+  const ethAmount = roundedTotal * 0.0001;
   const ethAmountConverted = ethers.utils.parseEther(String(ethAmount));
   console.log(ethAmount);
   if (typeof window.ethereum) {
@@ -22,7 +22,7 @@ export const fund = async (loadedOrder) => {
     try {
       const transactionResponse = await contract.pay(
         String(loadedOrder.orderId),
-        String(roundedTotal * 1000),
+        ethAmountConverted,
         loadedOrder.orderDate,
         ethAmountConverted,
         { value: ethAmountConverted, gasLimit: 5000000 }
