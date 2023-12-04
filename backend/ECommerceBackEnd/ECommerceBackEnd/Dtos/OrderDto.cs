@@ -32,7 +32,7 @@ namespace ECommerceBackEnd.Dtos
         public string Type { get; set; }
         public int CustomerId { get; set; }
         public double Total { get; set; }
-        public virtual IEnumerable<CreateOrderDetailDto> orderDetails { get; set; }
+        public virtual IEnumerable<CreateOrderDetailDto> OrderDetails { get; set; }
     }
     public record UpdateOrderStatusDto
     {

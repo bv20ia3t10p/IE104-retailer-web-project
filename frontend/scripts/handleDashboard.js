@@ -1,5 +1,6 @@
 var loadedUser = {};
 const accountToken = localStorage.getItem("accountToken");
+let cart = JSON.parse(localStorage.getItem("cart"));
 let isEditingPassword = 0;
 
 window.addEventListener("DOMContentLoaded", async () => {
@@ -9,6 +10,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     alert("Not logged in, redirecting you to login page");
     navigateToNewPage("/loginOrRegister.html");
   }
+  updateBadge(cart ? cart.length : 0);
   document
     .querySelector(".changePassword button")
     .addEventListener("click", () => {
@@ -44,9 +46,10 @@ const loadCustomerInfo = async () => {
     .then((e) => {
       loadedUser = e;
       updateUserFields(e);
-    }).catch((e)=>{
-        alert("Token expired, redirecting you to login page");
-        navigateToNewPage("/loginOrRegister.html")
+    })
+    .catch((e) => {
+      alert("Token expired, redirecting you to login page");
+      navigateToNewPage("/loginOrRegister.html");
     });
 };
 

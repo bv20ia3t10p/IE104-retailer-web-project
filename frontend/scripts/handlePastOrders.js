@@ -1,6 +1,7 @@
 var loadedUser = {};
 const accountToken = localStorage.getItem("accountToken");
 var loadedOrders = [];
+let cart = JSON.parse(localStorage.getItem("cart"));
 
 window.addEventListener("DOMContentLoaded", async () => {
   await getCategories();
@@ -8,6 +9,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     alert("Not logged in, redirecting you to login page");
     navigateToNewPage("/loginOrRegister.html");
   }
+  updateBadge(cart ? cart.length : 0);
   console.log("dom", loadedUser);
   await loadOrders();
   console.log("dom2", loadedOrders);

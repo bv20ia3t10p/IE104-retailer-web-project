@@ -46,7 +46,7 @@ namespace ECommerceBackEnd.Controllers
         public ActionResult<OrderDto> CreateOrder(CreateOrderDto newOrder)
         {
             var createdOrder = _service.Order.CreateOrder(newOrder);
-            foreach (var od in newOrder.orderDetails)
+            foreach (var od in newOrder.OrderDetails)
             {
                 od.OrderId = createdOrder.OrderId;
                 _service.OrderDetail.CreateOrderDetail(od);
@@ -89,7 +89,7 @@ namespace ECommerceBackEnd.Controllers
             if (customerInDb == null) return Unauthorized();
             //var createdOrder = _service.Order.CreateOrder(newOrder);
             double total = 0;
-            foreach (var od in newOrder.orderDetails)
+            foreach (var od in newOrder.OrderDetails)
             {
                 //od.OrderId = createdOrder.OrderId;
                 //od.CustomerId = customerInDb.CustomerId;
@@ -100,7 +100,7 @@ namespace ECommerceBackEnd.Controllers
             }
             newOrder.Total = total;
             var createdOrder = _service.Order.CreateOrder(newOrder);
-            foreach (var od in newOrder.orderDetails)
+            foreach (var od in newOrder.OrderDetails)
             {
                 od.OrderId = createdOrder.OrderId;
                 od.CustomerId = customerInDb.CustomerId;

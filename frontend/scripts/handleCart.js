@@ -13,13 +13,9 @@ window.addEventListener("DOMContentLoaded", async function (ev) {
     console.log(e);
     updateBadge(0);
   }
-  try {
     accountToken = this.localStorage.getItem("accountToken");
     if (!accountToken) throw new Error("Not logged in");
     await accountInfoLoad();
-  } catch (e) {
-    console.log(e);
-  }
   this.document
     .querySelector(".delivery button.change")
     .addEventListener("click", () => navigateToNewPage("/dashboard.html"));
@@ -314,18 +310,23 @@ const accountInfoLoad = async () => {
     return;
   }
   const accoutnInfoUrl = url + "/api/Customer/Email";
-  const resp = await fetch(accoutnInfoUrl, {
+  const accountData = await fetch(accoutnInfoUrl, {
     method: "GET",
     headers: {
       Authorization: "Bearer " + accountToken,
     },
     redirect: "follow", // manual, *follow, error
     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-  }).catch((e) => {
-    alert("Token expired, redirecting you to login page");
-    navigateToNewPage("/loginOrRegister.html");
-  });
-  const accountData = await resp.json();
+  })
+    .then((e) => {
+      if (e.status === 401) {
+        throw new Error("Token expired, redirecting you to login page");
+      } else return e.json();
+    })
+    .catch((e) => {
+      alert(e);
+      navigateToNewPage("/loginOrRegister.html");
+    });
   console.log(accountData);
   customerInfo = accountData;
   removeAndReplaceNodeText(
@@ -367,18 +368,17 @@ const createOrder = async () => {
   let orderCreationRequestBody = {
     type: "CASH",
     customerId: customerInfo.customerId,
-    orderDetails: [],
+    orderDetails: cart
+      .map((e) => {
+        if (e.checked)
+          return {
+            productCardId: Number(e.id),
+            orderItemQuantity: Number(e.quantity),
+          };
+      })
+      .filter((e) => e),
   };
-  cart.forEach((e) => {
-    if (e.checked)
-      orderCreationRequestBody = {
-        ...orderCreationRequestBody,
-        orderDetails: [
-          ...orderCreationRequestBody.orderDetails,
-          { productCardId: e.id, orderItemQuantity: e.quantity },
-        ],
-      };
-  });
+  console.log(orderCreationRequestBody);
   const createOrderUrl = url + "/api/Order/Customer";
   const resp = await fetch(createOrderUrl, {
     method: "POST",
