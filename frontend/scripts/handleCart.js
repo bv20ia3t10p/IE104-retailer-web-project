@@ -14,7 +14,10 @@ window.addEventListener("DOMContentLoaded", async function (ev) {
     updateBadge(0);
   }
   accountToken = this.localStorage.getItem("accountToken");
-  if (!accountToken) throw new Error("Not logged in");
+  if (!accountToken) {
+    alert("Not logged in. Please login or register to continue");
+    navigateToNewPage("/loginOrRegister.html");
+  }
   await accountInfoLoad();
   checkNullFields();
   this.document
