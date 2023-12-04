@@ -314,7 +314,10 @@ const accountInfoLoad = async () => {
   let accountToken = "";
   try {
     accountToken = localStorage.getItem("accountToken");
-    if (accountToken.length < 1) throw new Error("Not logged in");
+    if (accountToken.length < 1) {
+      alert("Not logged in. Please login or register to continue");
+      navigateToNewPage("/loginOrRegister.html");
+    }
   } catch (e) {
     return;
   }
