@@ -25,6 +25,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   document
     .querySelector("main button:last-of-type")
     .addEventListener("click", async () => {
+      showLoadingPopup(true, main, "Processing your request");
       switch (document.querySelector("main select").value) {
         case "web3":
           await confirmWeb3();
@@ -35,12 +36,12 @@ window.addEventListener("DOMContentLoaded", async () => {
         default:
           await confirmTransfer();
       }
+      window.location.reload();
     });
   setLoadingPageVisibility(false);
 });
 
 const confirmCash = async () => {
-  showLoadingPopup(true, main, "Processing your request");
   const updateOrderUrl = url + "/api/Order/Customer";
   await fetch(updateOrderUrl, {
     method: "PUT",
@@ -66,7 +67,6 @@ const confirmCash = async () => {
 };
 
 const confirmTransfer = async () => {
-  showLoadingPopup(true, main, "Processing your request");
   const updateOrderUrl = url + "/api/Order/Customer";
   await fetch(updateOrderUrl, {
     method: "PUT",
@@ -87,12 +87,10 @@ const confirmTransfer = async () => {
           throw new Error(text);
         });
     })
-    .then(() => window.location.reload())
     .catch((e) => alert(e));
 };
 
 const confirmWeb3 = async () => {
-  showLoadingPopup(true, main, "Processing your request");
   await connect();
   await fund(loadedOrder);
   const updateOrderUrl = url + "/api/Order/Customer";
@@ -115,7 +113,6 @@ const confirmWeb3 = async () => {
           throw new Error(text);
         });
     })
-    .then(() => window.location.reload())
     .catch((e) => alert(e));
 };
 
