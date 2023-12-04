@@ -416,4 +416,5 @@ const createOrder = async () => {
     document.querySelector("main.cartMain"),
     "Processing..."
   );
+  navigateToNewPage("/orderConfirmation.html", { orderId: data.orderId });
 };

@@ -3,22 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="stylesheets/loading.css" />
-    <link rel="stylesheet" href="stylesheets/reset.css" />
-    <link rel="stylesheet" href="stylesheets/colors.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="icons/appIcon.png" />
-    <script src="scripts/utils.js"></script>
-    <script src="scripts/handleNavbar.js"></script>
-    <script src="scripts/handleIndex.js"></script>
-    <link rel="stylesheet" href="stylesheets/home.css" />
+    <link rel="stylesheet" href="/stylesheets/reset.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="stylesheets/colors.css" />
     <link rel="stylesheet" href="stylesheets/navbar.css" />
     <link rel="stylesheet" href="stylesheets/button.css" />
+    <link rel="stylesheet" href="stylesheets/universalLoader.css" />
+    <link rel="stylesheet" href="stylesheets/loading.css" />
+    <link rel="stylesheet" href="stylesheets/pastOrders.css" />
+    <link rel="stylesheet" href="stylesheets/orderConfirm.css" />
+    <script src="scripts/handleOrderConfirmation.js"></script>
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/handleNavbar.js"></script>
     <title>Wobble</title>
   </head>
   <body>
     <div class="loadingScreen">
       <h1 class="title">Loading</h1>
       <div class="rainbow-marker-loader"></div>
+    </div>
+    <div class="universalLoader finished">
+      <div class="loader"></div>
+      <h1 class="title">Logging in...</h1>
     </div>
     <navbar class="navbar">
       <a href="/" class="icon"
@@ -44,20 +51,14 @@
       </form>
       <div class="categories"></div>
     </navbar>
-    <main>
-      <aside class="sideBar">
-        <span class="title">Categories</span>
-      </aside>
-      <article class="productList banner">
-        <h3 class="productListTitle">Limited Time Special Offers</h3>
-        <img src="/icons/banner/saleBanner.webp" />
-      </article>
-      <article class="productList trending">
-        <h3 class="productListTitle">What's Hot</h3>
-      </article>
-      <article class="productList allItems">
-        <h3 class="productListTitle">All Products</h3>
-      </article>
+    <main class="orderConfirmMain">
+      <h3 class="subTitle">Payment method</h3>
+      <select name="payment" id="payment">
+        <option value="web3">Metamask</option>
+        <option value="cash">Cash</option>
+        <option value="transfer">Transfer</option>
+      </select>
+      <button>Confirm</button>
     </main>
   </body>
 </html>

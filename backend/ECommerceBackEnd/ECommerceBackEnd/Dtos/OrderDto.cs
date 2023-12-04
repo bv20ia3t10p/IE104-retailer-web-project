@@ -72,4 +72,10 @@ namespace ECommerceBackEnd.Dtos
         public double Total { get; set; }
         public virtual IEnumerable<OrderDetailDto> Details { get; set; }
     }
+    public record UpdateOrderPaymentDto
+    {
+        public int OrderId { get; set; }
+        public string? Type { get; set; }
+        public string? OrderStatus { get; set; }
+    }
 }

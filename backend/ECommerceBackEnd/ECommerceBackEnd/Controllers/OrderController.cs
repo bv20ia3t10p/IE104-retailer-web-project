@@ -108,5 +108,34 @@ namespace ECommerceBackEnd.Controllers
             }
             return CreatedAtAction(nameof(GetOrder), new { id = createdOrder.OrderId }, _service.Order.GetOrderWithDetails(createdOrder.OrderId));
         }
+        [HttpPut("Customer")]
+        [Authorize(Roles = "USER")]
+        public ActionResult<OrderWithDetailsDto> UpdateOrderPaymentStatus([FromHeader] string Authorization, UpdateOrderPaymentDto newOrder)
+        {
+            var token = Authorization[7..];
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+            var email = jwtSecurityToken.Claims.First(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value;
+            var customerInDb = _service.Customer.GetCustomerByEmail(email);
+            if (customerInDb == null) return Unauthorized();
+            var orderInDb = _service.Order.GetOrder(newOrder.OrderId);
+            if (orderInDb.CustomerId != customerInDb.CustomerId) return Unauthorized();
+            _service.Order.UpdateOrderPaymentStatus(newOrder);
+            return Ok(_service.Order.GetOrderWithDetails(newOrder.OrderId));
+        }
+        [HttpGet("{orderId}/Customer")]
+        [Authorize(Roles = "USER")]
+        public ActionResult<OrderWithDetailsDto> GetOrderForCustomer(int orderId, [FromHeader] string Authorization)
+        {
+            var token = Authorization[7..];
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+            var email = jwtSecurityToken.Claims.First(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value;
+            var customerInDb = _service.Customer.GetCustomerByEmail(email);
+            if (customerInDb == null) return Unauthorized();
+            var orderInDb = _service.Order.GetOrderWithDetails(orderId);
+            if (customerInDb.CustomerId != orderInDb.CustomerId) return Unauthorized();
+            return Ok(orderInDb);
+        }
     }
 }

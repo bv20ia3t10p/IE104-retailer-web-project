@@ -82,5 +82,11 @@ namespace ECommerceBackEnd.Service
 
             return returnOrders.OrderByDescending(c=>c.OrderId);
         }
+        public void UpdateOrderPaymentStatus (UpdateOrderPaymentDto updateOrderPayment)
+        {
+            var orderInDb = _repository.Order.GetOrderById(updateOrderPayment.OrderId) ?? throw new Exception("Order not found");
+            _mapper.Map(updateOrderPayment, orderInDb);
+            _repository.Order.UpdateOrder(orderInDb);
+        }
     }
 }
