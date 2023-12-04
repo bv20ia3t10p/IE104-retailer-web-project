@@ -54,7 +54,7 @@ const getItemsByCategory = async (id) => {
     `/odata/Products?filter=CategoryId Eq ${id} ${
       additionalOpt ? "and " + additionalOpt : ""
     } ${sortOptions ? "&$orderby=" + sortOptions : ""}`;
-  fetch(queryUrl)
+  await fetch(queryUrl)
     .then((e) => (e.ok ? e.json() : e))
     .then((data) => {
       fetchedProducts = data.value;
@@ -84,15 +84,15 @@ const getItemsByCategory = async (id) => {
 const getItemsByName = async (query) => {
   const queryUrl =
     url +
-      `/odata/Products?${
-        query.length > 0
-          ? "$filter=contains(tolower(ProductName),tolower('" + query + "'))"
-          : ""
-      }  ${additionalOpt ? "and " + additionalOpt : ""} ${
-        sortOptions ? "&$orderby=" + sortOptions : ""
-      }`;
+    `/odata/Products?${
+      query.length > 0
+        ? "$filter=contains(tolower(ProductName),tolower('" + query + "'))"
+        : ""
+    }  ${additionalOpt ? "and " + additionalOpt : ""} ${
+      sortOptions ? "&$orderby=" + sortOptions : ""
+    }`;
   console.log(queryUrl);
-  fetch(queryUrl)
+  await fetch(queryUrl)
     .then((e) => (e.ok ? e.json() : e))
     .then((data) => {
       fetchedProducts = data.value;
