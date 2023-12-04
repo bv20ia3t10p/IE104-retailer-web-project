@@ -1,5 +1,5 @@
 const url = "https://ecommercebackend20231127233624.azurewebsites.net";
-const flask_url = "https://itemrecforwobblestore.azurewebsites.net";
+const flask_url = "https://wobblestorerec.azurewebsites.net";
 
 const showLoadingPopup = (visibility, main, title = "") => {
   const navbar = document.querySelector("navbar");
