@@ -8,6 +8,8 @@ var loadedOrder = {};
 let container;
 let main;
 
+import {connect,fund} from './handleWeb3.js';
+
 window.addEventListener("DOMContentLoaded", async () => {
   await getCategories();
   main = document.querySelector("main");
@@ -91,6 +93,8 @@ const confirmTransfer = async () => {
 
 const confirmWeb3 = async () => {
   showLoadingPopup(true, main, "Processing your request");
+  await connect();
+  await fund(loadedOrder);
   const updateOrderUrl = url + "/api/Order/Customer";
   await fetch(updateOrderUrl, {
     method: "PUT",
