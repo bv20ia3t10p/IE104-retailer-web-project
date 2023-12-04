@@ -150,7 +150,7 @@ const handleUpdate = async (e) => {
       Authorization: "Bearer " + accountToken,
     },
   })
-    .then((e) => {
+    .then(async (e) => {
       if (e.ok) {
         return e.json();
       } else
@@ -158,10 +158,10 @@ const handleUpdate = async (e) => {
           throw new Error(text);
         });
     })
-    .then((e) => {
+    .then(async (e) => {
       loadedUser = e;
       console.log(e);
-      loadCustomerInfo(e);
+      await loadCustomerInfo(e);
       updateUserFields(loadedUser);
       document.querySelector('main form button[type="reset"]').click();
       showLoadingPopup(false, document.querySelector("main"));

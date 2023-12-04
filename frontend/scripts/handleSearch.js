@@ -56,7 +56,7 @@ const getItemsByCategory = async (id) => {
     } ${sortOptions ? "&$orderby=" + sortOptions : ""}`;
   await fetch(queryUrl)
     .then((e) => (e.ok ? e.json() : e))
-    .then((data) => {
+    .then(async (data) => {
       fetchedProducts = data.value;
       data.value.map((item) => {
         document.querySelector(".searchResult").insertAdjacentHTML(
@@ -77,7 +77,7 @@ const getItemsByCategory = async (id) => {
             </div>`
         );
       });
-      waitAndLoadRecs();
+      await waitAndLoadRecs();
     });
 };
 
@@ -94,7 +94,7 @@ const getItemsByName = async (query) => {
   console.log(queryUrl);
   await fetch(queryUrl)
     .then((e) => (e.ok ? e.json() : e))
-    .then((data) => {
+    .then(async (data) => {
       fetchedProducts = data.value;
       data.value.map((item) => {
         document.querySelector(".searchResult").insertAdjacentHTML(
@@ -115,7 +115,7 @@ const getItemsByName = async (query) => {
             </div>`
         );
       });
-      waitAndLoadRecs();
+      await waitAndLoadRecs();
     });
 };
 

@@ -8,7 +8,7 @@ var loadedOrder = {};
 let container;
 let main;
 
-import {connect,fund} from './handleWeb3.js';
+import { connect, fund } from "./handleWeb3.js";
 
 window.addEventListener("DOMContentLoaded", async () => {
   await getCategories();
@@ -54,7 +54,7 @@ const confirmCash = async () => {
       orderStatus: "CONFIRMED PAYMENT",
     }),
   })
-    .then((e) => {
+    .then(async (e) => {
       if (e.ok) return e.json();
       else
         return e.text().then((text) => {
@@ -80,7 +80,7 @@ const confirmTransfer = async () => {
       orderStatus: "CONFIRMED PAYMENT",
     }),
   })
-    .then((e) => {
+    .then(async (e) => {
       if (e.ok) return e.json();
       else
         return e.text().then((text) => {
@@ -108,7 +108,7 @@ const confirmWeb3 = async () => {
       orderStatus: "CONFIRMED PAYMENT",
     }),
   })
-    .then((e) => {
+    .then(async (e) => {
       if (e.ok) return e.json();
       else
         return e.text().then((text) => {
@@ -127,7 +127,7 @@ const loadCustomerInfo = async () => {
       Authorization: "Bearer " + accountToken,
     },
   })
-    .then((e) => {
+    .then(async (e) => {
       if (e.ok) return e.json();
       else if (e.status === 401) throw new Error("Unathorized");
       else
@@ -156,7 +156,7 @@ const loadOrderInfo = async () => {
       Authorization: "Bearer " + accountToken,
     },
   })
-    .then((e) => {
+    .then(async (e) => {
       if (e.ok) return e.json();
       else
         return e.text().then((text) => {
