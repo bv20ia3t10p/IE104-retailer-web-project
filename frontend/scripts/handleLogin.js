@@ -148,6 +148,11 @@ register_url = url + "/api/Customer";
 
 const handleRegister = async (e) => {
   e.preventDefault();
+  showLoadingPopup(
+    true,
+    document.querySelector("main"),
+    "Processing your request"
+  );
   const inputData = new FormData(e.target);
   const newUser = {
     customerCity: inputData.get("customerCity"),
@@ -174,4 +179,23 @@ const handleRegister = async (e) => {
   });
   const data = await resp.json();
   console.log(data);
+  showLoadingPopup(true, document.querySelector("main"), "Logging you in...");
+  await fetch(oath_url + '?googletoken=" "', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: JSON.stringify({
+      customerPassword: data.customerPassword,
+      customerEmail: data.customerEmail,
+    }),
+  })
+    .then((e) => {
+      if (e.ok) return e.json();
+    })
+    .then((e) => {
+      localStorage.setItem("accountToken", e.token);
+      navigateToNewPage("/index.html");
+    })
+    .catch((e) => alert(e));
 };

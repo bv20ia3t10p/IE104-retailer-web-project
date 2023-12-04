@@ -44,6 +44,9 @@ const loadCustomerInfo = async () => {
     .then((e) => {
       loadedUser = e;
       updateUserFields(e);
+    }).catch((e)=>{
+        alert("Token expired, redirecting you to login page");
+        navigateToNewPage("/loginOrRegister.html")
     });
 };
 

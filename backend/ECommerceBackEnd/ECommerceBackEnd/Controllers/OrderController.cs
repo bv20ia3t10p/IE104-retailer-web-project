@@ -66,6 +66,7 @@ namespace ECommerceBackEnd.Controllers
             return NoContent();
         }
         [HttpGet("Customer")]
+        [EnableQuery]
         public ActionResult<IEnumerable<OrderWithDetailsDto>> GetOrderWithDetailsForCustomerEmail([FromHeader] string Authorization)
         {
             var token = Authorization[7..];
@@ -78,7 +79,7 @@ namespace ECommerceBackEnd.Controllers
         }
         [HttpPost("Customer")]
         [Authorize(Roles = "USER")]
-        public ActionResult<OrderDto> CreateOrderForCustomer([FromHeader] string Authorization, CreateOrderDto newOrder)
+        public ActionResult<OrderWithDetailsDto> CreateOrderForCustomer([FromHeader] string Authorization, CreateOrderDto newOrder)
         {
             var token = Authorization[7..];
             var handler = new JwtSecurityTokenHandler();
@@ -105,7 +106,7 @@ namespace ECommerceBackEnd.Controllers
                 od.CustomerId = customerInDb.CustomerId;
                 var createdOd = _service.OrderDetail.CreateOrderDetail(od);
             }
-            return CreatedAtAction(nameof(GetOrder), new { id = createdOrder.OrderId }, _service.Order.GetOrder(createdOrder.OrderId));
+            return CreatedAtAction(nameof(GetOrder), new { id = createdOrder.OrderId }, _service.Order.GetOrderWithDetails(createdOrder.OrderId));
         }
     }
 }
