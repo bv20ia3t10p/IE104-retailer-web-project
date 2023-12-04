@@ -168,7 +168,7 @@ const handleRegister = async (e) => {
     customerId: 123,
   };
   console.log(newUser);
-  const data = await fetch(register_url, {
+  await fetch(register_url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -177,21 +177,21 @@ const handleRegister = async (e) => {
     referrerPolicy: "no-referrer",
     body: JSON.stringify(newUser),
   })
-    .then((e) => {
+    .then(async (e) => {
       if (e.status === 400)
         return e.text().then((text) => {
           throw new Error(text);
         });
-      e.json();
+      return e.json();
     })
-    .then((data) => {
+    .then(async (data) => {
       console.log(data);
       showLoadingPopup(
         true,
         document.querySelector("main"),
         "Logging you in..."
       );
-      fetch(oath_url + '?googletoken=" "', {
+      await fetch(oath_url + '?googletoken=" "', {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
