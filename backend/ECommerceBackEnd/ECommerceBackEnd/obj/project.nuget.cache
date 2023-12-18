@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qJp3fYjLgmDfs6pKA8Ay4HIxrjco9KhhIi99dglhyYgp82iyv2JtJxo+KuhcX7APW2hOwoVvYhAUqDGsDeDZXg==",
+  "dgSpecHash": "2/lXcUM+L7lrp3LpifpAZF0bLwhMY0oazsVYq5Hd8qGL6Py3VraTpSU5y1QAM+XkWQaAV0+MgstA/47CfQSdXQ==",
   "success": true,
-  "projectFilePath": "G:\\Code\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\ECommerceBackEnd\\ECommerceBackEnd.csproj",
+  "projectFilePath": "E:\\Code\\Web\\IE104-retailer-web-project\\backend\\ECommerceBackEnd\\ECommerceBackEnd\\ECommerceBackEnd.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\beave\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\beave\\.nuget\\packages\\automapper.extensions\\2.1.0\\automapper.extensions.2.1.0.nupkg.sha512",
